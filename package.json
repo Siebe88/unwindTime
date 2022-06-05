@@ -1,0 +1,25 @@
+{
+  "name": "unwindtime",
+  "version": "1.0.0",
+  "description": "An awesome app that helps you take breaks together",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Siebe88/unwindtime.git"
+  },
+  "keywords": [
+    "Unwind",
+    "break",
+    "react",
+    "firebase"
+  ],
+  "author": "Siebe Kylstra",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Siebe88/unwindtime/issues"
+  },
+  "homepage": "https://github.com/Siebe88/unwindtime#readme"
+}
