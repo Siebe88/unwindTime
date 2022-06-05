@@ -1,11 +1,7 @@
 {
   "hosting": {
-    "public": "unwindtime\\public",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
+    "public": "unwindtime/build",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [
       {
         "source": "**",
