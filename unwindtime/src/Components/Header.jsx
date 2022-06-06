@@ -1,5 +1,5 @@
 import './Header.css';
-import { ReactComponent as Logo } from '../media/logo.svg';
+import { ReactComponent as Logo } from '../media/Logo.svg';
 
 export default function Header() {
   return (

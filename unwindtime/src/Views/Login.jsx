@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { auth, logInWithEmailAndPassword, signInWithGoogle } from '../Services/firebase';
+import {
+  auth,
+  logInWithEmailAndPassword,
+  signInWithGoogle,
+  // signInWithFacebook,
+} from '../Services/firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { ReactComponent as WelcomeSVG } from '../media/WelcomeSVG.svg';
 import './Login.css';
 
 function Login() {
@@ -21,6 +27,7 @@ function Login() {
   return (
     <div className="login">
       <div className="login__container">
+        <WelcomeSVG className="WelcomeSVG" />
         <input
           type="text"
           className="login__textBox"
@@ -41,6 +48,9 @@ function Login() {
         <button className="login__btn login__google" onClick={signInWithGoogle}>
           Login with Google
         </button>
+        {/* <button className="login__btn login__facebook" onClick={signInWithFacebook}>
+          Login with Facebook
+        </button> */}
         <div>
           <Link to="/reset">Forgot Password</Link>
         </div>

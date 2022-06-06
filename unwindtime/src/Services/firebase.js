@@ -7,6 +7,7 @@ import {
   createUserWithEmailAndPassword,
   sendPasswordResetEmail,
   signOut,
+  FacebookAuthProvider,
 } from 'firebase/auth';
 import { getFirestore, query, getDocs, collection, where, addDoc } from 'firebase/firestore';
 
@@ -39,6 +40,29 @@ const signInWithGoogle = async () => {
         authProvider: 'google',
         email: user.email,
         profilePic: user.photoURL,
+        relaxMethods: [],
+      });
+    }
+  } catch (err) {
+    console.error(err);
+    alert(err.message);
+  }
+};
+
+const signInWithFacebook = async () => {
+  try {
+    const res = await signInWithPopup(auth, FacebookAuthProvider);
+    const user = res.user;
+    const q = query(collection(db, 'users'), where('uid', '==', user.uid));
+    const docs = await getDocs(q);
+    if (docs.docs.length === 0) {
+      await addDoc(collection(db, 'users'), {
+        uid: user.uid,
+        name: user.displayName,
+        authProvider: 'facebook',
+        email: user.email,
+        profilePic: user.photoURL,
+        relaxMethods: [],
       });
     }
   } catch (err) {
@@ -92,6 +116,7 @@ export {
   signInWithGoogle,
   logInWithEmailAndPassword,
   registerWithEmailAndPassword,
+  signInWithFacebook,
   sendPasswordReset,
   logout,
 };

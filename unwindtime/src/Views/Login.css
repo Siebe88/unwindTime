@@ -5,12 +5,18 @@
   align-items: center;
   justify-content: center;
 }
+.WelcomeSVG {
+  align-self: center;
+  margin: 10px;
+  padding-bottom: 30px;
+  height: 50%;
+}
 
 .login__container {
   display: flex;
   flex-direction: column;
   text-align: center;
-  background-color: #dcdcdc;
+  justify-content: center;
   padding: 30px;
 }
 
