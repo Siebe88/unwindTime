@@ -7,7 +7,7 @@ import {
   // signInWithFacebook,
 } from '../Services/firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { ReactComponent as WelcomeSVG } from '../media/WelcomeSVG.svg';
+import { ReactComponent as WelcomeSVG } from '../Media/WelcomeSVG.svg';
 import './Login.css';
 
 function Login() {
