@@ -4,6 +4,7 @@
   "description": "An awesome app that helps you take breaks together",
   "main": "index.js",
   "scripts": {
+    "start": "npm start --prefix unwindtime",
     "build": "npm run build --prefix unwindtime",
     "test": "echo \"Error: no test specified\""
   },
