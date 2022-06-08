@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate } from 'react-router-dom';
-import { auth, db, logout } from '../Services/firebase';
-import { query, collection, getDocs, where } from 'firebase/firestore';
+import { auth, logout } from '../Services/firebase';
 
 import RelaxMethod from '../Components/RelaxMethod';
 import { useSelector, useDispatch } from 'react-redux';
@@ -10,6 +9,7 @@ import { loginProfile } from '../reducers/profile';
 
 import { relaxMethods } from '../Media/relaxMethodsSVG';
 import './Dashboard.css';
+import '../index.css';
 
 function Dashboard() {
   const [user, loading] = useAuthState(auth);
@@ -24,11 +24,6 @@ function Dashboard() {
 
   const fetchUserName = async () => {
     try {
-      //Can we remove this?
-      const q = query(collection(db, 'users'), where('uid', '==', user?.uid));
-      const doc = await getDocs(q);
-      const data = doc.docs[0].data();
-      console.log(data);
       //Not this
       dispatch(loginProfile(user));
     } catch (err) {
@@ -42,7 +37,6 @@ function Dashboard() {
     if (!user) return navigate('/');
 
     fetchUserName();
-    // }, [user, loading]);
   });
 
   return (

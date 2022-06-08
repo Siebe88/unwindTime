@@ -1,18 +1,6 @@
-/* svg path {
-  fill: rgb(143, 66, 66);
-} */
-
 .iconNotSelected {
   fill: red;
   /* filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(86deg) brightness(118%) contrast(119%); */
-}
-
-.icon {
-  fill: black;
-}
-
-.icon:hover {
-  fill: orange;
 }
 
 .relaxmethods-container {
