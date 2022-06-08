@@ -24,9 +24,12 @@ function Dashboard() {
 
   const fetchUserName = async () => {
     try {
+      //Can we remove this?
       const q = query(collection(db, 'users'), where('uid', '==', user?.uid));
       const doc = await getDocs(q);
       const data = doc.docs[0].data();
+      console.log(data);
+      //Not this
       dispatch(loginProfile(user));
     } catch (err) {
       console.error(err);
@@ -39,8 +42,8 @@ function Dashboard() {
     if (!user) return navigate('/');
 
     fetchUserName();
-  }, [user, loading]);
-  // });
+    // }, [user, loading]);
+  });
 
   return (
     <div className="dashboard-container">
