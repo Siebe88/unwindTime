@@ -9,7 +9,6 @@ import {
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { ReactComponent as WelcomeSVG } from '../Media/WelcomeSVG.svg';
 import './Login.css';
-import { useDispatch } from 'react-redux';
 
 function Login() {
   const [email, setEmail] = useState('');

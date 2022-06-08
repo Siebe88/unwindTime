@@ -3,12 +3,13 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate } from 'react-router-dom';
 import { auth, db, logout } from '../Services/firebase';
 import { query, collection, getDocs, where } from 'firebase/firestore';
+
 import RelaxMethod from '../Components/RelaxMethod';
 import { useSelector, useDispatch } from 'react-redux';
 import { loginProfile } from '../reducers/profile';
-import './Dashboard.css';
 
 import { relaxMethods } from '../Media/relaxMethodsSVG';
+import './Dashboard.css';
 
 function Dashboard() {
   const [user, loading] = useAuthState(auth);
@@ -17,6 +18,9 @@ function Dashboard() {
   // Redux state setting
   const profile = useSelector((state) => state.profile.value);
   const dispatch = useDispatch();
+
+  //TODO REMOVE - For testing
+  const favoRelaxMethods = useSelector((state) => state.favoRelaxMethods);
 
   const fetchUserName = async () => {
     try {
@@ -70,6 +74,9 @@ function Dashboard() {
         <button className="dashboard__btn" onClick={logout}>
           Logout
         </button>
+        {favoRelaxMethods.map((favo) => (
+          <p>{favo.name}</p>
+        ))}
       </div>
     </div>
   );

@@ -6,10 +6,12 @@ import reportWebVitals from './reportWebVitals';
 import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 import profileReducer from './reducers/profile';
+import favoRelaxMethodsSlice from './reducers/favoRelaxMethods';
 
 const store = configureStore({
   reducer: {
     profile: profileReducer,
+    favoRelaxMethods: favoRelaxMethodsSlice,
   },
 });
 

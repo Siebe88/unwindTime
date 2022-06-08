@@ -1,10 +1,14 @@
 //css import
 import './RelaxMethod.css';
+import { useDispatch } from 'react-redux';
+import { switchFavo } from '../reducers/favoRelaxMethods';
 
 export default function RelaxMethod({ favorite, onclick, relaxMethod }) {
+  const dispatch = useDispatch();
+
   return (
     <div className={'relaxMethod ' + favorite ? 'favoriteMethod' : 'nonfavoriteMethod'}>
-      <button class="relaxButton">
+      <button class="relaxButton" onClick={() => dispatch(switchFavo(relaxMethod))}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="50"
