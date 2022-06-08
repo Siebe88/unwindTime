@@ -5,7 +5,8 @@ import './Dashboard.css';
 import { auth, db, logout } from '../Services/firebase';
 import { query, collection, getDocs, where } from 'firebase/firestore';
 import RelaxMethod from '../Components/RelaxMethod';
-// import chessSVG from '../media/Chess.svg';
+
+import { relaxMethods } from '../Media/relaxMethodsSVG';
 
 function Dashboard() {
   // const [user, loading, error] = useAuthState(auth);
@@ -34,7 +35,9 @@ function Dashboard() {
     // }, [user, loading]);
   });
 
-  const relaxMethods = [1, 2, 3, 4, 5, 6];
+  // const relaxMethods = [1, 2, 3, 4, 5, 6];
+
+  console.log(relaxMethods);
 
   return (
     <div className="dashboard-container">
@@ -50,9 +53,11 @@ function Dashboard() {
           What are your favorite unwind activities
         </h3>
 
-        {relaxMethods.map((relaxMethod) => {
-          return <RelaxMethod key={relaxMethod} />;
-        })}
+        {relaxMethods
+          .sort((a, b) => a.id - b.id)
+          .map((relaxMethod) => {
+            return <RelaxMethod key={relaxMethod.id} relaxMethod={relaxMethod} />;
+          })}
       </div>
 
       <div className="dashboard__container">

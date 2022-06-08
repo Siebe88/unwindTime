@@ -1,0 +1,18 @@
+.relaxMethod {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.relaxButton {
+  display: flex;
+  padding: 0;
+  border: 1px solid #000;
+  border-radius: 5px;
+  box-sizing: border-box;
+  background-color: transparent;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
