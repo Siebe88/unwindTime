@@ -9,17 +9,17 @@ import {
   signOut,
   FacebookAuthProvider,
 } from 'firebase/auth';
-import { getFirestore, query, getDocs, collection, where, addDoc } from 'firebase/firestore';
-
-const firebaseConfig = {
-  apiKey: 'AIzaSyCn9oU3LJO0xMzg_6ERlRphHGXyf982UmI',
-  authDomain: 'unwind-time.firebaseapp.com',
-  projectId: 'unwind-time',
-  storageBucket: 'unwind-time.appspot.com',
-  messagingSenderId: '775168656101',
-  appId: '1:775168656101:web:f9812e99ed105d3cf00a0c',
-  measurementId: 'G-KC6K3146SH',
-};
+import {
+  getFirestore,
+  query,
+  getDocs,
+  collection,
+  where,
+  addDoc,
+  setDoc,
+  doc,
+} from 'firebase/firestore';
+import { firebaseConfig } from '../config/firebase';
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
@@ -34,7 +34,7 @@ const signInWithGoogle = async () => {
     const q = query(collection(db, 'users'), where('uid', '==', user.uid));
     const docs = await getDocs(q);
     if (docs.docs.length === 0) {
-      await addDoc(collection(db, 'users'), {
+      await setDoc(doc(db, 'users', user.uid), {
         uid: user.uid,
         name: user.displayName,
         authProvider: 'google',

@@ -8,8 +8,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { loginProfile } from '../reducers/profile';
 
 import { relaxMethods } from '../Media/relaxMethodsSVG';
+import updateUser from '../Services/firestore';
 import './Dashboard.css';
-import '../index.css';
 
 function Dashboard() {
   const [user, loading] = useAuthState(auth);
@@ -17,14 +17,12 @@ function Dashboard() {
 
   // Redux state setting
   const profile = useSelector((state) => state.profile.value);
-  const dispatch = useDispatch();
-
-  //TODO REMOVE - For testing
   const favoRelaxMethods = useSelector((state) => state.favoRelaxMethods);
+
+  const dispatch = useDispatch();
 
   const fetchUserName = async () => {
     try {
-      //Not this
       dispatch(loginProfile(user));
     } catch (err) {
       console.error(err);
@@ -39,10 +37,16 @@ function Dashboard() {
     fetchUserName();
   });
 
+  const clickEventSaveProfile = async (e) => {
+    console.log('clicked');
+    e.preventDefault();
+    updateUser(profile, favoRelaxMethods);
+  };
+
   return (
     <div className="dashboard-container">
       <div className="introtext-container">
-        <p>Welcome, </p>
+        <p>Welcome, {profile.displayName} </p>
         <br></br>
         <p>please select a cool profile pic:</p>
       </div>
@@ -64,16 +68,13 @@ function Dashboard() {
         Logged in as
         <div>{profile.displayName}</div>
         <div>{profile.email} </div>
-        <button className="dashboard__btn" onClick={() => dispatch(loginProfile(user))}>
+        <button className="dashboard__btn" onClick={clickEventSaveProfile}>
           {' '}
-          test profile
+          Okay, let's unwind!
         </button>
         <button className="dashboard__btn" onClick={logout}>
           Logout
         </button>
-        {favoRelaxMethods.map((favo) => (
-          <p>{favo.name}</p>
-        ))}
       </div>
     </div>
   );

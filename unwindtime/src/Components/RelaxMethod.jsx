@@ -13,11 +13,11 @@ export default function RelaxMethod({ relaxMethod }) {
 
   return (
     <div className={'relaxMethod ' + classFav}>
-      <button class="relaxButton" onClick={() => dispatch(switchFavo(relaxMethod))}>
+      <button className="relaxButton" onClick={() => dispatch(switchFavo(relaxMethod))}>
         <svg width="50" height="50" viewBox="0 0 50 50">
           <path
             transform={relaxMethod.transform}
-            class={'icon ' + classFav}
+            className={'icon ' + classFav}
             d={relaxMethod.svg}
           ></path>
         </svg>
