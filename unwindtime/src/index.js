@@ -5,9 +5,12 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
+import profileReducer from './reducers/profile';
 
 const store = configureStore({
-  reducer: {},
+  reducer: {
+    profile: profileReducer,
+  },
 });
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

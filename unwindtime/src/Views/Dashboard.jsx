@@ -1,26 +1,29 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate } from 'react-router-dom';
-import './Dashboard.css';
 import { auth, db, logout } from '../Services/firebase';
 import { query, collection, getDocs, where } from 'firebase/firestore';
 import RelaxMethod from '../Components/RelaxMethod';
+import { useSelector, useDispatch } from 'react-redux';
+import { loginProfile } from '../reducers/profile';
+import './Dashboard.css';
 
 import { relaxMethods } from '../Media/relaxMethodsSVG';
 
 function Dashboard() {
-  // const [user, loading, error] = useAuthState(auth);
   const [user, loading] = useAuthState(auth);
-  const [name, setName] = useState('');
   const navigate = useNavigate();
+
+  // Redux state setting
+  const profile = useSelector((state) => state.profile.value);
+  const dispatch = useDispatch();
 
   const fetchUserName = async () => {
     try {
       const q = query(collection(db, 'users'), where('uid', '==', user?.uid));
       const doc = await getDocs(q);
       const data = doc.docs[0].data();
-
-      setName(data.name);
+      dispatch(loginProfile(user));
     } catch (err) {
       console.error(err);
       alert('An error occured while fetching user data');
@@ -32,12 +35,8 @@ function Dashboard() {
     if (!user) return navigate('/');
 
     fetchUserName();
-    // }, [user, loading]);
-  });
-
-  // const relaxMethods = [1, 2, 3, 4, 5, 6];
-
-  console.log(relaxMethods);
+  }, [user, loading]);
+  // });
 
   return (
     <div className="dashboard-container">
@@ -62,8 +61,12 @@ function Dashboard() {
 
       <div className="dashboard__container">
         Logged in as
-        <div>{name}</div>
-        <div>{user?.email}</div>
+        <div>{profile.displayName}</div>
+        <div>{profile.email} </div>
+        <button className="dashboard__btn" onClick={() => dispatch(loginProfile(user))}>
+          {' '}
+          test profile
+        </button>
         <button className="dashboard__btn" onClick={logout}>
           Logout
         </button>
