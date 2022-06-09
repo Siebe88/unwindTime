@@ -5,12 +5,10 @@ import { useNavigate } from 'react-router-dom';
 import { auth, logout } from '../Services/firebase';
 
 import RelaxMethod from '../Components/RelaxMethod';
-import { useSelector, useDispatch } from 'react-redux';
-import { loginProfile } from '../reducers/profile';
-import { addNewFavoArray } from '../reducers/favoRelaxMethods';
+import { useSelector } from 'react-redux';
 
 import { relaxMethods } from '../Media/relaxMethodsSVG';
-import { updateProfile, findProfile } from '../Services/firestore';
+import { updateProfile } from '../Services/firestore';
 
 function Dashboard() {
   const [user, loading] = useAuthState(auth);
@@ -20,24 +18,9 @@ function Dashboard() {
   const profile = useSelector((state) => state.profile.value);
   const favoRelaxMethods = useSelector((state) => state.favoRelaxMethods);
 
-  const dispatch = useDispatch();
-
-  const fetchProfile = async () => {
-    try {
-      const profileFound = await findProfile(user);
-      // console.log('FoundProfile', profileFound);
-
-      dispatch(loginProfile(profileFound));
-      dispatch(addNewFavoArray(profileFound.relaxMethods));
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
   useEffect(() => {
     if (loading) return;
     if (!user) return navigate('/');
-    fetchProfile();
   }, [user]); //eslint-disable-line
 
   const clickEventSaveProfile = async (e) => {

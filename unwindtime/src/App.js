@@ -10,17 +10,17 @@ import Header from './Components/Header';
 import Footer from './Components/Footer';
 
 //SMART?
-import { useNavigate } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from './Services/firebase';
-import { useSelector, useDispatch } from 'react-redux';
-import { updateProfile, findProfile } from './Services/firestore';
+import { useDispatch } from 'react-redux';
+import { findProfile } from './Services/firestore';
 import { loginProfile } from './reducers/profile';
 import { addNewFavoArray } from './reducers/favoRelaxMethods';
 import React, { useEffect } from 'react';
 
 function App() {
   const [user, loading] = useAuthState(auth);
+
   const dispatch = useDispatch();
 
   const fetchProfile = async () => {
@@ -35,7 +35,6 @@ function App() {
 
   useEffect(() => {
     if (loading) return;
-
     fetchProfile();
   }, [user]); //eslint-disable-line
 
