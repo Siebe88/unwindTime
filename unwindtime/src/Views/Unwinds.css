@@ -30,3 +30,25 @@
 .dashboard div {
   margin-top: 7px;
 }
+
+.unwindActions-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  padding: 10px;
+  border-radius: 12px;
+}
+
+.action-button {
+  display: flex;
+  padding: 15px;
+  border: 1px solid var(--color-Gray-1000);
+  border-radius: 5px;
+  box-sizing: border-box;
+  background-color: transparent;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
