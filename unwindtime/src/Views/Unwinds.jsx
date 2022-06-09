@@ -10,7 +10,7 @@ import { ReactComponent as CreateUnwind } from '../Media/UnwindActionButtons/cre
 import { ReactComponent as List } from '../Media/UnwindActionButtons/list.svg';
 import { ReactComponent as Map } from '../Media/UnwindActionButtons/map.svg';
 
-// import { createUnwind } from '../Services/unwinds';
+import { createNewUnwind } from '../Services/unwinds';
 
 function Unwinds() {
   const favoRelaxMethods = useSelector((state) => state.favoRelaxMethods);
@@ -25,7 +25,7 @@ function Unwinds() {
     };
 
     console.log('Input:', profile, unwind);
-    // createUnwind(profile, unwind);
+    createNewUnwind(profile, unwind);
     console.log('Unwind created');
   };
 

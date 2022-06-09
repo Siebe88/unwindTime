@@ -13,9 +13,10 @@ export async function createNewUnwind(profile, unwind) {
     profileId: profile.uid,
     createdAt: new Date(),
   };
-  // const res = await setDoc(doc(db, 'unwinds', profile.uid), unwindDoc);
 
-  const docRef = await addDoc(collection(db, 'unwinds'), unwindDoc);
-  console.log('unwindDoc', unwindDoc);
-  return docRef;
+  addDoc(collection(db, 'unwinds'), unwindDoc);
+
+  console.log('Please work');
+  // console.log('unwindDoc', unwindDoc);
+  // return docRef;
 }

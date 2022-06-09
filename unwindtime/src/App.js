@@ -9,7 +9,40 @@ import Unwinds from './Views/Unwinds';
 import Header from './Components/Header';
 import Footer from './Components/Footer';
 
+//SMART?
+import { useNavigate } from 'react-router-dom';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from './Services/firebase';
+import { useSelector, useDispatch } from 'react-redux';
+import { updateProfile, findProfile } from './Services/firestore';
+import { loginProfile } from './reducers/profile';
+import { addNewFavoArray } from './reducers/favoRelaxMethods';
+import React, { useEffect } from 'react';
+
 function App() {
+  const [user, loading] = useAuthState(auth);
+  // const navigate = useNavigate();
+
+  const dispatch = useDispatch();
+
+  const fetchProfile = async () => {
+    try {
+      const profileFound = await findProfile(user);
+      // console.log('FoundProfile', profileFound);
+
+      dispatch(loginProfile(profileFound));
+      dispatch(addNewFavoArray(profileFound.relaxMethods));
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    if (loading) return;
+    // if (!user) return navigate('/');
+    fetchProfile();
+  }, [user]); //eslint-disable-line
+
   return (
     <div className="app">
       <Header></Header>
