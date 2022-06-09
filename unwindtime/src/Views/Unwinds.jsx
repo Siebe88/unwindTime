@@ -9,6 +9,7 @@ import RelaxMethod from '../Components/RelaxMethod';
 
 function Unwinds() {
   const favoRelaxMethods = useSelector((state) => state.favoRelaxMethods);
+  console.log(favoRelaxMethods);
 
   return (
     <div className="unwinds-container">

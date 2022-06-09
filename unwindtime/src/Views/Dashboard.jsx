@@ -31,8 +31,6 @@ function Dashboard() {
       dispatch(addNewFavoArray(profileFound.relaxMethods));
     } catch (err) {
       console.error(err);
-
-      // alert('An error occured while fetching user data, created new document');
     }
   };
 

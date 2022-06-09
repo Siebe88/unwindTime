@@ -7,6 +7,7 @@ import Dashboard from './Views/Dashboard';
 import Unwinds from './Views/Unwinds';
 
 import Header from './Components/Header';
+import Footer from './Components/Footer';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route exact path="/unwinds" element={<Unwinds />} />
           <Route path="*" element={<Login />} />
         </Routes>
+        <Footer></Footer>
       </Router>
     </div>
   );
