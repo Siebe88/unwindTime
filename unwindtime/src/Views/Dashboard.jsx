@@ -24,8 +24,8 @@ function Dashboard() {
   }, [user]); //eslint-disable-line
 
   const clickEventSaveProfile = async (e) => {
-    console.log('clicked');
     e.preventDefault();
+
     updateProfile(profile, favoRelaxMethods);
     return navigate('/unwinds');
   };
@@ -34,21 +34,21 @@ function Dashboard() {
     <div className="dashboard-container">
       <div className="introtext-container">
         <p>Welcome, {profile.name} </p>
-        <br></br>
         <p>please select a cool profile pic:</p>
       </div>
 
-      <div className="relaxmethods-container">
+      <div className="relaxmethods-parent-container">
         <h3 className="relaxmethodspicker-title text-style-h-3">
           {' '}
-          What are your favorite unwind activities
+          What are your favorite unwind activities?
         </h3>
-
-        {relaxMethods
-          .sort((a, b) => a.id - b.id)
-          .map((relaxMethod) => {
-            return <RelaxMethod key={relaxMethod.id} relaxMethod={relaxMethod} />;
-          })}
+        <div className="relaxmethods-container">
+          {relaxMethods
+            .sort((a, b) => a.id - b.id)
+            .map((relaxMethod) => {
+              return <RelaxMethod key={relaxMethod.id} relaxMethod={relaxMethod} />;
+            })}
+        </div>
       </div>
 
       <div className="dashboard__container">

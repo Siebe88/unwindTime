@@ -1,12 +1,17 @@
-.relaxmethods-container {
+.relaxmethods-selector-parent-container {
+  margin: 20px;
+  background: var(--color-gray-100);
+  border-radius: 12px;
+  width: 90%;
+}
+
+.relaxmethods-selector-container {
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 13px 6px;
-  flex-wrap: wrap;
-
-  background: var(--color-gray-100);
-  border-radius: 12px;
+  padding-bottom: 13px;
+  overflow: auto;
+  justify-content: center;
 }
 
 .unwinds-container {
@@ -37,6 +42,7 @@
   width: 100%;
   padding: 10px;
   border-radius: 12px;
+  padding-right: 100px;
 }
 
 .action-button {

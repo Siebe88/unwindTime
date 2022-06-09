@@ -9,7 +9,6 @@ import Unwinds from './Views/Unwinds';
 import Header from './Components/Header';
 import Footer from './Components/Footer';
 
-//SMART?
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from './Services/firebase';
 import { useDispatch } from 'react-redux';
