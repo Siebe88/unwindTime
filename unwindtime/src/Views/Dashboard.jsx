@@ -52,7 +52,7 @@ function Dashboard() {
   return (
     <div className="dashboard-container">
       <div className="introtext-container">
-        <p>Welcome, {profile.displayName} </p>
+        <p>Welcome, {profile.name} </p>
         <br></br>
         <p>please select a cool profile pic:</p>
       </div>

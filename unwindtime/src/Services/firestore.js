@@ -15,19 +15,14 @@ export async function createNewProfile(user) {
     uid: user.uid,
     name: user.name ? user.name : 'NewUser',
     email: user.email,
-    profilePic: user.profilePic,
+    profilePic: user.profilePic
+      ? user.profilePic
+      : 'https://cdn.geekwire.com/wp-content/uploads/2012/02/nerd-bigstock_Extreme_Computer_Nerd_1520708.jpg',
     relaxMethods: [],
   };
   console.log('new profile', newProfile);
   // await setDoc(collection(db, 'profiles', user.uid), newProfile);
-  await setDoc(doc(db, 'profiles', user.uid), {
-    uid: user.uid,
-    name: user.displayName,
-    authProvider: 'google',
-    email: user.email,
-    profilePic: user.photoURL,
-    relaxMethods: [],
-  });
+  await setDoc(doc(db, 'profiles', user.uid), newProfile);
 
   return newProfile;
 }
