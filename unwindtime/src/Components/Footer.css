@@ -2,6 +2,8 @@
   display: flex;
   justify-content: center;
   justify-content: space-around;
+  background-color: var(--color-gray-900);
+  height: 7vh;
   /* align-items: stretch; */
 }
 

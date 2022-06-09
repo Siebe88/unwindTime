@@ -1,12 +1,11 @@
 .top-header-container {
-  position: fixed;
+  /* position: absolute; */
   display: flex;
   justify-content: center;
   align-items: center;
   height: 7vh;
   width: 100%;
   background-color: #dcdcdc;
-  padding: 0px 20px;
 }
 
 .top-header-container {

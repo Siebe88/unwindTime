@@ -47,14 +47,16 @@ function App() {
     <div className="app">
       <Header></Header>
       <Router>
-        <Routes>
-          <Route exact path="/" element={<Login />} />
-          <Route exact path="/register" element={<Register />} />
-          <Route exact path="/reset" element={<Reset />} />
-          <Route exact path="/dashboard" element={<Dashboard />} />
-          <Route exact path="/unwinds" element={<Unwinds />} />
-          <Route path="*" element={<Login />} />
-        </Routes>
+        <div className="main-container">
+          <Routes>
+            <Route exact path="/" element={<Login />} />
+            <Route exact path="/register" element={<Register />} />
+            <Route exact path="/reset" element={<Reset />} />
+            <Route exact path="/dashboard" element={<Dashboard />} />
+            <Route exact path="/unwinds" element={<Unwinds />} />
+            <Route path="*" element={<Login />} />
+          </Routes>
+        </div>
         <Footer></Footer>
       </Router>
     </div>
