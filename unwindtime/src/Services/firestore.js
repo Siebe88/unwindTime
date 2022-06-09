@@ -1,6 +1,6 @@
 // import { getFirestore, query, getDocs, collection, where, addDoc } from 'firebase/firestore';
 import { getFirestore } from 'firebase/firestore';
-import { doc, updateDoc, getDoc, setDoc, collection } from 'firebase/firestore';
+import { doc, updateDoc, getDoc, setDoc } from 'firebase/firestore';
 import { initializeApp } from 'firebase/app';
 
 import { firebaseConfig } from '../config/firebase';
@@ -9,15 +9,19 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 //TODO replace this from firebase
-export async function createNewProfile(user) {
+export async function createNewProfile(user, profileName) {
+  const profilePic =
+    user.photoURL ||
+    'https://cdn.geekwire.com/wp-content/uploads/2012/02/nerd-bigstock_Extreme_Computer_Nerd_1520708.jpg';
+
+  const name = user.name || profileName || user.displayName || 'NewUser';
+
   console.log('creating new profile', user);
   const newProfile = {
     uid: user.uid,
-    name: user.name ? user.name : 'NewUser',
+    name: name,
     email: user.email,
-    profilePic: user.profilePic
-      ? user.profilePic
-      : 'https://cdn.geekwire.com/wp-content/uploads/2012/02/nerd-bigstock_Extreme_Computer_Nerd_1520708.jpg',
+    profilePic: profilePic,
     relaxMethods: [],
   };
   console.log('new profile', newProfile);
