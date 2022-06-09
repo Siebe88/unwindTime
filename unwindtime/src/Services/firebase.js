@@ -9,16 +9,7 @@ import {
   signOut,
   FacebookAuthProvider,
 } from 'firebase/auth';
-import {
-  getFirestore,
-  query,
-  getDocs,
-  collection,
-  where,
-  addDoc,
-  setDoc,
-  doc,
-} from 'firebase/firestore';
+import { getFirestore, query, getDocs, collection, where, addDoc } from 'firebase/firestore';
 import { firebaseConfig } from '../config/firebase';
 import { createNewProfile } from './firestore';
 
@@ -35,14 +26,7 @@ const signInWithGoogle = async () => {
     const q = query(collection(db, 'profiles'), where('uid', '==', user.uid));
     const docs = await getDocs(q);
     if (docs.docs.length === 0) {
-      await setDoc(doc(db, 'profiles', user.uid), {
-        uid: user.uid,
-        name: user.displayName,
-        authProvider: 'google',
-        email: user.email,
-        profilePic: user.photoURL,
-        relaxMethods: [],
-      });
+      createNewProfile(user);
     }
   } catch (err) {
     console.error(err);
@@ -81,11 +65,11 @@ const logInWithEmailAndPassword = async (email, password) => {
   }
 };
 
-const registerWithEmailAndPassword = async (name, email, password) => {
+const registerWithEmailAndPassword = async (profileName, email, password) => {
   try {
     const res = await createUserWithEmailAndPassword(auth, email, password);
     const user = res.user;
-    await createNewProfile(user);
+    await createNewProfile(user, profileName);
   } catch (err) {
     console.error(err);
     alert(err.message);
