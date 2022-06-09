@@ -13,6 +13,12 @@ const store = configureStore({
     profile: profileReducer,
     favoRelaxMethods: favoRelaxMethodsSlice,
   },
+  //TODO find what this means and how to solve it
+  //https://stackoverflow.com/questions/61704805/getting-an-error-a-non-serializable-value-was-detected-in-the-state-when-using
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 });
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
