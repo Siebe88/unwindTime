@@ -10,11 +10,11 @@ import Header from './Components/Header';
 import Footer from './Components/Footer';
 
 //SMART?
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from './Services/firebase';
-import { useSelector, useDispatch } from 'react-redux';
-import { updateProfile, findProfile } from './Services/firestore';
+import { useDispatch } from 'react-redux';
+import { findProfile } from './Services/firestore';
 import { loginProfile } from './reducers/profile';
 import { addNewFavoArray } from './reducers/favoRelaxMethods';
 import React, { useEffect } from 'react';
