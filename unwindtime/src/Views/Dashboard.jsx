@@ -25,14 +25,15 @@ function Dashboard() {
 
   const fetchProfile = async () => {
     try {
-      const profileFound = await findProfile(user.uid);
+      const profileFound = await findProfile(user);
       // console.log('FoundProfile', profileFound);
 
       dispatch(loginProfile(profileFound));
       dispatch(addNewFavoArray(profileFound.relaxMethods));
     } catch (err) {
       console.error(err);
-      alert('An error occured while fetching user data');
+
+      // alert('An error occured while fetching user data, created new document');
     }
   };
 

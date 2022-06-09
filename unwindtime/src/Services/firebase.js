@@ -20,7 +20,7 @@ import {
   doc,
 } from 'firebase/firestore';
 import { firebaseConfig } from '../config/firebase';
-// import { createNewProfile } from './firestore';
+import { createNewProfile } from './firestore';
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
@@ -85,12 +85,7 @@ const registerWithEmailAndPassword = async (name, email, password) => {
   try {
     const res = await createUserWithEmailAndPassword(auth, email, password);
     const user = res.user;
-    await addDoc(collection(db, 'profiles'), {
-      uid: user.uid,
-      name,
-      authProvider: 'local',
-      email,
-    });
+    await createNewProfile(user);
   } catch (err) {
     console.error(err);
     alert(err.message);

@@ -1,6 +1,6 @@
 // import { getFirestore, query, getDocs, collection, where, addDoc } from 'firebase/firestore';
 import { getFirestore } from 'firebase/firestore';
-import { doc, updateDoc, getDoc, addDoc, collection } from 'firebase/firestore';
+import { doc, updateDoc, getDoc, setDoc, collection } from 'firebase/firestore';
 import { initializeApp } from 'firebase/app';
 
 import { firebaseConfig } from '../config/firebase';
@@ -9,15 +9,27 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 //TODO replace this from firebase
-export async function createNewProfile(uid, name, email, profilePic, relaxMethods) {
+export async function createNewProfile(user) {
+  console.log('creating new profile', user);
   const newProfile = {
-    uid,
-    name,
-    email,
-    profilePic,
-    relaxMethods,
+    uid: user.uid,
+    name: user.name ? user.name : 'NewUser',
+    email: user.email,
+    profilePic: user.profilePic,
+    relaxMethods: [],
   };
-  await addDoc(collection(db, 'profiles'), newProfile);
+  console.log('new profile', newProfile);
+  // await setDoc(collection(db, 'profiles', user.uid), newProfile);
+  await setDoc(doc(db, 'profiles', user.uid), {
+    uid: user.uid,
+    name: user.displayName,
+    authProvider: 'google',
+    email: user.email,
+    profilePic: user.photoURL,
+    relaxMethods: [],
+  });
+
+  return newProfile;
 }
 
 export async function updateProfile(profile, favoRelaxMethods) {
@@ -35,9 +47,15 @@ export async function updateProfile(profile, favoRelaxMethods) {
   return res;
 }
 
-export async function findProfile(uid) {
-  const docRef = doc(db, 'profiles', uid);
+export async function findProfile(user) {
+  console.log('findProfile');
+  const docRef = doc(db, 'profiles', user.uid);
   const res = await getDoc(docRef);
-  // console.log('User data:', res.data());
-  return res.data();
+  console.log('res:', res.data());
+  if (res.data()) {
+    return res.data();
+  } else {
+    console.log('No such document!');
+    return await createNewProfile(user);
+  }
 }
