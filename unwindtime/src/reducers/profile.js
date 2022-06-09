@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialStateValue = { displayName: '' };
+const initialStateValue = { name: '' };
 
 const profileSlice = createSlice({
   name: 'profile',

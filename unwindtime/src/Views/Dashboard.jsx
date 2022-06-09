@@ -6,14 +6,16 @@ import { auth, logout } from '../Services/firebase';
 import RelaxMethod from '../Components/RelaxMethod';
 import { useSelector, useDispatch } from 'react-redux';
 import { loginProfile } from '../reducers/profile';
+import { addNewFavoArray } from '../reducers/favoRelaxMethods';
 
 import { relaxMethods } from '../Media/relaxMethodsSVG';
-import updateUser from '../Services/firestore';
+import { updateProfile, findProfile } from '../Services/firestore';
 import './Dashboard.css';
 
 function Dashboard() {
   const [user, loading] = useAuthState(auth);
   const navigate = useNavigate();
+  // const profile = findProfile(user.uid);
 
   // Redux state setting
   const profile = useSelector((state) => state.profile.value);
@@ -21,9 +23,13 @@ function Dashboard() {
 
   const dispatch = useDispatch();
 
-  const fetchUserName = async () => {
+  const fetchProfile = async () => {
     try {
-      dispatch(loginProfile(user));
+      const profileFound = await findProfile(user.uid);
+      // console.log('FoundProfile', profileFound);
+
+      dispatch(loginProfile(profileFound));
+      dispatch(addNewFavoArray(profileFound.relaxMethods));
     } catch (err) {
       console.error(err);
       alert('An error occured while fetching user data');
@@ -33,14 +39,13 @@ function Dashboard() {
   useEffect(() => {
     if (loading) return;
     if (!user) return navigate('/');
-
-    fetchUserName();
-  });
+    fetchProfile();
+  }, [user]); //eslint-disable-line
 
   const clickEventSaveProfile = async (e) => {
     console.log('clicked');
     e.preventDefault();
-    updateUser(profile, favoRelaxMethods);
+    updateProfile(profile, favoRelaxMethods);
   };
 
   return (
