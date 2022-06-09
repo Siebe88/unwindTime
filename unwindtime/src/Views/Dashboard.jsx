@@ -1,3 +1,4 @@
+import './Dashboard.css';
 import React, { useEffect } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate } from 'react-router-dom';
@@ -10,12 +11,10 @@ import { addNewFavoArray } from '../reducers/favoRelaxMethods';
 
 import { relaxMethods } from '../Media/relaxMethodsSVG';
 import { updateProfile, findProfile } from '../Services/firestore';
-import './Dashboard.css';
 
 function Dashboard() {
   const [user, loading] = useAuthState(auth);
   const navigate = useNavigate();
-  // const profile = findProfile(user.uid);
 
   // Redux state setting
   const profile = useSelector((state) => state.profile.value);
@@ -47,6 +46,7 @@ function Dashboard() {
     console.log('clicked');
     e.preventDefault();
     updateProfile(profile, favoRelaxMethods);
+    return navigate('/unwinds');
   };
 
   return (

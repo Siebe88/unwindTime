@@ -25,7 +25,6 @@ export async function createNewProfile(user, profileName) {
     relaxMethods: [],
   };
   console.log('new profile', newProfile);
-  // await setDoc(collection(db, 'profiles', user.uid), newProfile);
   await setDoc(doc(db, 'profiles', user.uid), newProfile);
 
   return newProfile;
@@ -47,10 +46,10 @@ export async function updateProfile(profile, favoRelaxMethods) {
 }
 
 export async function findProfile(user) {
-  console.log('findProfile');
+  // console.log('findProfile');
   const docRef = doc(db, 'profiles', user.uid);
   const res = await getDoc(docRef);
-  console.log('res:', res.data());
+  // console.log('res:', res.data());
   if (res.data()) {
     return res.data();
   } else {
