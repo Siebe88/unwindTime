@@ -163,14 +163,25 @@ function Unwinds() {
         {/* For the list TODO: MAP */}
         {unwinds && (
           <div>
-            {unwinds.docs.map((unwind) => (
-              <Unwind
-                key={unwind.id}
-                unwind={unwind.data()}
-                unwindID={unwind.id}
-                location={location}
-              ></Unwind>
-            ))}
+            {!selectedUnwind.name
+              ? unwinds.docs.map((unwind) => (
+                  <Unwind
+                    key={unwind.id}
+                    unwind={unwind.data()}
+                    unwindID={unwind.id}
+                    location={location}
+                  ></Unwind>
+                ))
+              : unwinds.docs
+                  .filter((unwind) => unwind.data().relaxMethod.name === selectedUnwind.name)
+                  .map((unwind) => (
+                    <Unwind
+                      key={unwind.id}
+                      unwind={unwind.data()}
+                      unwindID={unwind.id}
+                      location={location}
+                    ></Unwind>
+                  ))}
           </div>
         )}
       </div>

@@ -8,7 +8,6 @@ import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
 export default function Unwind({ unwind, location }) {
-  console.log(unwind, location);
   const navigate = useNavigate();
   const formatTime = (datestamp) => {
     return moment(new Date(datestamp * 1000)).format('HH:mm');
