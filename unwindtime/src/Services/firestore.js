@@ -9,6 +9,7 @@ export async function createNewProfile(user, profileName) {
 
   const name = user.name || profileName || user.displayName || 'NewUser';
 
+  //BUG Not altering profile pic
   console.log('creating new profile', user);
   const newProfile = {
     uid: user.uid,
@@ -32,6 +33,7 @@ export async function updateProfile(profile, favoRelaxMethods) {
   const docRef = doc(db, 'profiles', profile.uid);
   const res = await updateDoc(docRef, {
     name: profile.name,
+    profilePic: profile.profilePic,
     relaxMethods: favoRelaxMethods,
   });
 
