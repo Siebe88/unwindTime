@@ -1,5 +1,5 @@
 import './Dashboard.css';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate } from 'react-router-dom';
 import { auth, logout } from '../Services/firebase';
@@ -10,9 +10,7 @@ import { switchFavo } from '../reducers/favoRelaxMethods';
 
 import { relaxMethods } from '../Media/relaxMethodsSVG';
 import { updateProfile } from '../Services/firestore';
-import { storage } from '../Services/firebaseConnection';
-import { ref, uploadBytes, getDownloadURL, listAll, list } from 'firebase/storage';
-import { v4 } from 'uuid';
+import SetProfilePic from '../Components/SetProfilePic';
 
 function Dashboard() {
   const [user, loading] = useAuthState(auth);
@@ -23,7 +21,6 @@ function Dashboard() {
   // Redux state setting
   const profile = useSelector((state) => state.profile.value);
   const favoRelaxMethods = useSelector((state) => state.favoRelaxMethods);
-  const [imageUpload, setImageUpload] = useState(null);
 
   useEffect(() => {
     if (loading) return;
@@ -41,17 +38,6 @@ function Dashboard() {
     dispatch(switchFavo(relaxMethod));
   };
 
-  const uploadFile = () => {
-    console.log('image', imageUpload);
-    if (imageUpload == null) return;
-    const imageRef = ref(storage, `profilePics/${imageUpload.name + v4()}`);
-    uploadBytes(imageRef, imageUpload).then((snapshot) => {
-      getDownloadURL(snapshot.ref).then((url) => {
-        console.log(url);
-      });
-    });
-  };
-
   return (
     <div className="dashboard-container">
       <div className="introtext-container">
@@ -62,14 +48,7 @@ function Dashboard() {
           please select a cool profile pic:
         </h4>
       </div>
-      <img className="profile-dashboard-img" src={profile.profilePic} alt="" />
-      <input
-        type="file"
-        onChange={(event) => {
-          setImageUpload(event.target.files[0]);
-        }}
-      />
-      <button onClick={uploadFile}> upload Pic</button>
+      <SetProfilePic></SetProfilePic>
 
       <div className="relaxmethods-parent-container">
         <h3 className="relaxmethodspicker-title text-style-h-3">
@@ -96,10 +75,6 @@ function Dashboard() {
         </div>
       </div>
 
-      {/* <div className="dashboard__container">
-        Logged in as
-        <div>{profile.displayName}</div>
-        <div>{profile.email} </div> */}
       <button className="dashboard__btn" onClick={clickEventSaveProfile}>
         {' '}
         Okay, let's unwind!
