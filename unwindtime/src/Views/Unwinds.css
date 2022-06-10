@@ -14,6 +14,14 @@
   justify-content: center;
 }
 
+.timesetter-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  overflow: auto;
+}
+
 .unwinds-parent-container {
   display: flex;
   flex-direction: column;
@@ -46,7 +54,7 @@
   align-items: center;
   justify-content: flex-end;
   width: 100%;
-  padding: 10px;
+  /* padding: 10px; */
   border-radius: 12px;
   padding-right: 30px;
 }

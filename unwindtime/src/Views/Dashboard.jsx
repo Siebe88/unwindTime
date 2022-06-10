@@ -5,7 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import { auth, logout } from '../Services/firebase';
 
 import RelaxMethod from '../Components/RelaxMethod';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { switchFavo } from '../reducers/favoRelaxMethods';
 
 import { relaxMethods } from '../Media/relaxMethodsSVG';
 import { updateProfile } from '../Services/firestore';
@@ -13,6 +14,7 @@ import { updateProfile } from '../Services/firestore';
 function Dashboard() {
   const [user, loading] = useAuthState(auth);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   // Redux state setting
   const profile = useSelector((state) => state.profile.value);
@@ -28,6 +30,10 @@ function Dashboard() {
 
     updateProfile(profile, favoRelaxMethods);
     return navigate('/unwinds');
+  };
+
+  const onClickRelaxMethod = (relaxMethod) => {
+    dispatch(switchFavo(relaxMethod));
   };
 
   return (
@@ -46,7 +52,18 @@ function Dashboard() {
           {relaxMethods
             .sort((a, b) => a.id - b.id)
             .map((relaxMethod) => {
-              return <RelaxMethod key={relaxMethod.id} relaxMethod={relaxMethod} />;
+              return (
+                <RelaxMethod
+                  key={relaxMethod.id}
+                  relaxMethod={relaxMethod}
+                  onClickRelaxMethod={onClickRelaxMethod}
+                  classColor={
+                    favoRelaxMethods.some((method) => method.name === relaxMethod.name)
+                      ? 'favoriteMethod'
+                      : 'nonfavoriteMethod'
+                  }
+                />
+              );
             })}
         </div>
       </div>

@@ -1,12 +1,14 @@
 .relaxmethods-parent-container {
   background: var(--color-gray-100);
   border-radius: 12px;
+  margin: 10px;
 }
 
 .relaxmethods-container {
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: center;
   padding: 13px 6px;
   flex-wrap: wrap;
 }

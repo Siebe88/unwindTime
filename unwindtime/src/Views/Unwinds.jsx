@@ -3,6 +3,7 @@ import './Unwinds.css';
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { relaxMethods } from '../Media/relaxMethodsSVG';
+import moment from 'moment';
 // import { useNavigate } from 'react-router-dom';
 
 import RelaxMethod from '../Components/RelaxMethod';
@@ -22,6 +23,10 @@ import { getFirestore, collection } from 'firebase/firestore';
 function Unwinds() {
   const [lat, setLat] = useState(null);
   const [lng, setLng] = useState(null);
+  const [fromUnwind, setFromUnwind] = useState(new Date());
+
+  const [tillUnwind, setTillUnwind] = useState(moment(fromUnwind).add(15, 'minutes')._d);
+
   const [status, setStatus] = useState(null);
 
   const app = initializeApp(firebaseConfig);
@@ -59,23 +64,65 @@ function Unwinds() {
   const createUnwind = () => {
     const unwind = {
       relaxMethod: 'Chess',
-      from: '12:00',
-      to: '13:00',
+      from: fromUnwind,
+      till: tillUnwind,
       location: { lat: lat, lng: lng },
     };
 
     createNewUnwind(profile, unwind);
   };
 
+  function handleTillTimeChange(event) {
+    const dateValue = moment(tillUnwind).format('YYYY-MM-DD');
+    const newValue = moment(dateValue + ' ' + event.target.value);
+    setTillUnwind(newValue._d);
+  }
+
+  function handleFromTimeChange(event) {
+    const dateValue = moment(fromUnwind).format('YYYY-MM-DD');
+    const newValue = moment(dateValue + ' ' + event.target.value);
+    setFromUnwind(newValue._d);
+  }
+
+  const onClickRelaxMethod = (relaxMethod) => {
+    console.log('do nothing');
+  };
+
   return (
     <div className="unwinds-parent-container">
       <div className="relaxmethods-selector-parent-container">
-        <h3 className="relaxmethodspicker-title text-style-h-3"> How do you want to unwind? </h3>
-        <div className="relaxmethods-selector-container">
-          {relaxMethods.map((relaxMethod) => {
-            return <RelaxMethod key={relaxMethod.id} relaxMethod={relaxMethod} />;
-          })}
-        </div>
+        <form action="">
+          <h3 className="relaxmethodspicker-title text-style-h-3"> How do you want to unwind? </h3>
+          <div className="relaxmethods-selector-container">
+            {relaxMethods.map((relaxMethod) => {
+              return (
+                <RelaxMethod
+                  key={relaxMethod.id}
+                  relaxMethod={relaxMethod}
+                  onClickRelaxMethod={onClickRelaxMethod}
+                />
+              );
+            })}
+          </div>
+          <div className="timesetter-container">
+            <h3 className="text-style-h-3">From:</h3>
+            <input
+              type="time"
+              min={moment(fromUnwind).format('hh:mm')}
+              defaultValue={moment(fromUnwind).format('hh:mm')}
+              onChange={handleFromTimeChange}
+              required
+            ></input>
+            <h3 className="text-style-h-3">To:</h3>
+            <input
+              type="time"
+              min={moment(fromUnwind).format('hh:mm')}
+              defaultValue={moment(tillUnwind).format('hh:mm')}
+              onChange={handleTillTimeChange}
+              required
+            ></input>
+          </div>
+        </form>
       </div>
       <div className="unwindActions-container">
         <button onClick={createUnwind} className="action-button">
@@ -99,7 +146,7 @@ function Unwinds() {
         {unwinds && (
           <div>
             {unwinds.docs.map((unwind) => (
-              <Unwind key={unwind.id} unwind={unwind.data()}></Unwind>
+              <Unwind key={unwind.id} unwind={unwind.data()} unwindID={unwind.id}></Unwind>
               // <React.Fragment key={unwind.id}>{JSON.stringify(unwind.data())}, </React.Fragment>
             ))}
           </div>
