@@ -1,11 +1,5 @@
-import { getFirestore } from 'firebase/firestore';
 import { collection, addDoc } from 'firebase/firestore';
-import { initializeApp } from 'firebase/app';
-
-import { firebaseConfig } from '../config/firebase';
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+import { db } from './firebaseConnection';
 
 export async function createNewUnwind(profile, unwind) {
   const unwindDoc = {

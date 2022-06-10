@@ -1,7 +1,5 @@
-import { initializeApp } from 'firebase/app';
 import {
   GoogleAuthProvider,
-  getAuth,
   signInWithPopup,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
@@ -9,13 +7,10 @@ import {
   signOut,
   FacebookAuthProvider,
 } from 'firebase/auth';
-import { getFirestore, query, getDocs, collection, where, addDoc } from 'firebase/firestore';
-import { firebaseConfig } from '../config/firebase';
+import { query, getDocs, collection, where, addDoc } from 'firebase/firestore';
 import { createNewProfile } from './firestore';
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
+import { db, auth } from './firebaseConnection';
 
 const googleProvider = new GoogleAuthProvider();
 

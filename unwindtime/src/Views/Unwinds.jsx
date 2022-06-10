@@ -17,9 +17,8 @@ import { useCollection } from 'react-firebase-hooks/firestore';
 
 import { createNewUnwind } from '../Services/unwinds';
 
-import { initializeApp } from 'firebase/app';
-import { firebaseConfig } from '../config/firebase';
-import { getFirestore, collection } from 'firebase/firestore';
+import { collection } from 'firebase/firestore';
+import { db } from '../Services/firebaseConnection';
 
 function Unwinds() {
   const [location, setLocation] = useState({ latitude: null, longitude: null });
@@ -29,8 +28,8 @@ function Unwinds() {
 
   //Settings for live connection to unwinds
   const [status, setStatus] = useState(null);
-  const app = initializeApp(firebaseConfig);
-  const [unwinds, loading, error] = useCollection(collection(getFirestore(app), 'unwinds'), {
+
+  const [unwinds, loading, error] = useCollection(collection(db, 'unwinds'), {
     snapshotListenOptions: { includeMetadataChanges: true },
   });
 

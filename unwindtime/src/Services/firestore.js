@@ -1,12 +1,5 @@
-// import { getFirestore, query, getDocs, collection, where, addDoc } from 'firebase/firestore';
-import { getFirestore } from 'firebase/firestore';
 import { doc, updateDoc, getDoc, setDoc } from 'firebase/firestore';
-import { initializeApp } from 'firebase/app';
-
-import { firebaseConfig } from '../config/firebase';
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+import { db } from './firebaseConnection';
 
 //TODO replace this from firebase
 export async function createNewProfile(user, profileName) {

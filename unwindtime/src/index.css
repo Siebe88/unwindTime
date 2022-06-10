@@ -28,6 +28,11 @@
   font-style: normal;
   text-decoration: none;
 }
+.text-style-white {
+  color: var(--color-gray-100);
+  margin: 15px;
+  padding: 0;
+}
 
 .text-style-h-4 {
   font-size: 16px;
