@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/Siebe88/unwindtime#readme",
   "dependencies": {
+    "geolib": "^3.3.3",
     "moment": "^2.29.3",
     "react-scripts": "^5.0.1"
   }

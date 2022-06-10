@@ -1,0 +1,26 @@
+.unwind-event-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 10vh;
+  margin: 20px 5px;
+  background: var(--color-gray-100);
+  border-radius: 12px;
+}
+
+.profile-img {
+  border-radius: 50%;
+  /* height: 50px;
+  width: 50px; */
+}
+
+.name-and-time-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+p {
+  margin: 0;
+}

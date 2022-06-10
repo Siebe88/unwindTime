@@ -28,6 +28,15 @@
   font-style: normal;
   text-decoration: none;
 }
+
+.text-style-h-4 {
+  font-size: 16px;
+  font-family: 'Chewy';
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: none;
+}
+
 .text-style-text-100-bold {
   font-size: 20px;
   font-family: 'Roboto';

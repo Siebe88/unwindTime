@@ -10,13 +10,9 @@ const db = getFirestore(app);
 export async function createNewUnwind(profile, unwind) {
   const unwindDoc = {
     ...unwind,
-    profileId: profile.uid,
+    ...profile,
     createdAt: new Date(),
   };
 
   addDoc(collection(db, 'unwinds'), unwindDoc);
-
-  console.log('Please work');
-  // console.log('unwindDoc', unwindDoc);
-  // return docRef;
 }

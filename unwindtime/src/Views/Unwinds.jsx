@@ -2,7 +2,6 @@ import './Unwinds.css';
 
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { relaxMethods } from '../Media/relaxMethodsSVG';
 import moment from 'moment';
 // import { useNavigate } from 'react-router-dom';
 
@@ -21,8 +20,10 @@ import { firebaseConfig } from '../config/firebase';
 import { getFirestore, collection } from 'firebase/firestore';
 
 function Unwinds() {
-  const [lat, setLat] = useState(null);
-  const [lng, setLng] = useState(null);
+  // const [lat, setLat] = useState(null);
+  // const [lng, setLng] = useState(null);
+  const [location, setLocation] = useState({ latitude: null, longitude: null });
+
   const [fromUnwind, setFromUnwind] = useState(new Date());
   const [tillUnwind, setTillUnwind] = useState(moment(new Date()).add(15, 'minutes')._d);
 
@@ -37,6 +38,9 @@ function Unwinds() {
   const profile = useSelector((state) => state.profile.value);
   const favoRelaxMethods = useSelector((state) => state.favoRelaxMethods);
 
+  // set selected unwind method
+  const [selectedUnwind, setSelectedUnwind] = useState({});
+
   useEffect(() => {
     getLocation();
   }, []); //eslint-disable-line
@@ -49,8 +53,9 @@ function Unwinds() {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           setStatus(null);
-          setLat(position.coords.latitude);
-          setLng(position.coords.longitude);
+          setLocation({ latitude: position.coords.latitude, longitude: position.coords.longitude });
+          // setLat(position.coords.latitude);
+          // setLng(position.coords.longitude);
         },
         () => {
           setStatus('Unable to retrieve your location');
@@ -62,10 +67,10 @@ function Unwinds() {
 
   const createUnwind = () => {
     const unwind = {
-      relaxMethod: 'Chess',
+      relaxMethod: selectedUnwind,
       from: fromUnwind,
       till: tillUnwind,
-      location: { lat: lat, lng: lng },
+      location: location,
     };
 
     createNewUnwind(profile, unwind);
@@ -84,7 +89,9 @@ function Unwinds() {
   }
 
   const onClickRelaxMethod = (relaxMethod) => {
-    console.log('do nothing', relaxMethod);
+    selectedUnwind.name !== relaxMethod.name
+      ? setSelectedUnwind(relaxMethod)
+      : setSelectedUnwind({});
   };
 
   return (
@@ -99,7 +106,11 @@ function Unwinds() {
                   key={relaxMethod.id}
                   relaxMethod={relaxMethod}
                   onClickRelaxMethod={onClickRelaxMethod}
-                  classColor={'nonfavoriteMethod'}
+                  classColor={
+                    selectedUnwind.name === relaxMethod.name
+                      ? 'favoriteMethod'
+                      : 'nonfavoriteMethod'
+                  }
                 />
               );
             })}
@@ -124,10 +135,14 @@ function Unwinds() {
         </form>
       </div>
       <div className="unwindActions-container">
-        <button onClick={createUnwind} className="action-button">
-          {' '}
-          <CreateUnwind />{' '}
-        </button>
+        {selectedUnwind.name ? (
+          <button onClick={createUnwind} className="action-button">
+            {' '}
+            <CreateUnwind />{' '}
+          </button>
+        ) : (
+          <></>
+        )}
         <button className="action-button">
           {' '}
           <List />{' '}
@@ -142,10 +157,16 @@ function Unwinds() {
           {error && <strong>Error: {JSON.stringify(error)}</strong>}
           {loading && <span>Collection: Loading...</span>}
         </div>
+        {/* For the list TODO: MAP */}
         {unwinds && (
           <div>
             {unwinds.docs.map((unwind) => (
-              <Unwind key={unwind.id} unwind={unwind.data()} unwindID={unwind.id}></Unwind>
+              <Unwind
+                key={unwind.id}
+                unwind={unwind.data()}
+                unwindID={unwind.id}
+                location={location}
+              ></Unwind>
               // <React.Fragment key={unwind.id}>{JSON.stringify(unwind.data())}, </React.Fragment>
             ))}
           </div>
