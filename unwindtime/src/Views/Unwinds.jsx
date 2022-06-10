@@ -3,6 +3,8 @@ import './Unwinds.css';
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import moment from 'moment';
+import { motion } from 'framer-motion';
+
 // import { useNavigate } from 'react-router-dom';
 
 import RelaxMethod from '../Components/RelaxMethod';
@@ -20,8 +22,6 @@ import { firebaseConfig } from '../config/firebase';
 import { getFirestore, collection } from 'firebase/firestore';
 
 function Unwinds() {
-  // const [lat, setLat] = useState(null);
-  // const [lng, setLng] = useState(null);
   const [location, setLocation] = useState({ latitude: null, longitude: null });
 
   const [fromUnwind, setFromUnwind] = useState(new Date());
@@ -54,8 +54,6 @@ function Unwinds() {
         (position) => {
           setStatus(null);
           setLocation({ latitude: position.coords.latitude, longitude: position.coords.longitude });
-          // setLat(position.coords.latitude);
-          // setLng(position.coords.longitude);
         },
         () => {
           setStatus('Unable to retrieve your location');
@@ -137,10 +135,14 @@ function Unwinds() {
       </div>
       <div className="unwindActions-container">
         {selectedUnwind.name ? (
-          <button onClick={createUnwind} className="action-button">
+          <motion.button
+            whileHover={{ scale: 2.2 }}
+            onClick={createUnwind}
+            className="action-button"
+          >
             {' '}
             <CreateUnwind />{' '}
-          </button>
+          </motion.button>
         ) : (
           <></>
         )}
