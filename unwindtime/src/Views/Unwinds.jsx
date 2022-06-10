@@ -9,6 +9,7 @@ import RelaxMethod from '../Components/RelaxMethod';
 import { ReactComponent as CreateUnwind } from '../Media/UnwindActionButtons/createUnwind.svg';
 import { ReactComponent as List } from '../Media/UnwindActionButtons/list.svg';
 import { ReactComponent as Map } from '../Media/UnwindActionButtons/map.svg';
+import Unwind from '../Components/Unwind';
 
 import { useCollection } from 'react-firebase-hooks/firestore';
 
@@ -24,9 +25,8 @@ function Unwinds() {
   const [status, setStatus] = useState(null);
 
   const app = initializeApp(firebaseConfig);
-  // const db = getFirestore(app);
 
-  const [value, loading, error] = useCollection(collection(getFirestore(app), 'unwinds'), {
+  const [unwinds, loading, error] = useCollection(collection(getFirestore(app), 'unwinds'), {
     snapshotListenOptions: { includeMetadataChanges: true },
   });
 
@@ -68,7 +68,7 @@ function Unwinds() {
   };
 
   return (
-    <div className="unwinds-container">
+    <div className="unwinds-parent-container">
       <div className="relaxmethods-selector-parent-container">
         <h3 className="relaxmethodspicker-title text-style-h-3"> How do you want to unwind? </h3>
         <div className="relaxmethods-selector-container">
@@ -91,19 +91,19 @@ function Unwinds() {
           <Map />{' '}
         </button>
       </div>
-      <div>
-        <p>
+      <div className="unwinds-container">
+        <div className="unwinds-status-container">
           {error && <strong>Error: {JSON.stringify(error)}</strong>}
           {loading && <span>Collection: Loading...</span>}
-          {value && (
-            <span>
-              Collection:{'unwinds'}
-              {value.docs.map((doc) => (
-                <React.Fragment key={doc.id}>{JSON.stringify(doc.data())}, </React.Fragment>
-              ))}
-            </span>
-          )}
-        </p>
+        </div>
+        {unwinds && (
+          <div>
+            {unwinds.docs.map((unwind) => (
+              <Unwind key={unwind.id} unwind={unwind.data()}></Unwind>
+              // <React.Fragment key={unwind.id}>{JSON.stringify(unwind.data())}, </React.Fragment>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

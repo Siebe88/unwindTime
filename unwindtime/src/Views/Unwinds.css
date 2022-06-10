@@ -14,11 +14,17 @@
   justify-content: center;
 }
 
-.unwinds-container {
+.unwinds-parent-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.unwinds-container {
+  height: 50vh;
+  width: 98%;
+  overflow-y: auto;
 }
 
 .dashboard__btn {
@@ -42,7 +48,7 @@
   width: 100%;
   padding: 10px;
   border-radius: 12px;
-  padding-right: 100px;
+  padding-right: 30px;
 }
 
 .action-button {
