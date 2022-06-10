@@ -31,15 +31,15 @@ export async function createNewProfile(user, profileName) {
 }
 
 export async function updateProfile(profile, favoRelaxMethods) {
-  const favoMethodsSmall = favoRelaxMethods.map((method) => {
-    return { id: method.id, name: method.name };
-  });
+  // const favoMethodsSmall = favoRelaxMethods.map((method) => {
+  //   return { id: method.id, name: method.name };
+  // });
 
   //Send update profile to firestore
   const docRef = doc(db, 'profiles', profile.uid);
   const res = await updateDoc(docRef, {
     name: profile.name,
-    relaxMethods: favoMethodsSmall,
+    relaxMethods: favoRelaxMethods,
   });
 
   return res;

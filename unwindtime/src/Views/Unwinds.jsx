@@ -24,19 +24,18 @@ function Unwinds() {
   const [lat, setLat] = useState(null);
   const [lng, setLng] = useState(null);
   const [fromUnwind, setFromUnwind] = useState(new Date());
+  const [tillUnwind, setTillUnwind] = useState(moment(new Date()).add(15, 'minutes')._d);
 
-  const [tillUnwind, setTillUnwind] = useState(moment(fromUnwind).add(15, 'minutes')._d);
-
+  //Settings for live connection to unwinds
   const [status, setStatus] = useState(null);
-
   const app = initializeApp(firebaseConfig);
-
   const [unwinds, loading, error] = useCollection(collection(getFirestore(app), 'unwinds'), {
     snapshotListenOptions: { includeMetadataChanges: true },
   });
 
   // const favoRelaxMethods = useSelector((state) => state.favoRelaxMethods);
   const profile = useSelector((state) => state.profile.value);
+  const favoRelaxMethods = useSelector((state) => state.favoRelaxMethods);
 
   useEffect(() => {
     getLocation();
@@ -85,7 +84,7 @@ function Unwinds() {
   }
 
   const onClickRelaxMethod = (relaxMethod) => {
-    console.log('do nothing');
+    console.log('do nothing', relaxMethod);
   };
 
   return (
@@ -94,12 +93,13 @@ function Unwinds() {
         <form action="">
           <h3 className="relaxmethodspicker-title text-style-h-3"> How do you want to unwind? </h3>
           <div className="relaxmethods-selector-container">
-            {relaxMethods.map((relaxMethod) => {
+            {favoRelaxMethods.map((relaxMethod) => {
               return (
                 <RelaxMethod
                   key={relaxMethod.id}
                   relaxMethod={relaxMethod}
                   onClickRelaxMethod={onClickRelaxMethod}
+                  classColor={'nonfavoriteMethod'}
                 />
               );
             })}
@@ -108,16 +108,15 @@ function Unwinds() {
             <h3 className="text-style-h-3">From:</h3>
             <input
               type="time"
-              min={moment(fromUnwind).format('hh:mm')}
-              defaultValue={moment(fromUnwind).format('hh:mm')}
+              min={moment(fromUnwind).format('HH:mm')}
+              defaultValue={moment(fromUnwind).format('HH:mm')}
               onChange={handleFromTimeChange}
               required
             ></input>
             <h3 className="text-style-h-3">To:</h3>
             <input
               type="time"
-              min={moment(fromUnwind).format('hh:mm')}
-              defaultValue={moment(tillUnwind).format('hh:mm')}
+              defaultValue={moment(tillUnwind).format('HH:mm')}
               onChange={handleTillTimeChange}
               required
             ></input>
