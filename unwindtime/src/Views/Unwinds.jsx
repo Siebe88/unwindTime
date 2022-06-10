@@ -74,6 +74,7 @@ function Unwinds() {
     };
 
     createNewUnwind(profile, unwind);
+    setSelectedUnwind({});
   };
 
   function handleTillTimeChange(event) {
@@ -167,7 +168,6 @@ function Unwinds() {
                 unwindID={unwind.id}
                 location={location}
               ></Unwind>
-              // <React.Fragment key={unwind.id}>{JSON.stringify(unwind.data())}, </React.Fragment>
             ))}
           </div>
         )}
