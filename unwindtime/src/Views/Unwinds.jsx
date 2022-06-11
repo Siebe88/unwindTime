@@ -17,7 +17,7 @@ import { useCollection } from 'react-firebase-hooks/firestore';
 
 import { createNewUnwind } from '../Services/unwinds';
 
-import { collection } from 'firebase/firestore';
+import { collection, query, where } from 'firebase/firestore';
 import { db } from '../Services/firebaseConnection';
 
 function Unwinds() {
@@ -28,6 +28,8 @@ function Unwinds() {
 
   //Settings for live connection to unwinds
   const [status, setStatus] = useState(null);
+
+  // const queryUnwinds = query(collection(db, 'unwinds'), where("from", ">", new Date()))
 
   const [unwinds, loading, error] = useCollection(collection(db, 'unwinds'), {
     snapshotListenOptions: { includeMetadataChanges: true },
