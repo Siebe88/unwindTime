@@ -1,7 +1,7 @@
 import React from 'react';
 import { storage } from '../Services/firebaseConnection';
 import { useSelector, useDispatch } from 'react-redux';
-import { changeProfilePic } from '../reducers/profile';
+import { changeProfilePic, changeProfileName } from '../reducers/profile';
 
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { v4 } from 'uuid';
@@ -22,8 +22,28 @@ function SetProfilePic() {
     });
   };
 
+  const onChangeProfileName = (event) => {
+    console.log('ChangeValue', event.target.value);
+    dispatch(changeProfileName(event.target.value));
+  };
+
   return (
     <>
+      <div className="introtext-container">
+        <h4 className="relaxmethodspicker-title text-style-h-3 text-style-white">
+          Welcome,{' '}
+          <input
+            autoComplete="off"
+            value={profile.name}
+            type="text"
+            onChange={onChangeProfileName}
+            className="profilename-input text-style-h-3 text-style-white"
+          />
+        </h4>
+        <h4 className="relaxmethodspicker-title text-style-h-3 text-style-white">
+          {profile.name} please select a cool profile pic:
+        </h4>
+      </div>
       <motion.button whileHover={{ scale: 1.1 }} className="action-button">
         <div className="image-upload">
           <label htmlFor="file-input">

@@ -34,6 +34,12 @@
   padding: 0;
 }
 
+.text-style-400 {
+  color: var(--color-primary-400);
+  margin: 15px;
+  padding: 0;
+}
+
 .text-style-h-4 {
   font-size: 16px;
   font-family: 'Chewy';

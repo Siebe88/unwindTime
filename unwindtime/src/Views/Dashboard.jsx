@@ -40,14 +40,6 @@ function Dashboard() {
 
   return (
     <div className="dashboard-container">
-      <div className="introtext-container">
-        <h4 className="relaxmethodspicker-title text-style-h-3 text-style-white">
-          Welcome, {profile.name}{' '}
-        </h4>
-        <h4 className="relaxmethodspicker-title text-style-h-3 text-style-white">
-          please select a cool profile pic:
-        </h4>
-      </div>
       <SetProfilePic></SetProfilePic>
 
       <div className="relaxmethods-parent-container">

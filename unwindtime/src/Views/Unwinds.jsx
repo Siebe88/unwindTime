@@ -27,7 +27,6 @@ function Unwinds() {
   //Settings for live connection to unwinds
   const [status, setStatus] = useState(null);
 
-  // const queryUnwinds = query(collection(db, 'unwinds'), where('name', '==', 'test'));
   const queryUnwinds = query(collection(db, 'unwinds'), where('till', '>', fromUnwind));
 
   const [unwinds, loading, error] = useCollection(queryUnwinds, {
@@ -130,25 +129,19 @@ function Unwinds() {
         {/* For the list TODO: MAP */}
         {unwinds && (
           <div>
-            {!selectedUnwind.name
-              ? unwinds.docs.map((unwind) => (
-                  <Unwind
-                    key={unwind.id}
-                    unwind={unwind.data()}
-                    unwindID={unwind.id}
-                    location={location}
-                  ></Unwind>
-                ))
-              : unwinds.docs
-                  .filter((unwind) => unwind.data().relaxMethod.name === selectedUnwind.name)
-                  .map((unwind) => (
-                    <Unwind
-                      key={unwind.id}
-                      unwind={unwind.data()}
-                      unwindID={unwind.id}
-                      location={location}
-                    ></Unwind>
-                  ))}
+            {unwinds.docs
+              .filter(
+                (unwind) =>
+                  !selectedUnwind.name || unwind.data().relaxMethod.name === selectedUnwind.name
+              )
+              .map((unwind) => (
+                <Unwind
+                  key={unwind.id}
+                  unwind={unwind.data()}
+                  unwindID={unwind.id}
+                  location={location}
+                ></Unwind>
+              ))}
           </div>
         )}
       </div>

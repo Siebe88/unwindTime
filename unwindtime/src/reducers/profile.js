@@ -12,9 +12,12 @@ const profileSlice = createSlice({
     changeProfilePic: (state, action) => {
       state.value.profilePic = action.payload;
     },
+    changeProfileName: (state, action) => {
+      state.value.name = action.payload;
+    },
   },
 });
 
-export const { loginProfile, changeProfilePic } = profileSlice.actions;
+export const { loginProfile, changeProfilePic, changeProfileName } = profileSlice.actions;
 
 export default profileSlice.reducer;
