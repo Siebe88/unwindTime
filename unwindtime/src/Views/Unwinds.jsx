@@ -5,9 +5,7 @@ import { useSelector } from 'react-redux';
 import moment from 'moment';
 import { motion } from 'framer-motion';
 
-// import { useNavigate } from 'react-router-dom';
-
-import RelaxMethod from '../Components/RelaxMethod';
+import UnwindFilterBox from '../Components/UnwindFilterBox';
 import { ReactComponent as CreateUnwind } from '../Media/UnwindActionButtons/createUnwind.svg';
 import { ReactComponent as List } from '../Media/UnwindActionButtons/list.svg';
 import { ReactComponent as Map } from '../Media/UnwindActionButtons/map.svg';
@@ -36,9 +34,7 @@ function Unwinds() {
     snapshotListenOptions: { includeMetadataChanges: true },
   });
 
-  // const favoRelaxMethods = useSelector((state) => state.favoRelaxMethods);
   const profile = useSelector((state) => state.profile.value);
-  const favoRelaxMethods = useSelector((state) => state.favoRelaxMethods);
 
   // set selected unwind method
   const [selectedUnwind, setSelectedUnwind] = useState({});
@@ -76,6 +72,12 @@ function Unwinds() {
     createNewUnwind(profile, unwind);
   };
 
+  const onClickRelaxMethod = (relaxMethod) => {
+    selectedUnwind.name !== relaxMethod.name
+      ? setSelectedUnwind(relaxMethod)
+      : setSelectedUnwind({});
+  };
+
   function handleTillTimeChange(event) {
     const dateValue = moment(tillUnwind).format('YYYY-MM-DD');
     const newValue = moment(dateValue + ' ' + event.target.value);
@@ -88,52 +90,16 @@ function Unwinds() {
     setFromUnwind(newValue._d);
   }
 
-  const onClickRelaxMethod = (relaxMethod) => {
-    selectedUnwind.name !== relaxMethod.name
-      ? setSelectedUnwind(relaxMethod)
-      : setSelectedUnwind({});
-  };
-
   return (
     <div className="unwinds-parent-container">
-      <div className="relaxmethods-selector-parent-container">
-        <form action="">
-          <h3 className="relaxmethodspicker-title text-style-h-3"> How do you want to unwind? </h3>
-          <div className="relaxmethods-selector-container">
-            {favoRelaxMethods.map((relaxMethod) => {
-              return (
-                <RelaxMethod
-                  key={relaxMethod.id}
-                  relaxMethod={relaxMethod}
-                  onClickRelaxMethod={onClickRelaxMethod}
-                  classColor={
-                    selectedUnwind.name === relaxMethod.name
-                      ? 'favoriteMethod'
-                      : 'nonfavoriteMethod'
-                  }
-                />
-              );
-            })}
-          </div>
-          <div className="timesetter-container">
-            <h3 className="text-style-h-3">From:</h3>
-            <input
-              type="time"
-              min={moment(fromUnwind).format('HH:mm')}
-              defaultValue={moment(fromUnwind).format('HH:mm')}
-              onChange={handleFromTimeChange}
-              required
-            ></input>
-            <h3 className="text-style-h-3">To:</h3>
-            <input
-              type="time"
-              defaultValue={moment(tillUnwind).format('HH:mm')}
-              onChange={handleTillTimeChange}
-              required
-            ></input>
-          </div>
-        </form>
-      </div>
+      <UnwindFilterBox
+        onClickRelaxMethod={onClickRelaxMethod}
+        selectedUnwind={selectedUnwind}
+        handleTillTimeChange={handleTillTimeChange}
+        handleFromTimeChange={handleFromTimeChange}
+        fromUnwind={fromUnwind}
+        tillUnwind={tillUnwind}
+      ></UnwindFilterBox>
       <div className="unwindActions-container">
         {selectedUnwind.name ? (
           <motion.button
