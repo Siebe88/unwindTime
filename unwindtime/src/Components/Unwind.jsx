@@ -15,7 +15,6 @@ export default function Unwind({ unwind, location }) {
 
   // set redux state selected chat
 
-  console.log(location.latitude && unwind.latitude);
   const distanceBetween =
     location.latitude && unwind.location.latitude
       ? `Distance: ${getDistance(location, unwind.location, 1)} meters away`
