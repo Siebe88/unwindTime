@@ -29,9 +29,9 @@ function Unwinds() {
   //Settings for live connection to unwinds
   const [status, setStatus] = useState(null);
 
-  // const queryUnwinds = query(collection(db, 'unwinds'), where("from", ">", new Date()))
+  const queryUnwinds = query(collection(db, 'unwinds'), where('till', '>', fromUnwind));
 
-  const [unwinds, loading, error] = useCollection(collection(db, 'unwinds'), {
+  const [unwinds, loading, error] = useCollection(queryUnwinds, {
     snapshotListenOptions: { includeMetadataChanges: true },
   });
 

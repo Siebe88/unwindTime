@@ -13,12 +13,10 @@ function SetProfilePic() {
   const profile = useSelector((state) => state.profile.value);
 
   const uploadFile = (profilePic) => {
-    console.log('image', profilePic);
     if (profilePic == null) return;
     const imageRef = ref(storage, `profilePics/${profilePic.name + v4()}`);
     uploadBytes(imageRef, profilePic).then((snapshot) => {
       getDownloadURL(snapshot.ref).then((url) => {
-        console.log(url);
         dispatch(changeProfilePic(url));
       });
     });
