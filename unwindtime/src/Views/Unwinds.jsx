@@ -74,7 +74,6 @@ function Unwinds() {
     };
 
     createNewUnwind(profile, unwind);
-    setSelectedUnwind({});
   };
 
   function handleTillTimeChange(event) {

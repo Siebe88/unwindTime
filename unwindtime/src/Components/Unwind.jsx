@@ -15,12 +15,13 @@ export default function Unwind({ unwind, location }) {
 
   // set redux state selected chat
 
-  // const distanceBetween = location.latitude
-  //   ? `Distance: ${getDistance(location, unwind.location, 1)} meters away`
-  //   : '~';
+  console.log(location.latitude && unwind.latitude);
+  const distanceBetween =
+    location.latitude && unwind.location.latitude
+      ? `Distance: ${getDistance(location, unwind.location, 1)} meters away`
+      : '~';
 
   const conClickToChat = () => {
-    console.log('test');
     navigate('/unwindchat');
   };
 
@@ -34,9 +35,9 @@ export default function Unwind({ unwind, location }) {
       >
         {/* <img className="profile-img" src={unwind.profilePic} alt="" /> */}
         <div className="name-and-time-container">
-          <p> {unwind.name} needs a break </p>
+          <p> {unwind.name} </p>
           <p>{`${formatTime(unwind.from)} - ${formatTime(unwind.till)}`}</p>
-          {/* <p> {distanceBetween} </p> */}
+          <p> {distanceBetween} </p>
         </div>
         <RelaxMethod
           relaxMethod={unwind.relaxMethod}
