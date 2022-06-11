@@ -29,6 +29,7 @@ function Unwinds() {
   //Settings for live connection to unwinds
   const [status, setStatus] = useState(null);
 
+  // const queryUnwinds = query(collection(db, 'unwinds'), where('name', '==', 'test'));
   const queryUnwinds = query(collection(db, 'unwinds'), where('till', '>', fromUnwind));
 
   const [unwinds, loading, error] = useCollection(queryUnwinds, {

@@ -15,9 +15,9 @@ export default function Unwind({ unwind, location }) {
 
   // set redux state selected chat
 
-  const distanceBetween = location.latitude
-    ? `Distance: ${getDistance(location, unwind.location, 1)} meters away`
-    : '~';
+  // const distanceBetween = location.latitude
+  //   ? `Distance: ${getDistance(location, unwind.location, 1)} meters away`
+  //   : '~';
 
   const conClickToChat = () => {
     console.log('test');
@@ -36,7 +36,7 @@ export default function Unwind({ unwind, location }) {
         <div className="name-and-time-container">
           <p> {unwind.name} needs a break </p>
           <p>{`${formatTime(unwind.from)} - ${formatTime(unwind.till)}`}</p>
-          <p> {distanceBetween} </p>
+          {/* <p> {distanceBetween} </p> */}
         </div>
         <RelaxMethod
           relaxMethod={unwind.relaxMethod}
