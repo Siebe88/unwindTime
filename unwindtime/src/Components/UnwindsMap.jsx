@@ -1,30 +1,12 @@
 import React from 'react';
-import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
+import { GoogleMap, useJsApiLoader, Marker, InfoWindow } from '@react-google-maps/api';
+
+import Unwind from './Unwind';
 
 const containerStyle = {
   width: '100%',
   height: '100%',
 };
-
-const center = {
-  lat: -3.745,
-  lng: -38.523,
-};
-
-const centers = [
-  {
-    lat: 37.772,
-    lng: -122.214,
-  },
-  {
-    lat: 37.672,
-    lng: -122.219,
-  },
-  {
-    lat: 37.832,
-    lng: -122.424,
-  },
-];
 
 function UnwindsMap({ location, unwinds }) {
   console.log(unwinds);
@@ -58,20 +40,41 @@ function UnwindsMap({ location, unwinds }) {
         <div>
           {unwinds.map((unwind) => (
             <Marker
-              // key={unwind.id}
+              key={unwind.id}
               icon={{
-                path: unwind.relaxMethod.svg,
+                path: unwind.data().relaxMethod.svg,
                 fillColor: 'grey',
                 fillOpacity: 0.9,
                 scale: 1,
                 strokeColor: 'grey',
                 strokeWeight: 1,
               }}
-              position={unwind.location}
+              position={location}
             ></Marker>
           ))}
         </div>
       )}
+
+      {/* {unwinds && (
+        <div>
+          {unwinds.map((unwind) => (
+            <InfoWindow position={location} key="3">
+              <Unwind
+                key={unwind.id}
+                unwind={unwind.data()}
+                unwindID={unwind.id}
+                location={location}
+              ></Unwind>
+            </InfoWindow>
+          ))}
+        </div>
+      )} */}
+
+      <InfoWindow position={location} key="3">
+        <div>
+          <h1>InfoWindow2</h1>
+        </div>
+      </InfoWindow>
     </GoogleMap>
   ) : (
     <h1>Loading</h1>

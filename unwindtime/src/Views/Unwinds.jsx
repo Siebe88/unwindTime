@@ -138,12 +138,16 @@ function Unwinds() {
         {location.lat && !loading ? (
           <UnwindsMap
             location={location}
-            unwinds={unwinds.docs
-              .filter(
-                (unwind) =>
-                  !selectedUnwind.name || unwind.data().relaxMethod.name === selectedUnwind.name
-              )
-              .map((unwind) => unwind.data())}
+            // unwinds={unwinds.docs
+            //   .filter(
+            //     (unwind) =>
+            //       !selectedUnwind.name || unwind.data().relaxMethod.name === selectedUnwind.name
+            //   )
+            //   .map((unwind) => unwind.data())}
+            unwinds={unwinds.docs.filter(
+              (unwind) =>
+                !selectedUnwind.name || unwind.data().relaxMethod.name === selectedUnwind.name
+            )}
           ></UnwindsMap>
         ) : (
           <></>
