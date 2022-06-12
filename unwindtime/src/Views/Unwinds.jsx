@@ -5,11 +5,16 @@ import { useSelector } from 'react-redux';
 import moment from 'moment';
 import { motion } from 'framer-motion';
 
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from '../Services/firebase';
+
 import UnwindFilterBox from '../Components/UnwindFilterBox';
 import { ReactComponent as CreateUnwind } from '../Media/UnwindActionButtons/createUnwind.svg';
 import { ReactComponent as List } from '../Media/UnwindActionButtons/list.svg';
 import { ReactComponent as Map } from '../Media/UnwindActionButtons/map.svg';
+import { useNavigate } from 'react-router-dom';
 import Unwind from '../Components/Unwind';
+import UnwindsMap from '../Components/UnwindsMap';
 
 import { useCollection } from 'react-firebase-hooks/firestore';
 
@@ -19,7 +24,9 @@ import { collection, query, where } from 'firebase/firestore';
 import { db } from '../Services/firebaseConnection';
 
 function Unwinds() {
-  const [location, setLocation] = useState({ latitude: null, longitude: null });
+  const [user, loadingAuth] = useAuthState(auth);
+  const navigate = useNavigate();
+  const [location, setLocation] = useState({ lat: null, lng: null });
 
   const [fromUnwind, setFromUnwind] = useState(new Date());
   const [tillUnwind, setTillUnwind] = useState(moment(new Date()).add(15, 'minutes')._d);
@@ -27,8 +34,8 @@ function Unwinds() {
   //Settings for live connection to unwinds
   const [status, setStatus] = useState(null);
 
+  //Get's realtime new unwinds from firebase
   const queryUnwinds = query(collection(db, 'unwinds'), where('till', '>', fromUnwind));
-
   const [unwinds, loading, error] = useCollection(queryUnwinds, {
     snapshotListenOptions: { includeMetadataChanges: true },
   });
@@ -39,8 +46,10 @@ function Unwinds() {
   const [selectedUnwind, setSelectedUnwind] = useState({});
 
   useEffect(() => {
+    if (loadingAuth) return;
+    if (!user) return navigate('/');
     getLocation();
-  }, []); //eslint-disable-line
+  }, [user]); //eslint-disable-line
 
   const getLocation = () => {
     if (!navigator.geolocation) {
@@ -50,7 +59,7 @@ function Unwinds() {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           setStatus(null);
-          setLocation({ latitude: position.coords.latitude, longitude: position.coords.longitude });
+          setLocation({ lat: position.coords.latitude, lng: position.coords.longitude });
         },
         () => {
           setStatus('Unable to retrieve your location');
@@ -126,8 +135,21 @@ function Unwinds() {
           {error && <strong>Error: {JSON.stringify(error)}</strong>}
           {loading && <span>Collection: Loading...</span>}
         </div>
+        {location.lat && !loading ? (
+          <UnwindsMap
+            location={location}
+            unwinds={unwinds.docs
+              .filter(
+                (unwind) =>
+                  !selectedUnwind.name || unwind.data().relaxMethod.name === selectedUnwind.name
+              )
+              .map((unwind) => unwind.data())}
+          ></UnwindsMap>
+        ) : (
+          <></>
+        )}
         {/* For the list TODO: MAP */}
-        {unwinds && (
+        {/* {unwinds && (
           <div>
             {unwinds.docs
               .filter(
@@ -143,7 +165,7 @@ function Unwinds() {
                 ></Unwind>
               ))}
           </div>
-        )}
+        )} */}
       </div>
     </div>
   );

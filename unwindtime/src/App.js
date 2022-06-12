@@ -16,9 +16,19 @@ import { findProfile } from './Services/firestore';
 import { loginProfile } from './reducers/profile';
 import { addNewFavoArray } from './reducers/favoRelaxMethods';
 import React, { useEffect } from 'react';
+import { LoadScript } from '@react-google-maps/api';
+
+import { messaging } from './Services/firebaseConnection';
+import { onMessage } from 'firebase/messaging';
 
 function App() {
   const [user, loading] = useAuthState(auth);
+
+  useEffect(() => {
+    if (loading) return;
+    // if (!user) return navigate('/');
+    fetchProfile();
+  }, [user]); //eslint-disable-line
 
   const dispatch = useDispatch();
 
@@ -32,13 +42,44 @@ function App() {
     }
   };
 
-  useEffect(() => {
-    if (loading) return;
-    fetchProfile();
-  }, [user]); //eslint-disable-line
+  // function requestPermission() {
+  //   console.log('Requesting permission...');
+  //   Notification.requestPermission().then((permission) => {
+  //     if (permission === 'granted') {
+  //       console.log('Notification permission granted.');
+  //     } else {
+  //       console.log('Unable to get permission to notify.');
+  //     }
+  //   });
+  // }
+
+  // const getToken = async (setTokenFound) => {
+  //   let currentToken = "";
+
+  //   try {
+  //     currentToken = await messaging.getToken({ vapidKey: publicKey });
+  //     if (currentToken) {
+  //       setTokenFound(true);
+  //     } else {
+  //       setTokenFound(false);
+  //     }
+  //   } catch (error) {
+  //     console.log("An error occurred while retrieving token. ", error);
+  //   }
+
+  //   return currentToken;
+  // };
+
+  // requestPermission();
+
+  onMessage(messaging, (payload) => {
+    console.log('Message received. ', payload);
+    // ...
+  });
 
   return (
     <div className="app">
+      <LoadScript googleMapsApiKey="AIzaSyCez882QWlP85wQRNooAi0llw1ymzL96zI"></LoadScript>
       <Header></Header>
       <Router>
         <div className="main-container">

@@ -13,7 +13,7 @@ import { updateProfile } from '../Services/firestore';
 import SetProfilePic from '../Components/SetProfilePic';
 
 function Dashboard() {
-  const [user, loading] = useAuthState(auth);
+  const [user, loadingAuth] = useAuthState(auth);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -22,10 +22,11 @@ function Dashboard() {
   const profile = useSelector((state) => state.profile.value);
   const favoRelaxMethods = useSelector((state) => state.favoRelaxMethods);
 
+  //BUG need to rework routing
   useEffect(() => {
-    if (loading) return;
+    if (loadingAuth) return;
     if (!user) return navigate('/');
-  }, [user]); //eslint-disable-line
+  }); //eslint-disable-line
 
   const clickEventSaveProfile = async (e) => {
     e.preventDefault();
