@@ -1,4 +1,5 @@
 .image-upload > input {
+  background-color: var(--color-gray-100);
   display: none;
 }
 

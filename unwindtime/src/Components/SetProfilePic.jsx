@@ -41,7 +41,7 @@ function SetProfilePic() {
           />
         </h4>
         <h4 className="relaxmethodspicker-title text-style-h-3 text-style-white">
-          {profile.name} please select a cool profile pic:
+          please select a cool profile pic:
         </h4>
       </div>
       <motion.button whileHover={{ scale: 1.1 }} className="action-button">
