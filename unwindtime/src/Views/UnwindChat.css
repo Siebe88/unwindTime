@@ -1,0 +1,4 @@
+.chat-container {
+  height: 63vh;
+  overflow: auto;
+}
