@@ -1,7 +1,7 @@
 import React from 'react';
-import { GoogleMap, useJsApiLoader, Marker, InfoWindow } from '@react-google-maps/api';
+import { GoogleMap, useJsApiLoader, Marker, InfoWindow } from '@react-google-maps/api'; //eslint-disable-line
 
-// import Unwind from './Unwind';
+import Unwind from './Unwind';
 
 const containerStyle = {
   width: '100%',
@@ -9,7 +9,7 @@ const containerStyle = {
 };
 
 function UnwindsMap({ location, unwinds }) {
-  console.log(unwinds);
+  // console.log(unwinds);
 
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
@@ -18,26 +18,26 @@ function UnwindsMap({ location, unwinds }) {
 
   const [map, setMap] = React.useState(null); //eslint-disable-line
 
-  const onLoad = React.useCallback(function callback(map) {
-    const bounds = new window.google.maps.LatLngBounds(location);
-    map.fitBounds(bounds);
-    setMap(map);
-  }, []); //eslint-disable-line
+  // const onLoad = React.useCallback(function callback(map) {
+  //   const bounds = new window.google.maps.LatLngBounds(location);
+  //   map.fitBounds(bounds);
+  //   setMap(map);
+  // }, []); //eslint-disable-line
 
-  const onUnmount = React.useCallback(function callback(map) {
-    setMap(null);
-  }, []);
+  // const onUnmount = React.useCallback(function callback(map) {
+  //   setMap(null);
+  // }, []);
 
-  return isLoaded ? (
+  return isLoaded && location ? (
     <GoogleMap
       mapContainerStyle={containerStyle}
       id="41684020cb892eae"
       center={location}
       zoom={14}
-      onLoad={onLoad}
-      onUnmount={onUnmount}
+      // onLoad={onLoad}
+      // onUnmount={onUnmount}
     >
-      {unwinds && (
+      {/* {unwinds && (
         <div>
           {unwinds.map((unwind) => (
             <Marker
@@ -54,12 +54,12 @@ function UnwindsMap({ location, unwinds }) {
             ></Marker>
           ))}
         </div>
-      )}
+      )} */}
 
-      {/* {unwinds && (
+      {unwinds && (
         <div>
           {unwinds.map((unwind) => (
-            <InfoWindow position={location} key="3">
+            <InfoWindow position={location} key={unwind.id}>
               <Unwind
                 key={unwind.id}
                 unwind={unwind.data()}
@@ -69,13 +69,7 @@ function UnwindsMap({ location, unwinds }) {
             </InfoWindow>
           ))}
         </div>
-      )} */}
-
-      <InfoWindow position={location} key="3">
-        <div>
-          <h1>InfoWindow2</h1>
-        </div>
-      </InfoWindow>
+      )}
     </GoogleMap>
   ) : (
     <h1>Loading</h1>
