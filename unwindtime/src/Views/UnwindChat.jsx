@@ -52,9 +52,11 @@ function UnwindChat() {
 
   return (
     <div>
-      <p>
-        {error && <strong>Error: {JSON.stringify(error)}</strong>}
-        {loading && <span>Document: Loading...</span>}
+      <div className="statusChat-container">
+        <p>
+          {error && <strong>Error: {JSON.stringify(error)}</strong>}
+          {loading && <span>Document: Loading...</span>}
+        </p>
         {unwind && unwind._document && (
           <Unwind
             key={unwind.id}
@@ -63,7 +65,7 @@ function UnwindChat() {
             location={location}
           ></Unwind>
         )}
-      </p>
+      </div>
       <div className="chat-container">
         {unwind &&
           unwind._document &&
@@ -71,14 +73,15 @@ function UnwindChat() {
         <span ref={dummy}></span>
       </div>
 
-      <form onSubmit={sendMessage}>
+      <form onSubmit={sendMessage} className="chat-fomr-container">
         <input
+          className="chat-message-input"
           value={formValue}
           onChange={(e) => setFormValue(e.target.value)}
           placeholder="say something nice"
         />
 
-        <button type="submit" disabled={!formValue}>
+        <button type="submit" className="chat-submit-button" disabled={!formValue}>
           {
             // eslint-disable-next-line
             '🕊️'
