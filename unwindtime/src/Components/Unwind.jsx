@@ -33,7 +33,7 @@ export default function Unwind({ unwind, location, unwindID }) {
       >
         {/* <img className="profile-img" src={unwind.profilePic} alt="" /> */}
         <div className="name-and-time-container">
-          <p> {unwind.name} </p>
+          <p>{unwind.createdBy.name} </p>
           <p>{`${formatTime(unwind.from)} - ${formatTime(unwind.till)}`}</p>
           <p> {distanceBetween} </p>
         </div>

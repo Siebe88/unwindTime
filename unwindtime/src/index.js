@@ -9,6 +9,8 @@ import profileReducer from './reducers/profile';
 import locationReducer from './reducers/location';
 import favoRelaxMethodsSlice from './reducers/favoRelaxMethods';
 
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
+
 const store = configureStore({
   reducer: {
     profile: profileReducer,
@@ -37,3 +39,4 @@ root.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+serviceWorkerRegistration.register();

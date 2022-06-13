@@ -26,6 +26,7 @@ function UnwindChat() {
     if (loading) return;
     // if (!user) return navigate('/');
     if (!unwind._document) return navigate('/unwinds');
+    dummy.current.scrollIntoView({ behavior: 'smooth' });
   }, [unwind]); //eslint-disable-line
 
   const [formValue, setFormValue] = useState('');
