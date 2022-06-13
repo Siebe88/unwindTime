@@ -26,7 +26,13 @@ import { db } from '../Services/firebaseConnection';
 function Unwinds() {
   const [user, loadingAuth] = useAuthState(auth);
   const navigate = useNavigate();
-  const [location, setLocation] = useState({ lat: null, lng: null });
+  // need to set lat & lng and latitude & latitude for getDistance and googleMaps
+  const [location, setLocation] = useState({
+    lat: null,
+    lng: null,
+    latitude: null,
+    longitude: null,
+  });
   const [showMap, setShowMap] = useState(false);
 
   const [fromUnwind, setFromUnwind] = useState(new Date());
@@ -50,7 +56,7 @@ function Unwinds() {
     if (loadingAuth) return;
     if (!user) return navigate('/');
     getLocation();
-  }, [user]); //eslint-disable-line
+  }, []); //eslint-disable-line
 
   const getLocation = () => {
     if (!navigator.geolocation) {
@@ -60,7 +66,12 @@ function Unwinds() {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           setStatus(null);
-          setLocation({ lat: position.coords.latitude, lng: position.coords.longitude });
+          setLocation({
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+          });
         },
         () => {
           setStatus('Unable to retrieve your location');
