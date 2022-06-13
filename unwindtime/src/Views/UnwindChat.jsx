@@ -6,10 +6,8 @@ import { doc, updateDoc, arrayUnion } from 'firebase/firestore';
 import { db } from '../Services/firebaseConnection';
 import { useSelector } from 'react-redux';
 
-// import { auth } from '../Services/firebase';
-// import { useAuthState } from 'react-firebase-hooks/auth';
-
 import Unwind from '../Components/Unwind';
+import ChatMessage from '../Components/ChatMessage';
 
 function UnwindChat() {
   const navigate = useNavigate();
@@ -23,10 +21,6 @@ function UnwindChat() {
   const [unwind, loading, error] = useDocument(doc(db, 'unwinds', unwindID), {
     snapshotListenOptions: { includeMetadataChanges: true },
   });
-
-  // console.log(loading);
-  // console.log('Errr', error);
-  // console.log('No unwind found', unwind && unwind._document);
 
   useEffect(() => {
     if (loading) return;
@@ -71,7 +65,9 @@ function UnwindChat() {
         )}
       </p>
       <div className="chat-container">
-        {unwind && unwind._document && unwind.data().chat.map((chat) => <h1>{chat.text}</h1>)}
+        {unwind &&
+          unwind._document &&
+          unwind.data().chat.map((chat) => <ChatMessage chat={chat}></ChatMessage>)}
         <span ref={dummy}></span>
       </div>
 
