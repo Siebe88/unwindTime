@@ -13,7 +13,7 @@ import { ReactComponent as CreateUnwind } from '../Media/UnwindActionButtons/cre
 import { ReactComponent as List } from '../Media/UnwindActionButtons/list.svg';
 import { ReactComponent as Map } from '../Media/UnwindActionButtons/map.svg';
 import { useNavigate } from 'react-router-dom';
-// import Unwind from '../Components/Unwind';
+import Unwind from '../Components/Unwind';
 import UnwindsMap from '../Components/UnwindsMap';
 
 import { useCollection } from 'react-firebase-hooks/firestore';
@@ -27,6 +27,7 @@ function Unwinds() {
   const [user, loadingAuth] = useAuthState(auth);
   const navigate = useNavigate();
   const [location, setLocation] = useState({ lat: null, lng: null });
+  const [showMap, setShowMap] = useState(false);
 
   const [fromUnwind, setFromUnwind] = useState(new Date());
   const [tillUnwind, setTillUnwind] = useState(moment(new Date()).add(15, 'minutes')._d);
@@ -123,11 +124,11 @@ function Unwinds() {
         )}
         <button className="action-button">
           {' '}
-          <List />{' '}
+          <List onClick={() => setShowMap(false)} />{' '}
         </button>
         <button className="action-button">
           {' '}
-          <Map />{' '}
+          <Map onClick={() => setShowMap(true)} />{' '}
         </button>
       </div>
       <div className="unwinds-container">
@@ -135,35 +136,37 @@ function Unwinds() {
           {error && <strong>Error: {JSON.stringify(error)}</strong>}
           {loading && <span>Collection: Loading...</span>}
         </div>
-        {location.lat && !loading ? (
-          <UnwindsMap
-            location={location}
-            unwinds={unwinds.docs.filter(
-              (unwind) =>
-                !selectedUnwind.name || unwind.data().relaxMethod.name === selectedUnwind.name
-            )}
-          ></UnwindsMap>
-        ) : (
-          <></>
-        )}
-        {/* For the list TODO: MAP */}
-        {/* {unwinds && (
-          <div>
-            {unwinds.docs
-              .filter(
+        {showMap ? (
+          location.lat && !loading ? (
+            <UnwindsMap
+              location={location}
+              unwinds={unwinds.docs.filter(
                 (unwind) =>
                   !selectedUnwind.name || unwind.data().relaxMethod.name === selectedUnwind.name
-              )
-              .map((unwind) => (
-                <Unwind
-                  key={unwind.id}
-                  unwind={unwind.data()}
-                  unwindID={unwind.id}
-                  location={location}
-                ></Unwind>
-              ))}
-          </div>
-        )} */}
+              )}
+            ></UnwindsMap>
+          ) : (
+            <></>
+          )
+        ) : (
+          unwinds && (
+            <div>
+              {unwinds.docs
+                .filter(
+                  (unwind) =>
+                    !selectedUnwind.name || unwind.data().relaxMethod.name === selectedUnwind.name
+                )
+                .map((unwind) => (
+                  <Unwind
+                    key={unwind.id}
+                    unwind={unwind.data()}
+                    unwindID={unwind.id}
+                    location={location}
+                  ></Unwind>
+                ))}
+            </div>
+          )
+        )}
       </div>
     </div>
   );
