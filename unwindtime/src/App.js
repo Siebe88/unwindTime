@@ -16,7 +16,8 @@ import { useDispatch } from 'react-redux';
 import { findProfile } from './Services/firestore';
 import { loginProfile } from './reducers/profile';
 import { addNewFavoArray } from './reducers/favoRelaxMethods';
-import React, { useEffect } from 'react';
+import { setLocation } from './reducers/location';
+import React, { useEffect, useState } from 'react';
 import { LoadScript } from '@react-google-maps/api';
 
 import { messaging } from './Services/firebaseConnection';
@@ -25,13 +26,16 @@ import { onMessage } from 'firebase/messaging';
 function App() {
   const [user, loading] = useAuthState(auth);
 
+  const [status, setStatus] = useState(null);
+
+  const dispatch = useDispatch();
+
   useEffect(() => {
     if (loading) return;
     // if (!user) return navigate('/');
     fetchProfile();
+    getLocation();
   }, [user]); //eslint-disable-line
-
-  const dispatch = useDispatch();
 
   const fetchProfile = async () => {
     try {
@@ -40,6 +44,31 @@ function App() {
       dispatch(addNewFavoArray(profileFound.relaxMethods));
     } catch (err) {
       console.error(err);
+    }
+  };
+
+  const getLocation = () => {
+    if (!navigator.geolocation) {
+      setStatus('Geolocation is not supported by your browser');
+    } else {
+      setStatus('Locating...');
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setStatus(null);
+          dispatch(
+            setLocation({
+              lat: position.coords.latitude,
+              lng: position.coords.longitude,
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude,
+            })
+          );
+        },
+        () => {
+          setStatus('Unable to retrieve your location');
+          console.log(status);
+        }
+      );
     }
   };
 

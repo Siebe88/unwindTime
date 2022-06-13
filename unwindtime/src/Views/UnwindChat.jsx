@@ -1,3 +1,4 @@
+import './UnwindChat.css';
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useDocument } from 'react-firebase-hooks/firestore';
@@ -5,69 +6,42 @@ import { doc, updateDoc, arrayUnion } from 'firebase/firestore';
 import { db } from '../Services/firebaseConnection';
 import { useSelector } from 'react-redux';
 
-import { auth } from '../Services/firebase';
-import { useAuthState } from 'react-firebase-hooks/auth';
+// import { auth } from '../Services/firebase';
+// import { useAuthState } from 'react-firebase-hooks/auth';
 
 import Unwind from '../Components/Unwind';
 
 function UnwindChat() {
   const navigate = useNavigate();
   const profile = useSelector((state) => state.profile.value);
+  const location = useSelector((state) => state.location.value);
 
   let { unwindID } = useParams();
-  const [user, loadingAuth] = useAuthState(auth);
+  // const [user, loadingAuth] = useAuthState(auth);
   const dummy = useRef();
-  const [status, setStatus] = useState(null);
-  const [location, setLocation] = useState({
-    lat: null,
-    lng: null,
-    latitude: null,
-    longitude: null,
-  });
 
   const [unwind, loading, error] = useDocument(doc(db, 'unwinds', unwindID), {
     snapshotListenOptions: { includeMetadataChanges: true },
   });
 
-  useEffect(() => {
-    if (loadingAuth) return;
-    if (!user) return navigate('/');
-    getLocation();
-  }, []); //eslint-disable-line
+  // console.log(loading);
+  // console.log('Errr', error);
+  // console.log('No unwind found', unwind && unwind._document);
 
-  const getLocation = () => {
-    if (!navigator.geolocation) {
-      setStatus('Geolocation is not supported by your browser');
-    } else {
-      setStatus('Locating...');
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          setStatus(null);
-          setLocation({
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-          });
-        },
-        () => {
-          setStatus('Unable to retrieve your location');
-          console.log(status);
-        }
-      );
-    }
-  };
+  useEffect(() => {
+    if (loading) return;
+    // if (!user) return navigate('/');
+    if (!unwind._document) return navigate('/unwinds');
+  }, [unwind]); //eslint-disable-line
 
   const [formValue, setFormValue] = useState('');
 
   const sendMessage = async (e) => {
     e.preventDefault();
-    console.log('UnwindID', unwindID);
-    console.log(formValue);
-    console.log(unwind);
     const chat = {
       text: formValue,
       profile: { profilePic: profile.profilePic, name: profile.name, uid: profile.uid },
+      createdAt: new Date(),
     };
 
     const unwindRef = doc(db, 'unwinds', unwindID);
@@ -87,7 +61,7 @@ function UnwindChat() {
       <p>
         {error && <strong>Error: {JSON.stringify(error)}</strong>}
         {loading && <span>Document: Loading...</span>}
-        {unwind && (
+        {unwind && unwind._document && (
           <Unwind
             key={unwind.id}
             unwind={unwind.data()}
@@ -97,7 +71,7 @@ function UnwindChat() {
         )}
       </p>
       <div className="chat-container">
-        {unwind && <span>Document: {JSON.stringify(unwind.data().chat)}</span>}
+        {unwind && unwind._document && unwind.data().chat.map((chat) => <h1>{chat.text}</h1>)}
         <span ref={dummy}></span>
       </div>
 

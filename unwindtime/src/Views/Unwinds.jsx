@@ -26,20 +26,11 @@ import { db } from '../Services/firebaseConnection';
 function Unwinds() {
   const [user, loadingAuth] = useAuthState(auth);
   const navigate = useNavigate();
-  // need to set lat & lng and latitude & latitude for getDistance and googleMaps
-  const [location, setLocation] = useState({
-    lat: null,
-    lng: null,
-    latitude: null,
-    longitude: null,
-  });
+
   const [showMap, setShowMap] = useState(false);
 
   const [fromUnwind, setFromUnwind] = useState(new Date());
   const [tillUnwind, setTillUnwind] = useState(moment(new Date()).add(15, 'minutes')._d);
-
-  //Settings for live connection to unwinds
-  const [status, setStatus] = useState(null);
 
   //Get's realtime new unwinds from firebase
   const queryUnwinds = query(collection(db, 'unwinds'), where('till', '>', fromUnwind));
@@ -48,6 +39,7 @@ function Unwinds() {
   });
 
   const profile = useSelector((state) => state.profile.value);
+  const location = useSelector((state) => state.location.value);
 
   // set selected unwind method
   const [selectedUnwind, setSelectedUnwind] = useState({});
@@ -55,31 +47,7 @@ function Unwinds() {
   useEffect(() => {
     if (loadingAuth) return;
     if (!user) return navigate('/');
-    getLocation();
   }, []); //eslint-disable-line
-
-  const getLocation = () => {
-    if (!navigator.geolocation) {
-      setStatus('Geolocation is not supported by your browser');
-    } else {
-      setStatus('Locating...');
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          setStatus(null);
-          setLocation({
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-          });
-        },
-        () => {
-          setStatus('Unable to retrieve your location');
-          console.log(status);
-        }
-      );
-    }
-  };
 
   const createUnwind = () => {
     const unwind = {
