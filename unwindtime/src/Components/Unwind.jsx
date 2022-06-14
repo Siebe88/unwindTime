@@ -31,7 +31,7 @@ export default function Unwind({ unwind, location, unwindID }) {
         onClick={conClickToChat}
         unwind={unwind}
       >
-        {/* <img className="profile-img" src={unwind.profilePic} alt="" /> */}
+        <img className="profile-unwind-img" src={unwind.createdBy.profilePic} alt="" />
         <div className="name-and-time-container">
           <p>{unwind.createdBy.name} </p>
           <p>{`${formatTime(unwind.from)} - ${formatTime(unwind.till)}`}</p>

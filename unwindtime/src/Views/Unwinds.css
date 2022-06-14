@@ -32,6 +32,8 @@
   height: 45vh;
   width: 98%;
   overflow-y: auto;
+  display: flex;
+  justify-content: center;
 }
 
 .dashboard div {

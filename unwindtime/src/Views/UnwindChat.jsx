@@ -53,7 +53,7 @@ function UnwindChat() {
     };
 
     fetch(
-      'http://localhost:5001/unwind-time/us-central1/sendHttpPushNotificationMultiple',
+      'https://us-central1-unwind-time.cloudfunctions.net/sendHttpPushNotificationMultiple',
       requestOptions
     )
       .then((response) => response.text())
