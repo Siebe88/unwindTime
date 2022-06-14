@@ -34,6 +34,33 @@ function UnwindChat() {
 
   const [formValue, setFormValue] = useState('');
 
+  const sendPush = async (chat) => {
+    const body = {
+      unwindID: unwindID,
+      chat: chat,
+    };
+
+    const myHeaders = new Headers();
+    myHeaders.append('Content-Type', 'application/json');
+
+    var raw = JSON.stringify(body);
+
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow',
+    };
+
+    fetch(
+      'http://localhost:5001/unwind-time/us-central1/sendHttpPushNotificationMultiple',
+      requestOptions
+    )
+      .then((response) => response.text())
+      .then((result) => console.log(result))
+      .catch((error) => console.log('error', error));
+  };
+
   const sendMessage = async (e) => {
     e.preventDefault();
     const chat = {
@@ -42,14 +69,16 @@ function UnwindChat() {
       createdAt: new Date(),
     };
 
-    const unwindRef = doc(db, 'unwinds', unwindID);
-
     // Atomically add a new chatMessage and attachedFollowers
     //TODO add tokens
+    const unwindRef = doc(db, 'unwinds', unwindID);
     await updateDoc(unwindRef, {
       chat: arrayUnion(chat),
       attachedUsers: arrayUnion(profile.uid),
+      registrationTokens: arrayUnion(profile.token),
     });
+
+    sendPush(chat);
 
     setFormValue('');
     dummy.current.scrollIntoView({ behavior: 'smooth' });
@@ -74,7 +103,9 @@ function UnwindChat() {
       <div className="chat-container">
         {unwind &&
           unwind._document &&
-          unwind.data().chat.map((chat) => <ChatMessage chat={chat}></ChatMessage>)}
+          unwind
+            .data()
+            .chat.map((chat, index) => <ChatMessage key={index} chat={chat}></ChatMessage>)}
         <span ref={dummy}></span>
       </div>
 

@@ -14,30 +14,25 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from './Services/firebase';
 import { useDispatch } from 'react-redux';
 import { findProfile } from './Services/firestore';
-import { loginProfile } from './reducers/profile';
+import { loginProfile, changeProfileToken } from './reducers/profile';
 import { addNewFavoArray } from './reducers/favoRelaxMethods';
 import { setLocation } from './reducers/location';
 import React, { useEffect, useState } from 'react';
 import { LoadScript } from '@react-google-maps/api';
 
-import { messaging, fetchToken, onMessageListener } from './Services/firebaseConnection';
-import { onMessage } from 'firebase/messaging';
+import { messaging, onMessageListener } from './Services/firebaseConnection';
+
+import { getToken, onMessage } from 'firebase/messaging';
 
 function App() {
   const [user, loading] = useAuthState(auth);
-  const [show, setShow] = useState(false);
   const [notification, setNotification] = useState({ title: '', body: '' });
-  const [isTokenFound, setTokenFound] = useState(false);
-  fetchToken(setTokenFound);
 
   onMessageListener()
     .then((payload) => {
       setNotification({ title: payload.notification.title, body: payload.notification.body });
-      setShow(true);
       console.log(payload);
-      console.log('Show', show);
       console.log('notifcation', notification);
-      console.log('isTokenFound', isTokenFound);
     })
     .catch((err) => console.log('failed: ', err));
 
@@ -50,6 +45,7 @@ function App() {
     // if (!user) return navigate('/');
     fetchProfile();
     getLocation();
+    getNotifcationToken();
   }, [user]); //eslint-disable-line
 
   const fetchProfile = async () => {
@@ -57,6 +53,19 @@ function App() {
       const profileFound = await findProfile(user);
       dispatch(loginProfile(profileFound));
       dispatch(addNewFavoArray(profileFound.relaxMethods));
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const getNotifcationToken = async () => {
+    try {
+      const token = await getToken(messaging, {
+        vapidKey:
+          'BKzLRtr6U6-LR6IJEd4MxZNDHioh-_y-17RAV9fOtnTAsBElwuTQtQTum8NN0tTDSNa-MO99uSTeBCKOgm1BTyc',
+      });
+      console.log('token', token);
+      dispatch(changeProfileToken(token));
     } catch (err) {
       console.error(err);
     }
