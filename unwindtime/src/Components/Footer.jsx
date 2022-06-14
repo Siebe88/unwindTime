@@ -25,7 +25,7 @@ const Footer = () => {
 
   const toChats = () => {
     updateProfile(profile, favoRelaxMethods);
-    navigate(`/chats`);
+    navigate(`/allchats`);
   };
 
   return (

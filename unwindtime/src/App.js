@@ -6,6 +6,7 @@ import Reset from './Views/Reset';
 import Dashboard from './Views/Dashboard';
 import Unwinds from './Views/Unwinds';
 import UnwindChat from './Views/UnwindChat';
+import AllChats from './Views/AllChats';
 
 import Header from './Components/Header';
 import Footer from './Components/Footer';
@@ -114,7 +115,7 @@ function App() {
             <Route exact path="/dashboard" element={<Dashboard />} />
             <Route exact path="/unwinds" element={<Unwinds />} />
 
-            {/* <Route path="/unwindChat" element={<UnwindChat />} /> */}
+            <Route path="/allchats" element={<AllChats />} />
             <Route path="/unwindChat/:unwindID" element={<UnwindChat />} />
             <Route path="*" element={<Login />} />
           </Routes>

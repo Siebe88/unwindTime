@@ -6,6 +6,8 @@ import { doc, updateDoc, arrayUnion } from 'firebase/firestore';
 import { db } from '../Services/firebaseConnection';
 import { useSelector } from 'react-redux';
 
+import { ReactComponent as UnwindLogo } from '../Media/RelaxMethods/Coffee.svg';
+
 import Unwind from '../Components/Unwind';
 import ChatMessage from '../Components/ChatMessage';
 
@@ -114,14 +116,11 @@ function UnwindChat() {
           className="chat-message-input"
           value={formValue}
           onChange={(e) => setFormValue(e.target.value)}
-          placeholder="say something nice"
+          placeholder="Let's unwind!!!"
         />
 
         <button type="submit" className="chat-submit-button" disabled={!formValue}>
-          {
-            // eslint-disable-next-line
-            '🕊️'
-          }
+          <UnwindLogo></UnwindLogo>
         </button>
       </form>
     </div>

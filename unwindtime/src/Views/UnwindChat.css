@@ -1,5 +1,5 @@
 .chat-container {
-  height: 64vh;
+  height: 62vh;
   overflow: auto;
 }
 
@@ -24,11 +24,15 @@
 }
 
 .chat-submit-button {
+  background-color: var(--color-gray-800);
   width: 10%;
   height: 100%;
   margin-left: 10px;
+  border: none;
 }
 
 .chat-fomr-container {
+  display: flex;
+  justify-content: center;
   height: 7vh;
 }
