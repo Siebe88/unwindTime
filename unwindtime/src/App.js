@@ -20,11 +20,26 @@ import { setLocation } from './reducers/location';
 import React, { useEffect, useState } from 'react';
 import { LoadScript } from '@react-google-maps/api';
 
-import { messaging } from './Services/firebaseConnection';
+import { messaging, fetchToken, onMessageListener } from './Services/firebaseConnection';
 import { onMessage } from 'firebase/messaging';
 
 function App() {
   const [user, loading] = useAuthState(auth);
+  const [show, setShow] = useState(false);
+  const [notification, setNotification] = useState({ title: '', body: '' });
+  const [isTokenFound, setTokenFound] = useState(false);
+  fetchToken(setTokenFound);
+
+  onMessageListener()
+    .then((payload) => {
+      setNotification({ title: payload.notification.title, body: payload.notification.body });
+      setShow(true);
+      console.log(payload);
+      console.log('Show', show);
+      console.log('notifcation', notification);
+      console.log('isTokenFound', isTokenFound);
+    })
+    .catch((err) => console.log('failed: ', err));
 
   const [status, setStatus] = useState(null);
 
@@ -71,36 +86,6 @@ function App() {
       );
     }
   };
-
-  // function requestPermission() {
-  //   console.log('Requesting permission...');
-  //   Notification.requestPermission().then((permission) => {
-  //     if (permission === 'granted') {
-  //       console.log('Notification permission granted.');
-  //     } else {
-  //       console.log('Unable to get permission to notify.');
-  //     }
-  //   });
-  // }
-
-  // const getToken = async (setTokenFound) => {
-  //   let currentToken = "";
-
-  //   try {
-  //     currentToken = await messaging.getToken({ vapidKey: publicKey });
-  //     if (currentToken) {
-  //       setTokenFound(true);
-  //     } else {
-  //       setTokenFound(false);
-  //     }
-  //   } catch (error) {
-  //     console.log("An error occurred while retrieving token. ", error);
-  //   }
-
-  //   return currentToken;
-  // };
-
-  // requestPermission();
 
   onMessage(messaging, (payload) => {
     console.log('Message received. ', payload);
