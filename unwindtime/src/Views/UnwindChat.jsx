@@ -44,7 +44,8 @@ function UnwindChat() {
 
     const unwindRef = doc(db, 'unwinds', unwindID);
 
-    // Atomically add a new region to the "regions" array field.
+    // Atomically add a new chatMessage and attachedFollowers
+    //TODO add tokens
     await updateDoc(unwindRef, {
       chat: arrayUnion(chat),
       attachedUsers: arrayUnion(profile.uid),
