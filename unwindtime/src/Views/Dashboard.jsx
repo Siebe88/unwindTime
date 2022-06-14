@@ -68,11 +68,14 @@ function Dashboard() {
         </div>
       </div>
 
-      <button className="dashboard__btn" onClick={clickEventSaveProfile}>
+      <button
+        className="dashboard__btn go_button text-style-h-3 color-button-grey"
+        onClick={clickEventSaveProfile}
+      >
         {' '}
         Okay, let's unwind!
       </button>
-      <button className="dashboard__btn" onClick={logout}>
+      <button className="dashboard__btn text-style-h-3 color-button-red" onClick={logout}>
         Logout
       </button>
       {/* </div> */}
