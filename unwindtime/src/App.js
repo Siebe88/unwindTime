@@ -25,6 +25,8 @@ import { messaging, onMessageListener, fetchToken } from './Services/firebaseCon
 
 import { getToken, onMessage } from 'firebase/messaging';
 
+//please just work
+
 function App() {
   const [user, loading] = useAuthState(auth);
   const [notification, setNotification] = useState({ title: '', body: '' });
