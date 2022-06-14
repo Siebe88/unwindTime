@@ -21,13 +21,27 @@ import { setLocation } from './reducers/location';
 import React, { useEffect, useState } from 'react';
 import { LoadScript } from '@react-google-maps/api';
 
-import { messaging, onMessageListener } from './Services/firebaseConnection';
+import { messaging, onMessageListener, fetchToken } from './Services/firebaseConnection';
 
 import { getToken, onMessage } from 'firebase/messaging';
 
 function App() {
   const [user, loading] = useAuthState(auth);
   const [notification, setNotification] = useState({ title: '', body: '' });
+  const [show, setShow] = useState(false);
+  const [isTokenFound, setTokenFound] = useState(false);
+  fetchToken(setTokenFound);
+
+  onMessageListener()
+    .then((payload) => {
+      setNotification({ title: payload.notification.title, body: payload.notification.body });
+      setShow(true);
+      console.log(payload);
+      console.log('Show', show);
+      console.log('notifcation', notification);
+      console.log('isTokenFound', isTokenFound);
+    })
+    .catch((err) => console.log('failed: ', err));
 
   onMessageListener()
     .then((payload) => {
