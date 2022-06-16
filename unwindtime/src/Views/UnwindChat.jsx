@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 
 import { ReactComponent as UnwindLogo } from "../Media/RelaxMethods/Coffee.svg";
 
-import Unwind from "../Components/Unwind";
+import Unwind from "../Components/Unwind.tsx";
 import ChatMessage from "../Components/ChatMessage.tsx";
 
 function UnwindChat() {
