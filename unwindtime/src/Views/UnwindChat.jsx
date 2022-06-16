@@ -1,15 +1,15 @@
-import './UnwindChat.css';
-import React, { useState, useEffect, useRef } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { useDocument } from 'react-firebase-hooks/firestore';
-import { doc, updateDoc, arrayUnion } from 'firebase/firestore';
-import { db } from '../Services/firebaseConnection';
-import { useSelector } from 'react-redux';
+import "./UnwindChat.css";
+import React, { useState, useEffect, useRef } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { useDocument } from "react-firebase-hooks/firestore";
+import { doc, updateDoc, arrayUnion } from "firebase/firestore";
+import { db } from "../Services/firebaseConnection";
+import { useSelector } from "react-redux";
 
-import { ReactComponent as UnwindLogo } from '../Media/RelaxMethods/Coffee.svg';
+import { ReactComponent as UnwindLogo } from "../Media/RelaxMethods/Coffee.svg";
 
-import Unwind from '../Components/Unwind';
-import ChatMessage from '../Components/ChatMessage';
+import Unwind from "../Components/Unwind";
+import ChatMessage from "../Components/ChatMessage.tsx";
 
 function UnwindChat() {
   const navigate = useNavigate();
@@ -20,7 +20,7 @@ function UnwindChat() {
   // const [user, loadingAuth] = useAuthState(auth);
   const dummy = useRef();
 
-  const [unwind, loading, error] = useDocument(doc(db, 'unwinds', unwindID), {
+  const [unwind, loading, error] = useDocument(doc(db, "unwinds", unwindID), {
     snapshotListenOptions: { includeMetadataChanges: true },
   });
 
@@ -30,11 +30,11 @@ function UnwindChat() {
   useEffect(() => {
     if (loading) return;
     // if (!user) return navigate('/');
-    if (!unwind._document) return navigate('/unwinds');
-    dummy.current.scrollIntoView({ behavior: 'smooth' });
+    if (!unwind._document) return navigate("/unwinds");
+    dummy.current.scrollIntoView({ behavior: "smooth" });
   }, [unwind]); //eslint-disable-line
 
-  const [formValue, setFormValue] = useState('');
+  const [formValue, setFormValue] = useState("");
 
   const sendPush = async (chat) => {
     const body = {
@@ -43,37 +43,41 @@ function UnwindChat() {
     };
 
     const myHeaders = new Headers();
-    myHeaders.append('Content-Type', 'application/json');
+    myHeaders.append("Content-Type", "application/json");
 
     var raw = JSON.stringify(body);
 
     var requestOptions = {
-      method: 'POST',
+      method: "POST",
       headers: myHeaders,
       body: raw,
-      redirect: 'follow',
+      redirect: "follow",
     };
 
     fetch(
-      'https://us-central1-unwind-time.cloudfunctions.net/sendHttpPushNotificationMultiple',
+      "https://us-central1-unwind-time.cloudfunctions.net/sendHttpPushNotificationMultiple",
       requestOptions
     )
       .then((response) => response.text())
       .then((result) => console.log(result))
-      .catch((error) => console.log('error', error));
+      .catch((error) => console.log("error", error));
   };
 
   const sendMessage = async (e) => {
     e.preventDefault();
     const chat = {
       text: formValue,
-      profile: { profilePic: profile.profilePic, name: profile.name, uid: profile.uid },
+      profile: {
+        profilePic: profile.profilePic,
+        name: profile.name,
+        uid: profile.uid,
+      },
       createdAt: new Date(),
     };
 
     // Atomically add a new chatMessage and attachedFollowers
     //TODO add tokens
-    const unwindRef = doc(db, 'unwinds', unwindID);
+    const unwindRef = doc(db, "unwinds", unwindID);
     await updateDoc(unwindRef, {
       chat: arrayUnion(chat),
       attachedUsers: arrayUnion(profile.uid),
@@ -82,8 +86,8 @@ function UnwindChat() {
 
     sendPush(chat);
 
-    setFormValue('');
-    dummy.current.scrollIntoView({ behavior: 'smooth' });
+    setFormValue("");
+    dummy.current.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -107,7 +111,9 @@ function UnwindChat() {
           unwind._document &&
           unwind
             .data()
-            .chat.map((chat, index) => <ChatMessage key={index} chat={chat}></ChatMessage>)}
+            .chat.map((chat, index) => (
+              <ChatMessage key={index} chat={chat}></ChatMessage>
+            ))}
         <span ref={dummy}></span>
       </div>
 
@@ -119,7 +125,11 @@ function UnwindChat() {
           placeholder="Let's unwind!!!"
         />
 
-        <button type="submit" className="chat-submit-button" disabled={!formValue}>
+        <button
+          type="submit"
+          className="chat-submit-button"
+          disabled={!formValue}
+        >
           <UnwindLogo></UnwindLogo>
         </button>
       </form>
