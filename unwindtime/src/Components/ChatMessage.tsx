@@ -9,7 +9,7 @@ export default function ChatMessage({ chat }) {
 
   const messageClass = chat.profile.uid === profile.uid ? "sent" : "received";
 
-  const formatTime = (datestamp) => {
+  const formatTime = (datestamp:any) => {
     return moment(new Date(datestamp * 1000)).format("HH:mm");
   };
 
