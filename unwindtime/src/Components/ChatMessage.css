@@ -4,6 +4,7 @@
   align-items: center;
   justify-content: flex-start;
   margin-bottom: 10px;
+  color: var(--color-gray-100);
 }
 
 .profilePic-chat-img {
@@ -15,4 +16,10 @@
 
 .sent {
   flex-direction: row-reverse;
+  text-align: right;
+}
+
+.received {
+  flex-direction: row;
+  text-align: left;
 }
