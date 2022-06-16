@@ -4,8 +4,6 @@ import { useSelector } from "react-redux";
 import moment from "moment";
 // import { motion } from 'framer-motion';
 
-//todo: refactor to typescript
-
 export default function ChatMessage({ chat }) {
   const profile = useSelector((state) => state.profile.value);
 
