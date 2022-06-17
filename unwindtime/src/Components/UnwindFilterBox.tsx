@@ -15,7 +15,7 @@ function UnwindFilterBox({
   tillUnwind,
 }) {
   const favoRelaxMethods = useSelector((state:State) => state.favoRelaxMethods);
-  console.log(fromUnwind, 'fromUnwind')
+
   return (
     <div className="relaxmethods-selector-parent-container">
       <form action="">

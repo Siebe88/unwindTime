@@ -1,9 +1,26 @@
 interface Props{
   chat: Chat;
   location: LocationValue;
-  unwinds: Unwinds[];
-  unwindID: String;
-  unwind:UnwindType;
+  unwindID: string;
+  // unwind:UnwindType;
+  relaxMethod: RelaxOption;
+  classColor: string;
+  onClickRelaxMethod: Function;
+}
+
+
+
+interface requestOptions {
+  method: string;
+  headers: Headers;
+  body: string;
+  redirect: RequestRedirect;
+};
+
+
+interface EventHandler {
+  target: HTMLInputElement;
+  preventDefault: Function;
 }
 
 interface Unwinds{
@@ -34,7 +51,7 @@ interface GoogleLocation{
 interface Chat {
   text: string;
   profile: Profile;
-  createdAt: number;
+  createdAt: Date;
 };
 
 
@@ -79,4 +96,6 @@ interface RelaxOption {
 
 
 
-export {Props, State, LocationValue, Unwinds, UnwindType}
+
+
+export {Props, Chat, State, LocationValue, Unwinds, UnwindType, RelaxOption, EventHandler, requestOptions}

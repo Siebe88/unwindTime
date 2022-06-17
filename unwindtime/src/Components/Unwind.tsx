@@ -32,7 +32,7 @@ export default function Unwind({ unwind, location, unwindID }:Props) {
         // whileTap={{ scale: 0.9 }}
         className="unwind-event-container"
         onClick={conClickToChat}
-        unwind={unwind as unknown as UnwindType}
+        unwind={unwind}
       >
         <img className="profile-unwind-img" src={unwind.createdBy.profilePic} alt="" />
         <div className="name-and-time-container">

@@ -6,14 +6,14 @@ import { Props, State } from "../../Interfaces";
 
 
 
-export default function ChatMessage(props:Props) {
-  const {chat} = props;
-  console.log(chat, "chat")
+export default function ChatMessage({chat}:Props) {
+
+
   const profile = useSelector((state:State) => {   
-    console.log(state, "state");
+
   return state.profile.value});
 
-  console.log(profile, "profile")
+
 
   const messageClass = chat.profile.uid === profile.uid ? "sent" : "received";
 

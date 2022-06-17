@@ -1,5 +1,5 @@
 import React from "react";
-import Unwind from "./Unwind.tsx";
+import Unwind from "./Unwind";
 import {
   GoogleMap,
   useJsApiLoader,
@@ -25,8 +25,7 @@ function UnwindsMap(props:Props) {
   const {location} = props;
   const {unwinds} = props;
 
-  console.log(unwinds, "unwinds");
-  console.log(location, "location");
+
 
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",

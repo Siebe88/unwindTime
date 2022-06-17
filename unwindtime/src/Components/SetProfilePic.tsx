@@ -23,7 +23,7 @@ function SetProfilePic() {
   };
 
   const onChangeProfileName = (event) => {
-    console.log('ChangeValue', event.target.value);
+
     dispatch(changeProfileName(event.target.value));
   };
 

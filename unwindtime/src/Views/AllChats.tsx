@@ -7,18 +7,19 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../Services/firebase";
 
 import { useNavigate } from "react-router-dom";
-import Unwind from "../Components/Unwind.tsx";
+import Unwind from "../Components/Unwind";
 
 import { useCollection } from "react-firebase-hooks/firestore";
 
 import { collection, query, where } from "firebase/firestore";
 import { db } from "../Services/firebaseConnection";
+import {State} from '../../Interfaces'
 
 function AllChats() {
   const [user, loadingAuth] = useAuthState(auth);
   const navigate = useNavigate();
-  const profile = useSelector((state) => state.profile.value);
-  const location = useSelector((state) => state.location.value);
+  const profile = useSelector((state:State) => state.profile.value);
+  const location = useSelector((state:State) => state.location.value);
 
   //Get's realtime new unwinds from firebase
   const queryUnwinds = query(

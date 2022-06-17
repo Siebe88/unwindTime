@@ -7,18 +7,19 @@ import { db } from "../Services/firebaseConnection";
 import { useSelector } from "react-redux";
 
 import { ReactComponent as UnwindLogo } from "../Media/RelaxMethods/Coffee.svg";
-
-import Unwind from "../Components/Unwind.tsx";
-import ChatMessage from "../Components/ChatMessage.tsx";
+// const UnwindLogo = require('../Media/RelaxMethods/Coffee.svg') as string;
+import { requestOptions, State, Chat, EventHandler } from "../../Interfaces";
+import Unwind from "../Components/Unwind";
+import ChatMessage from "../Components/ChatMessage";
 
 function UnwindChat() {
   const navigate = useNavigate();
-  const profile = useSelector((state) => state.profile.value);
-  const location = useSelector((state) => state.location.value);
+  const profile = useSelector((state:State) => state.profile.value);
+  const location = useSelector((state:State) => state.location.value);
 
   let { unwindID } = useParams();
   // const [user, loadingAuth] = useAuthState(auth);
-  const dummy = useRef();
+  const dummy = useRef<HTMLSpanElement>();
 
   const [unwind, loading, error] = useDocument(doc(db, "unwinds", unwindID), {
     snapshotListenOptions: { includeMetadataChanges: true },
@@ -26,17 +27,18 @@ function UnwindChat() {
 
   // Subscribe the devices corresponding to the registration tokens to the
   // topic.
-
+  console.log(unwind, "unwinddd")
   useEffect(() => {
     if (loading) return;
     // if (!user) return navigate('/');
-    if (!unwind._document) return navigate("/unwinds");
-    dummy.current.scrollIntoView({ behavior: "smooth" });
+    console.log(unwind, "unwinddd")
+    if (!unwind?.hasOwnProperty('_document')) return navigate("/unwinds");
+    dummy.current?.scrollIntoView({ behavior: "smooth" });
   }, [unwind]); //eslint-disable-line
 
   const [formValue, setFormValue] = useState("");
 
-  const sendPush = async (chat) => {
+  const sendPush = async (chat:Chat) => {
     const body = {
       unwindID: unwindID,
       chat: chat,
@@ -47,7 +49,7 @@ function UnwindChat() {
 
     var raw = JSON.stringify(body);
 
-    var requestOptions = {
+    var requestOptions:requestOptions = {
       method: "POST",
       headers: myHeaders,
       body: raw,
@@ -63,7 +65,7 @@ function UnwindChat() {
       .catch((error) => console.log("error", error));
   };
 
-  const sendMessage = async (e) => {
+  const sendMessage = async (e:EventHandler) => {
     e.preventDefault();
     const chat = {
       text: formValue,
@@ -71,6 +73,9 @@ function UnwindChat() {
         profilePic: profile.profilePic,
         name: profile.name,
         uid: profile.uid,
+        email: profile.email,
+        relaxMethods: profile.relaxMethods,
+        token: profile.token
       },
       createdAt: new Date(),
     };
@@ -87,7 +92,7 @@ function UnwindChat() {
     sendPush(chat);
 
     setFormValue("");
-    dummy.current.scrollIntoView({ behavior: "smooth" });
+    dummy.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
