@@ -1,57 +1,67 @@
-import './App.css';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Login from './Views/Login';
-import Register from './Views/Register';
-import Reset from './Views/Reset';
-import Dashboard from './Views/Dashboard';
-import Unwinds from './Views/Unwinds';
-import UnwindChat from './Views/UnwindChat';
-import AllChats from './Views/AllChats';
+import "./App.css";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Login from "./Views/Login";
+import Register from "./Views/Register";
+import Reset from "./Views/Reset";
+import Dashboard from "./Views/Dashboard";
+import Unwinds from "./Views/Unwinds";
+import UnwindChat from "./Views/UnwindChat";
+import AllChats from "./Views/AllChats";
 
-import Header from './Components/Header';
-import Footer from './Components/Footer';
+import Header from "./Components/Header";
+import Footer from "./Components/Footer";
 
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth } from './Services/firebase';
-import { useDispatch } from 'react-redux';
-import { findProfile } from './Services/firestore';
-import { loginProfile, changeProfileToken } from './reducers/profile';
-import { addNewFavoArray } from './reducers/favoRelaxMethods';
-import { setLocation } from './reducers/location';
-import React, { useEffect, useState } from 'react';
-import { LoadScript } from '@react-google-maps/api';
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "./Services/firebase";
+import { useDispatch } from "react-redux";
+import { findProfile } from "./Services/firestore";
+import { loginProfile, changeProfileToken } from "./reducers/profile";
+import { addNewFavoArray } from "./reducers/favoRelaxMethods.ts";
+import { setLocation } from "./reducers/location";
+import React, { useEffect, useState } from "react";
+import { LoadScript } from "@react-google-maps/api";
 
-import { messaging, onMessageListener, fetchToken } from './Services/firebaseConnection';
+import {
+  messaging,
+  onMessageListener,
+  fetchToken,
+} from "./Services/firebaseConnection";
 
-import { getToken, onMessage } from 'firebase/messaging';
+import { getToken, onMessage } from "firebase/messaging";
 
 //please just work
 
 function App() {
   const [user, loading] = useAuthState(auth);
-  const [notification, setNotification] = useState({ title: '', body: '' });
+  const [notification, setNotification] = useState({ title: "", body: "" });
   const [show, setShow] = useState(false);
   const [isTokenFound, setTokenFound] = useState(false);
   fetchToken(setTokenFound);
 
   onMessageListener()
     .then((payload) => {
-      setNotification({ title: payload.notification.title, body: payload.notification.body });
+      setNotification({
+        title: payload.notification.title,
+        body: payload.notification.body,
+      });
       setShow(true);
       console.log(payload);
-      console.log('Show', show);
-      console.log('notifcation', notification);
-      console.log('isTokenFound', isTokenFound);
+      console.log("Show", show);
+      console.log("notifcation", notification);
+      console.log("isTokenFound", isTokenFound);
     })
-    .catch((err) => console.log('failed: ', err));
+    .catch((err) => console.log("failed: ", err));
 
   onMessageListener()
     .then((payload) => {
-      setNotification({ title: payload.notification.title, body: payload.notification.body });
+      setNotification({
+        title: payload.notification.title,
+        body: payload.notification.body,
+      });
       console.log(payload);
-      console.log('notifcation', notification);
+      console.log("notifcation", notification);
     })
-    .catch((err) => console.log('failed: ', err));
+    .catch((err) => console.log("failed: ", err));
 
   const [status, setStatus] = useState(null);
 
@@ -79,9 +89,9 @@ function App() {
     try {
       const token = await getToken(messaging, {
         vapidKey:
-          'BKzLRtr6U6-LR6IJEd4MxZNDHioh-_y-17RAV9fOtnTAsBElwuTQtQTum8NN0tTDSNa-MO99uSTeBCKOgm1BTyc',
+          "BKzLRtr6U6-LR6IJEd4MxZNDHioh-_y-17RAV9fOtnTAsBElwuTQtQTum8NN0tTDSNa-MO99uSTeBCKOgm1BTyc",
       });
-      console.log('token', token);
+      console.log("token", token);
       dispatch(changeProfileToken(token));
     } catch (err) {
       console.error(err);
@@ -90,9 +100,9 @@ function App() {
 
   const getLocation = () => {
     if (!navigator.geolocation) {
-      setStatus('Geolocation is not supported by your browser');
+      setStatus("Geolocation is not supported by your browser");
     } else {
-      setStatus('Locating...');
+      setStatus("Locating...");
       navigator.geolocation.getCurrentPosition(
         (position) => {
           setStatus(null);
@@ -106,7 +116,7 @@ function App() {
           );
         },
         () => {
-          setStatus('Unable to retrieve your location');
+          setStatus("Unable to retrieve your location");
           console.log(status);
         }
       );
@@ -114,7 +124,7 @@ function App() {
   };
 
   onMessage(messaging, (payload) => {
-    console.log('Message received. ', payload);
+    console.log("Message received. ", payload);
     // ...
   });
 

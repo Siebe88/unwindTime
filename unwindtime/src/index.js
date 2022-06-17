@@ -1,15 +1,15 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import { configureStore } from '@reduxjs/toolkit';
-import { Provider } from 'react-redux';
-import profileReducer from './reducers/profile';
-import locationReducer from './reducers/location';
-import favoRelaxMethodsSlice from './reducers/favoRelaxMethods';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import { configureStore } from "@reduxjs/toolkit";
+import { Provider } from "react-redux";
+import profileReducer from "./reducers/profile";
+import locationReducer from "./reducers/location";
+import favoRelaxMethodsSlice from "./reducers/favoRelaxMethods.ts";
 
-import * as serviceWorkerRegistration from './serviceWorkerRegistration';
+import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 
 const store = configureStore({
   reducer: {
@@ -26,7 +26,7 @@ const store = configureStore({
     }),
 });
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Provider store={store}>

@@ -3,7 +3,8 @@ import { useSelector } from 'react-redux';
 
 import moment from 'moment';
 
-import RelaxMethod from '../Components/RelaxMethod';
+import RelaxMethod from './RelaxMethod';
+import { State } from "../../Interfaces";
 
 function UnwindFilterBox({
   onClickRelaxMethod,
@@ -13,7 +14,7 @@ function UnwindFilterBox({
   fromUnwind,
   tillUnwind,
 }) {
-  const favoRelaxMethods = useSelector((state) => state.favoRelaxMethods);
+  const favoRelaxMethods = useSelector((state:State) => state.favoRelaxMethods);
 
   return (
     <div className="relaxmethods-selector-parent-container">
@@ -21,6 +22,7 @@ function UnwindFilterBox({
         <h3 className="relaxmethodspicker-title text-style-h-3"> How do you want to unwind? </h3>
         <div className="relaxmethods-selector-container">
           {favoRelaxMethods.map((relaxMethod) => {
+          
             return (
               <RelaxMethod
                 key={relaxMethod.id}
