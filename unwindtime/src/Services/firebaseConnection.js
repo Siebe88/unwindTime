@@ -24,7 +24,7 @@ const messaging = getMessaging(app);
 const fetchToken = (setTokenFound) => {
   return getToken(messaging, {
     vapidKey:
-      'BKzLRtr6U6-LR6IJEd4MxZNDHioh-_y-17RAV9fOtnTAsBElwuTQtQTum8NN0tTDSNa-MO99uSTeBCKOgm1BTyc',
+      'BMWxGiAX6gPFXxwTfh8MtPisZOMvM4aRb6vbzB1k2odSBL6QzoIA_KjrM4Y2wzW3ZlOzRR7nA00eiljbk4AQibQ',
   })
     .then((currentToken) => {
       if (currentToken) {
