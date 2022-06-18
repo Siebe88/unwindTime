@@ -1,7 +1,7 @@
-import { collection, addDoc } from 'firebase/firestore';
+import { collection, addDoc, DocumentData } from 'firebase/firestore';
 import { db } from './firebaseConnection';
-
-export async function createNewUnwind(profile, unwind) {
+import { Profile } from '../../Interfaces';
+export async function createNewUnwind(profile:Profile, unwind:DocumentData) {
   const unwindDoc = {
     createdAt: new Date(),
     ...unwind,
@@ -14,7 +14,7 @@ export async function createNewUnwind(profile, unwind) {
 }
 
 //TODO think of smart way to do this
-export async function createNewUnwindChat(unwind, profile, message) {
+export async function createNewUnwindChat(unwind:DocumentData, profile:Profile, message:string) {
   const unwindChatDoc = {
     createdAt: new Date(),
     ...unwind,

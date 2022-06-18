@@ -1,14 +1,26 @@
+import { DocumentData,  QueryDocumentSnapshot, QuerySnapshot } from "firebase/firestore";
+import { ChangeEventHandler } from "react";
+
 interface Props{
-  chat: Chat;
-  location: LocationValue;
-  unwindID: string;
-  // unwind:UnwindType;
-  relaxMethod: RelaxOption;
-  classColor: string;
-  onClickRelaxMethod: Function;
+  chat?: Chat;
+  location?: LocationValue;
+  unwindID?: string;
+  key?: number | string;
+  unwind?: DocumentData | undefined;
+  relaxMethod?: RelaxOption;
+  classColor?: string;
+  onClickRelaxMethod?: Function;
+  unwinds?: QueryDocumentSnapshot<DocumentData>[];
+  selectedUnwind?:DocumentData;
+  handleTillTimeChange?: ChangeEventHandler<HTMLInputElement>;
+  handleFromTimeChange?: ChangeEventHandler<HTMLInputElement>;
+  fromUnwind?:string;
+  tillUnwind?:string;
 }
 
+interface unwindData {
 
+}
 
 interface requestOptions {
   method: string;
@@ -28,6 +40,8 @@ interface Unwinds{
   data(): any;
 }
 
+
+
 interface UnwindType{
   attachedUsers: [];
   chat: [];
@@ -40,15 +54,14 @@ interface UnwindType{
 }
 
 
-interface GoogleLocation{
-  lat: google.maps.LatLng;
-  lng:  google.maps.LatLng;
-  latitude:  google.maps.LatLng;
-  longitude: google.maps.LatLng;
-
-}
 
 interface Chat {
+  text: string;
+  profile: Profile;
+  createdAt: any;
+};
+
+interface NewChat {
   text: string;
   profile: Profile;
   createdAt: Date;
@@ -60,6 +73,18 @@ interface StateProfile {
 
 }
 
+interface FirebaseRH {
+  metadata: any;
+  _document: any
+  _firestore: any;
+  _firestoreImpl: any;
+  _key: any;
+  _userDataWrite: any
+  id: string;
+
+}
+
+
 interface State{
     favoRelaxMethods: RelaxOption[];
     location: Location;
@@ -67,10 +92,10 @@ interface State{
 }
 
 interface LocationValue {
-  lat: string;
-  lng: string;
-  latitude: string;
-  longitude: string;
+  lat?: string;
+  lng?: string;
+  latitude?: string;
+  longitude?: string;
 }
 
 interface Location {
@@ -78,12 +103,12 @@ interface Location {
 }
 
 interface Profile {
-  profilePic: string;
-  name: string;
-  uid: string;
-  email: string;
-  relaxMethods: RelaxOption[];
-  token: string;
+  profilePic?: string;
+  name?: string;
+  uid?: string;
+  email?: string;
+  relaxMethods?: RelaxOption[];
+  token?: string;
 }
 
 
@@ -98,4 +123,4 @@ interface RelaxOption {
 
 
 
-export {Props, Chat, State, LocationValue, Unwinds, UnwindType, RelaxOption, EventHandler, requestOptions}
+export {Profile, StateProfile,  Props,NewChat, FirebaseRH, Chat, State, LocationValue, Location, Unwinds, UnwindType, RelaxOption, EventHandler, requestOptions}

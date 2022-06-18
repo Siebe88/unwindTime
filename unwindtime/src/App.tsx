@@ -16,7 +16,7 @@ import { auth } from "./Services/firebase";
 import { useDispatch } from "react-redux";
 import { findProfile } from "./Services/firestore";
 import { loginProfile, changeProfileToken } from "./reducers/profile";
-import { addNewFavoArray } from "./reducers/favoRelaxMethods.ts";
+import { addNewFavoArray } from "./reducers/favoRelaxMethods";
 import { setLocation } from "./reducers/location";
 import React, { useEffect, useState } from "react";
 import { LoadScript } from "@react-google-maps/api";
@@ -27,7 +27,8 @@ import {
   fetchToken,
 } from "./Services/firebaseConnection";
 
-import { getToken, onMessage } from "firebase/messaging";
+import { getToken, MessagePayload, onMessage } from "firebase/messaging";
+import { PayloadAction } from "@reduxjs/toolkit";
 
 //please just work
 
@@ -41,8 +42,8 @@ function App() {
   onMessageListener()
     .then((payload) => {
       setNotification({
-        title: payload.notification.title,
-        body: payload.notification.body,
+        title: payload.notification?.title!,
+        body: payload.notification?.body!,
       });
       setShow(true);
       console.log(payload);
@@ -55,15 +56,15 @@ function App() {
   onMessageListener()
     .then((payload) => {
       setNotification({
-        title: payload.notification.title,
-        body: payload.notification.body,
+        title: payload.notification?.title!,
+        body: payload.notification?.body!,
       });
       console.log(payload);
       console.log("notifcation", notification);
     })
     .catch((err) => console.log("failed: ", err));
 
-  const [status, setStatus] = useState(null);
+  const [status, setStatus] = useState("");
 
   const dispatch = useDispatch();
 
@@ -77,9 +78,9 @@ function App() {
 
   const fetchProfile = async () => {
     try {
-      const profileFound = await findProfile(user);
-      dispatch(loginProfile(profileFound));
-      dispatch(addNewFavoArray(profileFound.relaxMethods));
+      const profileFound = await findProfile(user!);
+      dispatch(loginProfile(profileFound!));
+      dispatch(addNewFavoArray(profileFound!.relaxMethods));
     } catch (err) {
       console.error(err);
     }
@@ -99,19 +100,20 @@ function App() {
   };
 
   const getLocation = () => {
+
     if (!navigator.geolocation) {
-      setStatus("Geolocation is not supported by your browser");
+      setStatus("Geolocation is not supported by your browser")
     } else {
       setStatus("Locating...");
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          setStatus(null);
+          setStatus("");
           dispatch(
             setLocation({
-              lat: position.coords.latitude,
-              lng: position.coords.longitude,
-              latitude: position.coords.latitude,
-              longitude: position.coords.longitude,
+              lat: position.coords.latitude as unknown as string,
+              lng: position.coords.longitude as unknown as string,
+              latitude: position.coords.latitude as unknown as string,
+              longitude: position.coords.longitude as unknown as string,
             })
           );
         },
@@ -135,11 +137,11 @@ function App() {
       <Router>
         <div className="main-container">
           <Routes>
-            <Route exact path="/" element={<Login />} />
-            <Route exact path="/register" element={<Register />} />
-            <Route exact path="/reset" element={<Reset />} />
-            <Route exact path="/dashboard" element={<Dashboard />} />
-            <Route exact path="/unwinds" element={<Unwinds />} />
+            <Route path="/" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/reset" element={<Reset />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/unwinds" element={<Unwinds />} />
             <Route path="/allchats" element={<AllChats />} />
             <Route path="/unwindChat/:unwindID" element={<UnwindChat />} />
             <Route path="*" element={<Login />} />

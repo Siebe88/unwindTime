@@ -7,7 +7,7 @@ import {
   // signInWithFacebook,
 } from '../Services/firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { ReactComponent as WelcomeSVG } from '../Media/WelcomeSVG.svg';
+import  WelcomeSVG from '../Media/WelcomeSVG.svg';
 import './Login.css';
 
 function Login() {
@@ -27,7 +27,7 @@ function Login() {
   return (
     <div className="login">
       <div className="login__container">
-        <WelcomeSVG className="WelcomeSVG" />
+        <img src={WelcomeSVG} className="WelcomeSVG" />
         <input
           type="text"
           className="login__textBox"

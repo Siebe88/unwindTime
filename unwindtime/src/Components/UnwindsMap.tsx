@@ -52,6 +52,7 @@ function UnwindsMap(props:Props) {
                   unwind={unwind.data()}
                   unwindID={unwind.id}
                   location={location}
+                  
                 ></Unwind>
               </InfoWindow>
             );
