@@ -40,7 +40,7 @@ export default function Unwind({ unwind, location, unwindID }) {
         <RelaxMethod
           relaxMethod={unwind.relaxMethod}
           classColor="favoriteMethod"
-          onClickRelaxMethod={() => 1 + 1}
+          onClickRelaxMethod={() => 1 + 1} // what is this??
         ></RelaxMethod>
       </motion.button>
     </>

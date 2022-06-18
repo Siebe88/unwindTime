@@ -74,6 +74,9 @@ function UnwindChat() {
     // Atomically add a new chatMessage and attachedFollowers
     //TODO add tokens
     const unwindRef = doc(db, 'unwinds', unwindID);
+    console.log('chat', chat)
+    console.log('profile uid', profile.uid)
+    console.log('prof token', profile.token)
     await updateDoc(unwindRef, {
       chat: arrayUnion(chat),
       attachedUsers: arrayUnion(profile.uid),

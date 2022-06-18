@@ -19,7 +19,7 @@ const signInWithGoogle = async () => {
     const res = await signInWithPopup(auth, googleProvider);
     const user = res.user;
     const q = query(collection(db, 'profiles'), where('uid', '==', user.uid));
-    const docs = await getDocs(q);
+    const docs = await getDocs(q); // getAll method
     if (docs.docs.length === 0) {
       createNewProfile(user);
     }

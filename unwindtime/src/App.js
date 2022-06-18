@@ -79,9 +79,9 @@ function App() {
     try {
       const token = await getToken(messaging, {
         vapidKey:
-          'BKzLRtr6U6-LR6IJEd4MxZNDHioh-_y-17RAV9fOtnTAsBElwuTQtQTum8NN0tTDSNa-MO99uSTeBCKOgm1BTyc',
+          process.env.REACT_APP_FIREBASE_VAPID_KEY,
       });
-      console.log('token', token);
+      // console.log('token', token);
       dispatch(changeProfileToken(token));
     } catch (err) {
       console.error(err);
