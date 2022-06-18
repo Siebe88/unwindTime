@@ -11,6 +11,7 @@ const firebaseConfig = {
   storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET ,
   messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID ,
   appId: process.env.REACT_APP_FIREBASE_APP_ID ,
+
 };
 
 // Initialize Firebase
@@ -26,7 +27,7 @@ const fetchToken = (setTokenFound) => {
   return getToken(messaging, {
 
     vapidKey:
-      'BMWxGiAX6gPFXxwTfh8MtPisZOMvM4aRb6vbzB1k2odSBL6QzoIA_KjrM4Y2wzW3ZlOzRR7nA00eiljbk4AQibQ',
+      process.env.REACT_APP_FIREBASE_VAPID_KEY,
   })
     .then((currentToken) => {
       if (currentToken) {
