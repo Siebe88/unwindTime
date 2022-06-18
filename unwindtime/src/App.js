@@ -81,7 +81,7 @@ function App() {
         vapidKey:
           'BMWxGiAX6gPFXxwTfh8MtPisZOMvM4aRb6vbzB1k2odSBL6QzoIA_KjrM4Y2wzW3ZlOzRR7nA00eiljbk4AQibQ',
       });
-      console.log('token', token);
+      // console.log('token', token);
       dispatch(changeProfileToken(token));
     } catch (err) {
       console.error(err);

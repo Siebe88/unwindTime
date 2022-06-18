@@ -22,8 +22,8 @@ function SetProfilePic() {
     });
   };
 
-  const onChangeProfileName = (event) => {
-    console.log('ChangeValue', event.target.value);
+  const onChangeProfileName = (event) => { // how are we chancing the db?
+    // console.log('ChangeValue', event.target.value);
     dispatch(changeProfileName(event.target.value));
   };
 

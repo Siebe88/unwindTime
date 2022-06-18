@@ -22,13 +22,15 @@ const messaging = getMessaging(app);
 
 //source: https://blog.logrocket.com/push-notifications-react-firebase/
 const fetchToken = (setTokenFound) => {
+  // console.log('frbconf', firebaseConfig)
   return getToken(messaging, {
+
     vapidKey:
       'BMWxGiAX6gPFXxwTfh8MtPisZOMvM4aRb6vbzB1k2odSBL6QzoIA_KjrM4Y2wzW3ZlOzRR7nA00eiljbk4AQibQ',
   })
     .then((currentToken) => {
       if (currentToken) {
-        console.log('current token for client: ', currentToken);
+        // console.log('current token for client: ', currentToken);
 
         setTokenFound(true);
         // Track the token -> client mapping, by sending to backend server
