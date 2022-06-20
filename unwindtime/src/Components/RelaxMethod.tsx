@@ -1,3 +1,4 @@
+import React from 'react';
 import './RelaxMethod.css';
 
 export default function RelaxMethod({ relaxMethod, onClickRelaxMethod, classColor }) {
