@@ -1,12 +1,6 @@
 import { createSlice, PayloadAction, current } from '@reduxjs/toolkit';
 
-interface RelaxMethods {
-  id: number;
-  name: string;
-  svg:string;
-  transform: string
-}
-
+import { RelaxMethods } from '../interfaces/interfaces';
 
 
 export const favoRelaxMethodsSlice = createSlice({

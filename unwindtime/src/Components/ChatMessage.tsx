@@ -4,7 +4,9 @@ import { useSelector } from 'react-redux';
 import moment from 'moment';
 // import { motion } from 'framer-motion';
 
-export default function ChatMessage({ chat }) {
+import { Props } from '../interfaces/interfaces'
+
+export default function ChatMessage({ chat }: Props) {
   const profile = useSelector((state) => state.profile.value);
 
   const messageClass = chat.profile.uid === profile.uid ? 'sent' : 'received';

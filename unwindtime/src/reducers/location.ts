@@ -1,13 +1,8 @@
 import { createSlice,PayloadAction } from "@reduxjs/toolkit";
 
-interface initialState {
-  lat: number | null;
-  lng: number | null;
-  latitude: number | null;
-  longitude: number | null;
-}
+import { Location } from "../interfaces/interfaces";
 
-const initialStateValue : initialState  = {
+const initialStateValue : Location  = {
   lat: null,
   lng: null,
   latitude: null,
@@ -18,7 +13,7 @@ const locationSlice = createSlice({
   initialState: { value: initialStateValue },
   reducers: {
     // Use the PayloadAction type to declare the contents of `action.payload`
-    setLocation: (state, action:PayloadAction<initialState>) => {
+    setLocation: (state, action:PayloadAction<Location>) => {
       state.value = action.payload;
     },
   },

@@ -1,39 +1,22 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { State, Profile } from '../interfaces/interfaces'
 
-// interface InitialState {
-//   name : string
+
+// interface State {
+//   value: Profile
 // }
-interface State {
-  value: Profile
-}
-interface Profile {
-  uid?: string;
-  name?: string;
-  email?: string;
-  profilePic?: string;
-  relaxMethods?: string;
-  token?: string;
+// interface Profile {
+//   uid?: string;
+//   name?: string;
+//   email?: string;
+//   profilePic?: string;
+//   relaxMethods?: string;
+//   token?: string;
 
-}
+// }
 
 const initialStateValue: Profile = { name: '' };
 
-// interface LoginProfile {
-//   type: 'loginProfile'
-//   payload: Profile
-// }
-// interface ChangeProfilePic {
-//   type: 'changeProfilePic'
-//   payload: string
-// }
-// interface ChangeProfileName {
-//   type: 'changeProfileName'
-//   payload: string
-// }
-// interface ChangeProfileToken {
-//   type: 'changeProfileToken'
-//   payload: string
-// }
 
 const profileSlice = createSlice({
   name: 'profile',
