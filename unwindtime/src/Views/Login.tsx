@@ -29,6 +29,7 @@ function Login() {
       <div className="login__container">
         <img src={WelcomeSVG} className="WelcomeSVG" />
         <input
+        name='email'
           type="text"
           className="login__textBox"
           value={email}
@@ -36,13 +37,14 @@ function Login() {
           placeholder="E-mail Address"
         />
         <input
+        name='password'
           type="password"
           className="login__textBox"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"
         />
-        <button className="login__btn" onClick={() => logInWithEmailAndPassword(email, password)}>
+        <button name="login" className="login__btn" onClick={() => logInWithEmailAndPassword(email, password)}>
           Login
         </button>
         <button className="login__btn login__google" onClick={signInWithGoogle}>

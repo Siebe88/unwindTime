@@ -39,7 +39,7 @@ const Footer = () => {
         <img src={unwinds}></img>
   
       </button>
-      <button onClick={toChats} className="navButton notSelected">
+      <button name='chatsbtn' onClick={toChats} className="navButton notSelected">
         {' '}
         <img src={chats}></img>
 

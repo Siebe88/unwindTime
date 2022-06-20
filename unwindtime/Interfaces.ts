@@ -18,9 +18,7 @@ interface Props{
   tillUnwind?:string;
 }
 
-interface unwindData {
 
-}
 
 interface requestOptions {
   method: string;

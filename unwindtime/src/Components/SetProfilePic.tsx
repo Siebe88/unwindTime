@@ -39,6 +39,7 @@ function SetProfilePic() {
             type="text"
             onChange={onChangeProfileName}
             className="profilename-input text-style-h-3 text-style-white"
+            name='fortest'
           />
         </h4>
         <h4 className="relaxmethodspicker-title text-style-h-3 text-style-white">
