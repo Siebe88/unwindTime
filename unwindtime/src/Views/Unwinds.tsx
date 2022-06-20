@@ -58,14 +58,15 @@ function Unwinds() {
   }, []); //eslint-disable-line
 
   const createUnwind = () => {
+  
+
     const unwind = {
       relaxMethod: selectedUnwind,
       from: fromUnwind,
       till: tillUnwind,
       location: location,
     };
-
-    createNewUnwind(profile, unwind);
+    unwind.relaxMethod.name ?  createNewUnwind(profile, unwind) : alert('Select a category')   
   };
 
   const onClickRelaxMethod = (relaxMethod:RelaxOption) => {
