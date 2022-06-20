@@ -40,4 +40,3 @@ root.render(
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
 serviceWorkerRegistration.register();
-export type RootState = ReturnType<typeof store.getState>
