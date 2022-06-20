@@ -32,9 +32,8 @@ function Unwinds() {
 
   const [showMap, setShowMap] = useState(false);
 
-  const [fromUnwind , setFromUnwind] = useState(moment(new Date()).format('HH:mm'));
-  const [tillUnwind, setTillUnwind] = useState(
-    moment(new Date()).add(15, "minutes").format('HH:mm'));  //todo replace with Format
+  const [fromUnwind, setFromUnwind] = useState(new Date());
+  const [tillUnwind, setTillUnwind] = useState(moment(new Date()).add(15, 'minutes')._d); //todo replace with Format
 
   //Get's realtime new unwinds from firebase
   const queryUnwinds = query(
