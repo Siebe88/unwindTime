@@ -38,7 +38,8 @@ function AllChats() {
       </div>
       {profile.uid && unwinds && (
         <div>
-          {unwinds.docs.map((unwind) => (
+          {unwinds.docs.sort((a, b) => b.data().createdAt - a.data().createdAt)
+          .map((unwind) => (
             <Unwind
               key={unwind.id}
               unwind={unwind.data()}

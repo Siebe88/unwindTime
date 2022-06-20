@@ -33,7 +33,9 @@ function Unwinds() {
   const [showMap, setShowMap] = useState(false);
 
   const [fromUnwind, setFromUnwind] = useState(new Date());
-  const [tillUnwind, setTillUnwind] = useState(moment(new Date()).add(15, 'minutes')._d); //todo replace with Format
+  const [tillUnwind, setTillUnwind] = useState(moment(new Date(), moment.defaultFormat).add(15, 'minutes').toDate()); //todo replace with Format
+
+
 
   //Get's realtime new unwinds from firebase
   const queryUnwinds = query(
@@ -75,15 +77,19 @@ function Unwinds() {
 
   function handleTillTimeChange(event:EventHandler) {
     const dateValue = moment(tillUnwind).format("YYYY-MM-DD");
-    const newValue = moment(dateValue + " " + event.target.value);
+    const newValue = moment(dateValue + " " + event.target.value)
   
-    setTillUnwind(newValue.format('HH:mm'));
+
+
+    setTillUnwind(newValue._d);
   }
 
   function handleFromTimeChange(event:EventHandler) {
     const dateValue = moment(fromUnwind).format("YYYY-MM-DD");
-    const newValue = moment(dateValue + " " + event.target.value);
-    setFromUnwind(newValue.format('HH:mm'));
+    const newValue = moment(dateValue + " " + event.target.value)
+ 
+    
+    setFromUnwind(newValue._d);
   }
 
   return (
@@ -146,8 +152,7 @@ function Unwinds() {
                   (unwind) =>
                     !selectedUnwind.name ||
                     unwind.data().relaxMethod.name === selectedUnwind.name
-                )
-                .map((unwind) => (
+                ).map((unwind) => (
                   <Unwind
                     key={unwind.id}
                     unwind={unwind.data()}
