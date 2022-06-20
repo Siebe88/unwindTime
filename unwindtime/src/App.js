@@ -17,7 +17,7 @@ import { useDispatch } from 'react-redux';
 import { findProfile } from './Services/firestore';
 import { loginProfile, changeProfileToken } from './reducers/profile';
 import { addNewFavoArray } from './reducers/favoRelaxMethods';
-import { setLocation } from './reducers/location';
+import { setLocation } from './reducers/location.ts';
 import React, { useEffect, useState } from 'react';
 import { LoadScript } from '@react-google-maps/api';
 

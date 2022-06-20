@@ -1,13 +1,13 @@
+import { configureStore } from '@reduxjs/toolkit';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
-import profileReducer from './reducers/profile';
-import locationReducer from './reducers/location';
+import App from './App.js';
+import './index.css';
 import favoRelaxMethodsSlice from './reducers/favoRelaxMethods';
+import locationReducer from './reducers/location.ts';
+import profileReducer from './reducers/profile';
+import reportWebVitals from './reportWebVitals';
 
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
