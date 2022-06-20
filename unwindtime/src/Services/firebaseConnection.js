@@ -13,18 +13,7 @@ const firebaseConfig = {
   appId: process.env.REACT_APP_FIREBASE_APP_ID ,
 
 };
-// const firebaseConfig = {
-//   apiKey: 'AIzaSyBsrfGwgrhPv3tquOPleI7ng_LKRrZXzX4' ,
-//   authDomain: 'legacy-unwind.firebaseapp.com' ,
-//   projectId: 'legacy-unwind' ,
-//   storageBucket: 'legacy-unwind.appspot.com' ,
-//   messagingSenderId: '151816261490' ,
-//   appId: '1:151816261490:web:29e948b566073551b317eb' ,
-
-// };
-
-
-
+console.log('FBkey',firebaseConfig.apiKey);
 // Initialize Firebase
 console.log('env', process.env)
 const app = initializeApp(firebaseConfig);
@@ -39,7 +28,7 @@ const fetchToken = (setTokenFound) => {
   return getToken(messaging, {
 
     vapidKey:
-      'BMWxGiAX6gPFXxwTfh8MtPisZOMvM4aRb6vbzB1k2odSBL6QzoIA_KjrM4Y2wzW3ZlOzRR7nA00eiljbk4AQibQ',
+    process.env.REACT_APP_FIREBASE_VAPID_KEY,
   })
     .then((currentToken) => {
       if (currentToken) {
