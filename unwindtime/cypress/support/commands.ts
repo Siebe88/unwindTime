@@ -10,6 +10,21 @@
 // ***********************************************
 //
 //
+
+// https://stackoverflow.com/a/58333792/4561506
+import firebase from "firebase/app";
+const firebaseConfig = {
+  apiKey: "",
+  authDomain: "",
+  databaseURL: "",
+  projectId: "",
+  storageBucket: "",
+  messagingSenderId: "",
+  appId: "",
+  measurementId: "",
+};
+firebase.initializeApp(firebaseConfig);
+
 // -- This is a parent command --
 // Cypress.Commands.add('login', (email, password) => { ... })
 //
