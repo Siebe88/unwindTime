@@ -1,21 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+import { RelaxOption} from "../../Interfaces"
 
-
-interface MethodFavo{
-
-  id: Number;
-  name: String;
-  svg: String;
-  transform: String;
-}
 
 
 export const favoRelaxMethodsSlice = createSlice({
   name: 'favoRelaxMethods',
-  initialState: [] as MethodFavo[],
+  initialState: [], 
   reducers: {
-    addNewFavoArray: (state, action) => {
+    addNewFavoArray: (state: RelaxOption[], action:PayloadAction<RelaxOption[]>) => {
       action.payload.forEach((methodFavo) => {
         if (!state.some((method) => method['name'] === methodFavo['name'])) {
           state.push(methodFavo);
@@ -23,19 +16,19 @@ export const favoRelaxMethodsSlice = createSlice({
       });
     },
 
-    addFavo: (state, action) => {
+    addFavo: (state: RelaxOption[], action:PayloadAction<RelaxOption>) => {
       if (state.some((method) => method['name'] !== action.payload.name)) {
         state.push(action.payload);
       }
     },
-    deleteFavo: (state, action) => {
-      return state.filter((method) => method['name'] !== action.payload.name);
+    deleteFavo: (state: RelaxOption[], action:PayloadAction<RelaxOption>) => {
+       state.filter((method) => method['name'] !== action.payload.name);
     },
-    switchFavo: (state, action) => {
-      if (state.some((method) => method['name'] === action.payload.name)) {
-        return state.filter((method) => method['name'] !== action.payload.name);
+    switchFavo: (state: RelaxOption[] | void, action:PayloadAction<RelaxOption>) => {
+      if (state?.some((method) => method['name'] === action.payload.name)) {
+         state?.filter((method) => method['name'] !== action.payload.name);
       } else {
-        state.push(action.payload);
+        state?.push(action.payload);
       }
     },
   },

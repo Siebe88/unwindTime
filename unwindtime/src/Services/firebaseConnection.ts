@@ -2,7 +2,7 @@ import { initializeApp } from 'firebase/app';
 import { getStorage } from 'firebase/storage';
 import { getFirestore } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
-import { getMessaging, getToken, onMessage } from 'firebase/messaging';
+import { getMessaging, getToken, MessagePayload, Messaging, onMessage } from 'firebase/messaging';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyCn9oU3LJO0xMzg_6ERlRphHGXyf982UmI',
@@ -22,7 +22,7 @@ const auth = getAuth(app);
 const messaging = getMessaging(app);
 
 //source: https://blog.logrocket.com/push-notifications-react-firebase/
-const fetchToken = (setTokenFound) => {
+const fetchToken = (setTokenFound:Function) => {
   return getToken(messaging, {
     vapidKey:
       'BKzLRtr6U6-LR6IJEd4MxZNDHioh-_y-17RAV9fOtnTAsBElwuTQtQTum8NN0tTDSNa-MO99uSTeBCKOgm1BTyc',
@@ -46,7 +46,7 @@ const fetchToken = (setTokenFound) => {
     });
 };
 
-const onMessageListener = () =>
+const onMessageListener = ():Promise<MessagePayload> =>
   new Promise((resolve) => {
     onMessage(messaging, (payload) => {
       resolve(payload);

@@ -6,11 +6,13 @@ import {
   sendPasswordResetEmail,
   signOut,
   FacebookAuthProvider,
+  AuthError,
 } from 'firebase/auth';
 import { query, getDocs, collection, where, addDoc } from 'firebase/firestore';
 import { createNewProfile } from './firestore';
 
 import { db, auth } from './firebaseConnection';
+
 
 const googleProvider = new GoogleAuthProvider();
 
@@ -21,9 +23,9 @@ const signInWithGoogle = async () => {
     const q = query(collection(db, 'profiles'), where('uid', '==', user.uid));
     const docs = await getDocs(q);
     if (docs.docs.length === 0) {
-      createNewProfile(user);
+      createNewProfile(user, "");
     }
-  } catch (err) {
+  } catch (err:any) {
     console.error(err);
     alert(err.message);
   }
@@ -31,7 +33,7 @@ const signInWithGoogle = async () => {
 
 const signInWithFacebook = async () => {
   try {
-    const res = await signInWithPopup(auth, FacebookAuthProvider);
+    const res = await signInWithPopup(auth, new FacebookAuthProvider);
     const user = res.user;
     const q = query(collection(db, 'profiles'), where('uid', '==', user.uid));
     const docs = await getDocs(q);
@@ -45,37 +47,37 @@ const signInWithFacebook = async () => {
         relaxMethods: [],
       });
     }
-  } catch (err) {
+  } catch (err:any) {
     console.error(err);
     alert(err.message);
   }
 };
 
-const logInWithEmailAndPassword = async (email, password) => {
+const logInWithEmailAndPassword = async (email:string, password:string) => {
   try {
     await signInWithEmailAndPassword(auth, email, password);
-  } catch (err) {
+  } catch (err:any) {
     console.error(err);
     alert(err.message);
   }
 };
 
-const registerWithEmailAndPassword = async (profileName, email, password) => {
+const registerWithEmailAndPassword = async (profileName:string, email:string, password:string) => {
   try {
     const res = await createUserWithEmailAndPassword(auth, email, password);
     const user = res.user;
     await createNewProfile(user, profileName);
-  } catch (err) {
+  } catch (err:any) {
     console.error(err);
     alert(err.message);
   }
 };
 
-const sendPasswordReset = async (email) => {
+const sendPasswordReset = async (email:string) => {
   try {
     await sendPasswordResetEmail(auth, email);
     alert('Password reset link sent!');
-  } catch (err) {
+  } catch (err:any) {
     console.error(err);
     alert(err.message);
   }

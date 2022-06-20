@@ -1,4 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import {StateProfile, Profile} from '../../Interfaces'
+
 
 const initialStateValue = { name: '' };
 
@@ -6,16 +8,16 @@ const profileSlice = createSlice({
   name: 'profile',
   initialState: { value: initialStateValue },
   reducers: {
-    loginProfile: (state, action) => {
+    loginProfile: (state: { value: Profile; }, action: { payload: Profile; }) => {
       state.value = { ...state.value, ...action.payload };
     },
-    changeProfilePic: (state, action) => {
+    changeProfilePic: (state:StateProfile, action: PayloadAction<string>) => {
       state.value.profilePic = action.payload;
     },
-    changeProfileName: (state, action) => {
+    changeProfileName: (state:StateProfile, action:PayloadAction<string>) => {
       state.value.name = action.payload;
     },
-    changeProfileToken: (state, action) => {
+    changeProfileToken: (state:StateProfile, action:PayloadAction<string>) => {
       state.value.token = action.payload;
     },
   },

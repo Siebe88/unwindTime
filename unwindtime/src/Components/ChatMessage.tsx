@@ -15,7 +15,7 @@ export default function ChatMessage({chat}:Props) {
 
 
 
-  const messageClass = chat.profile.uid === profile.uid ? "sent" : "received";
+  const messageClass = chat?.profile.uid === profile.uid ? "sent" : "received";
 
   const formatTime = (datestamp:number) => {
     return moment(new Date(datestamp * 1000)).format("HH:mm");
@@ -24,18 +24,18 @@ export default function ChatMessage({chat}:Props) {
   return (
     <div className={`chatmessage-container ${messageClass}`}>
       <img
-        src={chat.profile.profilePic}
+        src={chat?.profile.profilePic}
         alt="profilePic"
         className="profilePic-chat-img"
       />
       <div className="chat-text-container">
         <h4 className="relaxmethodspicker-title text-style-h-3 text-style-white">
-          {chat.profile.name}:
+          {chat?.profile.name}:
         </h4>
         <h4 className="relaxmethodspicker-title text-style-h-3 text-style-white">
-          {chat.text}
+          {chat?.text}
         </h4>
-        <p>{formatTime(chat.createdAt)}</p>
+        <p>{formatTime(chat?.createdAt)}</p>
       </div>
     </div>
   );
