@@ -6,8 +6,8 @@ import reportWebVitals from './reportWebVitals';
 import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 import profileReducer from './reducers/profile';
-import locationReducer from './reducers/location';
-import favoRelaxMethodsSlice from './reducers/favoRelaxMethods';
+import locationReducer from './reducers/location.ts';
+import favoRelaxMethodsSlice from './reducers/favoRelaxMethods.ts';
 
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
