@@ -7,13 +7,12 @@ interface initialState {
   longitude: number | null;
 }
 
-const initialStateValue: initialState = {
+const initialStateValue : initialState  = {
   lat: null,
   lng: null,
   latitude: null,
   longitude: null,
 };
-
 const locationSlice = createSlice({
   name: "location",
   initialState: { value: initialStateValue },

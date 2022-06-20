@@ -6,7 +6,7 @@ import { auth, logout } from '../Services/firebase';
 
 import RelaxMethod from '../Components/RelaxMethod';
 import { useSelector, useDispatch } from 'react-redux';
-import { switchFavo } from '../reducers/favoRelaxMethods';
+import { switchFavo } from '../reducers/favoRelaxMethods.ts';
 
 import { relaxMethods } from '../Media/relaxMethodsSVG';
 import { updateProfile } from '../Services/firestore';

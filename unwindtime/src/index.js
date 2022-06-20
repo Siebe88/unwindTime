@@ -9,6 +9,7 @@ import locationReducer from './reducers/location.ts';
 import profileReducer from './reducers/profile';
 import reportWebVitals from './reportWebVitals';
 
+
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
 const store = configureStore({
