@@ -2,6 +2,7 @@ import { DocumentData, QuerySnapshot } from 'firebase/firestore'
 
 interface GeneralState {
     profile : State
+    favoRelaxMethods: RelaxMethods[]
 }
 
 interface State {
