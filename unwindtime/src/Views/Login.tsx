@@ -1,25 +1,24 @@
-import React, {  useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import {
   auth,
   logInWithEmailAndPassword,
-  signInWithGoogle
-} from '../Services/firebase';
+  signInWithGoogle,
+} from "../Services/firebase";
 
-import  WelcomeSVG from '../Media/WelcomeSVG.svg';
-import './Login.css';
+import WelcomeSVG from "../Media/WelcomeSVG.svg";
+import "./Login.css";
 
 function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   return (
     <div className="login">
       <div className="login__container">
         <img src={WelcomeSVG} className="WelcomeSVG" />
         <input
-        name='email'
+          name="email"
           type="text"
           className="login__textBox"
           value={email}
@@ -27,14 +26,18 @@ function Login() {
           placeholder="E-mail Address"
         />
         <input
-        name='password'
+          name="password"
           type="password"
           className="login__textBox"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"
         />
-        <button name="login" className="login__btn" onClick={() => logInWithEmailAndPassword(email, password)}>
+        <button
+          name="login"
+          className="login__btn"
+          onClick={() => logInWithEmailAndPassword(email, password)}
+        >
           Login
         </button>
         <button className="login__btn login__google" onClick={signInWithGoogle}>
