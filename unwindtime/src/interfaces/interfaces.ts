@@ -1,6 +1,8 @@
-import { DocumentData, QuerySnapshot } from "firebase/firestore";
+import { DocumentData } from "firebase/firestore";
+
 interface GeneralState {
-  profile : State
+  profile: State;
+  favoRelaxMethods: RelaxMethods[];
 }
 
 interface State {
@@ -30,7 +32,7 @@ interface Location {
 interface Chat {
   text: string;
   profile: Profile;
-  createdAt: Date;
+  createdAt: number;
 }
 interface Props {
   chat: Chat;
@@ -48,4 +50,4 @@ interface Props {
   unwinds: DocumentData[];
 }
 
-export { State, Profile, Chat, Props, RelaxMethods, Location,GeneralState };
+export { State, Profile, Chat, Props, RelaxMethods, Location, GeneralState };

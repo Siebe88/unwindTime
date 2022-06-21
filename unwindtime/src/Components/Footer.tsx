@@ -1,18 +1,25 @@
 import './Footer.css';
 import React from 'react';
-import { ReactComponent as Dashboard } from '../Media/Footer/dashboard.svg';
-import { ReactComponent as Unwinds } from '../Media/Footer/unwinds.svg';
-import { ReactComponent as Chats } from '../Media/Footer/chats.svg';
+// import dashboard from '../Media/Footer/dashboard.svg';
+// import unwinds from '../Media/Footer/unwinds.svg';
+// import chats from '../Media/Footer/chats.svg'
 import { useSelector } from 'react-redux';
-import { updateProfile } from '../Services/firestore';
+// import { updateProfile } from '../Services/firestore';
 
 import { useNavigate } from 'react-router-dom';
+
+import { GeneralState } from '../interfaces/interfaces';
+
+const dashboard = require('../Media/Footer/dashboard.svg') as string
+const unwinds = require('../Media/Footer/unwinds.svg') as string
+const chats = require('../Media/Footer/chats.svg') as string
+const updateProfile = require('../Services/firestore') as Function
 
 const Footer = () => {
   const navigate = useNavigate();
 
-  const profile = useSelector((state) => state.profile.value);
-  const favoRelaxMethods = useSelector((state) => state.favoRelaxMethods);
+  const profile = useSelector((state: GeneralState) => state.profile.value);
+  const favoRelaxMethods = useSelector((state: GeneralState) => state.favoRelaxMethods);
 
   const toDashboard = () => {
     return navigate(`/dashboard`);
@@ -31,16 +38,13 @@ const Footer = () => {
   return (
     <div className="footer-container">
       <button onClick={toDashboard} className="navButton notSelected">
-        {' '}
-        <Dashboard />{' '}
+        <img src={dashboard} alt= ''></img>
       </button>
       <button onClick={toUnwinds} className="navButton notSelected">
-        {' '}
-        <Unwinds />{' '}
+        <img src={unwinds} alt= ''></img>
       </button>
       <button onClick={toChats} className="navButton notSelected">
-        {' '}
-        <Chats />{' '}
+      <img src={chats} alt= ''></img>
       </button>
     </div>
   );

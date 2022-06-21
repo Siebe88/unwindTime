@@ -1,0 +1,18 @@
+import React from 'react';
+import './RelaxMethod.css';
+import { Props } from '../interfaces/interfaces';
+export default function RelaxMethod({ relaxMethod, onClickRelaxMethod, classColor  }: Props) {
+    return (
+    <div className={'relaxMethod ' + classColor}>
+      <div className="relaxButton" onClick={() => onClickRelaxMethod(relaxMethod)}>
+        <svg width="50" height="50" viewBox="0 0 50 50">
+          <path
+            transform={relaxMethod.transform}
+            className={'icon ' + classColor}
+            d={relaxMethod.svg}
+          ></path>
+        </svg>
+      </div>
+    </div>
+    );
+}
