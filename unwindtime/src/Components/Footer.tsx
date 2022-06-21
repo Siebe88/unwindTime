@@ -1,8 +1,5 @@
 import './Footer.css';
 import React from 'react';
-// import dashboard from '../Media/Footer/dashboard.svg';
-// import unwinds from '../Media/Footer/unwinds.svg';
-// import chats from '../Media/Footer/chats.svg'
 import { useSelector } from 'react-redux';
 // import { updateProfile } from '../Services/firestore';
 
@@ -38,7 +35,7 @@ const Footer = () => {
   return (
     <div className="footer-container">
       <button onClick={toDashboard} className="navButton notSelected">
-        <img src={dashboard} alt= ''></img>
+      <img src={dashboard} alt= ''></img>
       </button>
       <button onClick={toUnwinds} className="navButton notSelected">
         <img src={unwinds} alt= ''></img>

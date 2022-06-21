@@ -3,12 +3,14 @@ import { GoogleMap, useJsApiLoader, Marker, InfoWindow } from '@react-google-map
 
 import Unwind from './Unwind';
 
+import {Props} from '../interfaces/interfaces'
+
 const containerStyle = {
   width: '100%',
   height: '100%',
 };
 
-function UnwindsMap({ location, unwinds }) {
+function UnwindsMap({ location, unwinds }: Props) {
   // console.log(unwinds);
 
   const { isLoaded } = useJsApiLoader({

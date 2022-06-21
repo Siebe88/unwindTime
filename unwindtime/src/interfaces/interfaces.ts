@@ -3,15 +3,24 @@ import { DocumentData } from "firebase/firestore";
 interface GeneralState {
   profile: State;
   favoRelaxMethods: RelaxMethods[];
-  location:LocationState;
-}
-interface LocationState {
-  value: Location
+  location:LocationState
 }
 
 interface State {
   value: Profile;
 }
+interface LocationState {
+    value: Location
+}
+
+interface User {
+name: string;
+photoURL: string;
+email: string;
+uid: string;
+displayName: string;
+}
+
 interface Profile {
   uid?: string;
   name?: string;
@@ -27,10 +36,10 @@ interface RelaxMethods {
   transform: string;
 }
 interface Location {
-  lat: number | null;
-  lng: number | null;
-  latitude: number | null;
-  longitude: number | null;
+  lat: number  ;
+  lng: number ;
+  latitude: number ;
+  longitude: number ;
 }
 
 interface Chat {
@@ -39,19 +48,19 @@ interface Chat {
   createdAt: number;
 }
 interface Props {
-  chat: Chat;
-  relaxMethod: RelaxMethods;
-  onClickRelaxMethod: Function;
-  classColor: string;
-  unwind: DocumentData;
-  location: Location;
-  unwindID: string;
-  selectedUnwind: RelaxMethods;
-  handleTillTimeChange: Function;
-  handleFromTimeChange: Function;
-  fromUnwind: Date;
-  tillUnwind: Date;
-  unwinds: DocumentData[];
+  chat?: Chat;
+  relaxMethod?: RelaxMethods;
+  onClickRelaxMethod?: Function;
+  classColor?: string;
+  unwind?: DocumentData;
+  location?: Location;
+  unwindID?: string;
+  selectedUnwind?: RelaxMethods;
+  handleTillTimeChange?: Function;
+  handleFromTimeChange?: Function;
+  fromUnwind?: Date;
+  tillUnwind?: Date;
+  unwinds?: DocumentData[];
 }
 
-export { State, Profile, Chat, Props, RelaxMethods, Location, GeneralState };
+export { State, Profile, Chat, Props, RelaxMethods, Location, LocationState, GeneralState, User };
