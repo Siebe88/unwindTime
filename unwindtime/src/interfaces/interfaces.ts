@@ -8,6 +8,15 @@ interface GeneralState {
 interface State {
   value: Profile;
 }
+
+interface User {
+name: string;
+photoURL: string;
+email: string;
+uid: string;
+displayName: string;
+}
+
 interface Profile {
   uid?: string;
   name?: string;
@@ -50,4 +59,4 @@ interface Props {
   unwinds: DocumentData[];
 }
 
-export { State, Profile, Chat, Props, RelaxMethods, Location, GeneralState };
+export { State, Profile, Chat, Props, RelaxMethods, Location, GeneralState, User };
