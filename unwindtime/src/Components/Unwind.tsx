@@ -8,8 +8,9 @@ import { Props, UnwindType } from '../../Interfaces';
 import { motion } from 'framer-motion';
 import { GeolibInputCoordinates } from 'geolib/es/types';
 import { constants } from 'buffer';
-
-
+import { deleteChat } from '../Services/unwinds';
+import { collection, addDoc, DocumentData, deleteDoc, doc } from 'firebase/firestore';
+import { db } from '../Services/firebaseConnection';
 export default function Unwind(props:Props) {
 
 
@@ -32,6 +33,12 @@ const {unwindID}:Props = props;
     navigate(`/unwindchat/${unwindID}`);
   };
 
+const handleDel = (unwind) => {
+
+ return deleteChat(unwind)
+}
+
+
   return (
     <>
       <motion.button 
@@ -50,7 +57,9 @@ const {unwindID}:Props = props;
           classColor="favoriteMethod"
           onClickRelaxMethod={() => 1 + 1}
         ></RelaxMethod>
+       
       </motion.button>
+      <div onClick={() => deleteDoc(doc(db, "unwinds", unwindID))}>del</div>
     </>
   );
 }

@@ -32,9 +32,10 @@ function Unwinds() {
 
   const [showMap, setShowMap] = useState(false);
 
-  const [fromUnwind , setFromUnwind] = useState(moment(new Date()).format('HH:mm'));
-  const [tillUnwind, setTillUnwind] = useState(
-    moment(new Date()).add(15, "minutes").format('HH:mm'));  //todo replace with Format
+  const [fromUnwind, setFromUnwind] = useState(new Date());
+  const [tillUnwind, setTillUnwind] = useState(moment(new Date(), moment.defaultFormat).add(15, 'minutes').toDate()); //todo replace with Format
+
+
 
   //Get's realtime new unwinds from firebase
   const queryUnwinds = query(
@@ -57,14 +58,15 @@ function Unwinds() {
   }, []); //eslint-disable-line
 
   const createUnwind = () => {
+  
+
     const unwind = {
       relaxMethod: selectedUnwind,
       from: fromUnwind,
       till: tillUnwind,
       location: location,
     };
-
-    createNewUnwind(profile, unwind);
+    unwind.relaxMethod.name ?  createNewUnwind(profile, unwind) : alert('Select a category')   
   };
 
   const onClickRelaxMethod = (relaxMethod:RelaxOption) => {
@@ -76,15 +78,18 @@ function Unwinds() {
 
   function handleTillTimeChange(event:EventHandler) {
     const dateValue = moment(tillUnwind).format("YYYY-MM-DD");
-    const newValue = moment(dateValue + " " + event.target.value);
+    const newValue = moment(dateValue + " " + event.target.value)
   
-    setTillUnwind(newValue.format('HH:mm'));
+
+
+    setTillUnwind(newValue._d);
   }
 
   function handleFromTimeChange(event:EventHandler) {
+   
     const dateValue = moment(fromUnwind).format("YYYY-MM-DD");
-    const newValue = moment(dateValue + " " + event.target.value);
-    setFromUnwind(newValue.format('HH:mm'));
+    const newValue = moment(dateValue + " " + event.target.value)
+    setFromUnwind(newValue._d)
   }
 
   return (
@@ -147,8 +152,7 @@ function Unwinds() {
                   (unwind) =>
                     !selectedUnwind.name ||
                     unwind.data().relaxMethod.name === selectedUnwind.name
-                )
-                .map((unwind) => (
+                ).map((unwind) => (
                   <Unwind
                     key={unwind.id}
                     unwind={unwind.data()}

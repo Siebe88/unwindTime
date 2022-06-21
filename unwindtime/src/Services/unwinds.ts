@@ -1,6 +1,8 @@
-import { collection, addDoc, DocumentData } from 'firebase/firestore';
+import { collection, addDoc, DocumentData, deleteDoc, doc } from 'firebase/firestore';
 import { db } from './firebaseConnection';
 import { Profile } from '../../Interfaces';
+
+
 export async function createNewUnwind(profile:Profile, unwind:DocumentData) {
   const unwindDoc = {
     createdAt: new Date(),
@@ -22,4 +24,10 @@ export async function createNewUnwindChat(unwind:DocumentData, profile:Profile, 
   };
 
   addDoc(collection(db, 'unwindChat'), unwindChatDoc);
+}
+
+export async function deleteChat(unwind:DocumentData) {
+  console.log(unwind, 'uwind inside')
+
+   deleteDoc(doc(db, 'unwindChat', unwind));
 }

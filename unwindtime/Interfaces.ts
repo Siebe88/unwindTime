@@ -14,8 +14,8 @@ interface Props{
   selectedUnwind?:DocumentData;
   handleTillTimeChange?: ChangeEventHandler<HTMLInputElement>;
   handleFromTimeChange?: ChangeEventHandler<HTMLInputElement>;
-  fromUnwind?:string;
-  tillUnwind?:string;
+  fromUnwind?:Date;
+  tillUnwind?:Date;
 }
 
 
