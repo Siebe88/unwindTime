@@ -2,8 +2,8 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 import moment from 'moment';
-
-import RelaxMethod from '../Components/RelaxMethod';
+import { UnwindFilterBoxProps, GeneralState } from '../interfaces/interfaces';
+import RelaxMethod from './RelaxMethod';
 
 function UnwindFilterBox({
   onClickRelaxMethod,
@@ -12,13 +12,18 @@ function UnwindFilterBox({
   handleFromTimeChange,
   fromUnwind,
   tillUnwind,
-}) {
-  const favoRelaxMethods = useSelector((state) => state.favoRelaxMethods);
+}: UnwindFilterBoxProps) {
+  const favoRelaxMethods = useSelector(
+    (state: GeneralState) => state.favoRelaxMethods
+  );
 
   return (
     <div className="relaxmethods-selector-parent-container">
       <form action="">
-        <h3 className="relaxmethodspicker-title text-style-h-3"> How do you want to unwind? </h3>
+        <h3 className="relaxmethodspicker-title text-style-h-3">
+          {' '}
+          How do you want to unwind?{' '}
+        </h3>
         <div className="relaxmethods-selector-container">
           {favoRelaxMethods.map((relaxMethod) => {
             return (
@@ -27,7 +32,9 @@ function UnwindFilterBox({
                 relaxMethod={relaxMethod}
                 onClickRelaxMethod={onClickRelaxMethod}
                 classColor={
-                  selectedUnwind.name === relaxMethod.name ? 'favoriteMethod' : 'nonfavoriteMethod'
+                  selectedUnwind.name === relaxMethod.name
+                    ? 'favoriteMethod'
+                    : 'nonfavoriteMethod'
                 }
               />
             );

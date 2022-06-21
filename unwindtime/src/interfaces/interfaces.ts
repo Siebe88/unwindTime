@@ -1,24 +1,25 @@
 import { DocumentData } from "firebase/firestore";
+import { ChangeEventHandler } from "react";
 
 interface GeneralState {
   profile: State;
   favoRelaxMethods: RelaxMethods[];
-  location:LocationState
+  location: LocationState
 }
 
 interface State {
   value: Profile;
 }
 interface LocationState {
-    value: Location
+  value: Location
 }
 
 interface User {
-name: string;
-photoURL: string;
-email: string;
-uid: string;
-displayName: string;
+  name: string;
+  photoURL: string;
+  email: string;
+  uid: string;
+  displayName: string;
 }
 
 interface Profile {
@@ -36,10 +37,10 @@ interface RelaxMethods {
   transform: string;
 }
 interface Location {
-  lat: number  ;
-  lng: number ;
-  latitude: number ;
-  longitude: number ;
+  lat: number;
+  lng: number;
+  latitude: number;
+  longitude: number;
 }
 
 interface Chat {
@@ -47,20 +48,39 @@ interface Chat {
   profile: Profile;
   createdAt: number;
 }
-interface Props {
-  chat?: Chat;
-  relaxMethod?: RelaxMethods;
-  onClickRelaxMethod?: Function;
-  classColor?: string;
-  unwind?: DocumentData;
-  location?: Location;
-  unwindID?: string;
-  selectedUnwind?: RelaxMethods;
-  handleTillTimeChange?: Function;
-  handleFromTimeChange?: Function;
-  fromUnwind?: Date;
-  tillUnwind?: Date;
-  unwinds?: DocumentData[];
+interface ChatProps {
+  chat: Chat;
 }
 
-export { State, Profile, Chat, Props, RelaxMethods, Location, LocationState, GeneralState, User };
+interface RelaxMethodProps {
+  relaxMethod: RelaxMethods;
+  onClickRelaxMethod: Function;
+  classColor: string;
+}
+
+interface UnwindProps {
+  unwind?: DocumentData | undefined;
+  unwindID: string;
+  location: Location;
+}
+
+interface UnwindFilterBoxProps {
+  onClickRelaxMethod: Function;
+  selectedUnwind: RelaxMethods;
+  handleTillTimeChange:  ChangeEventHandler<HTMLInputElement>;
+  handleFromTimeChange: ChangeEventHandler<HTMLInputElement>;
+  fromUnwind: Date;
+  tillUnwind: Date;
+}
+
+interface UnwindsMapProps {
+  unwinds: DocumentData[] | undefined;
+  location: Location;
+}
+
+
+
+
+
+
+export { State, Profile, Chat, ChatProps, RelaxMethods, Location, LocationState, GeneralState, User, RelaxMethodProps, UnwindProps, UnwindFilterBoxProps, UnwindsMapProps };

@@ -4,7 +4,7 @@ import { User } from "firebase/auth"
 import { Profile, RelaxMethods } from '../interfaces/interfaces';
 
 //TODO replace this from firebase
-export async function createNewProfile(user: User , profileName: string) {
+export async function createNewProfile(user: User , profileName?: string) {
 
   const profilePic =
     user.photoURL ||

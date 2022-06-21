@@ -7,9 +7,9 @@ import { getDistance } from 'geolib';
 import { useNavigate } from 'react-router-dom';
 import { GeolibInputCoordinates } from 'geolib/es/types';
 import { motion } from 'framer-motion';
-import { Props } from '../interfaces/interfaces';
+import { UnwindProps } from '../interfaces/interfaces';
 
-export default function Unwind(props: Props) {
+export default function Unwind(props: UnwindProps) {
   const { unwind } = props;
   const { location } = props;
   const { unwindID } = props;

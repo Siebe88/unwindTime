@@ -4,26 +4,26 @@ import { useSelector } from 'react-redux';
 import moment from 'moment';
 // import { motion } from 'framer-motion';
 
-import { Props, GeneralState } from '../interfaces/interfaces'
+import {ChatProps, GeneralState } from '../interfaces/interfaces'
 
 const formatTime = (datestamp: number) => {
   return moment(new Date(datestamp * 1000)).format('HH:mm'); // unit testing
 };
-export default function ChatMessage({ chat }: Props) {
+export default function ChatMessage( {chat}: ChatProps) {
   const profile = useSelector((state: GeneralState) => state.profile.value);
 
-  const messageClass = chat?.profile.uid === profile.uid ? 'sent' : 'received';
+  const messageClass = chat.profile.uid === profile.uid ? 'sent' : 'received';
 
 
   return (
     <div className={`chatmessage-container ${messageClass}`}>
-      <img src={chat?.profile.profilePic} alt="profilePic" className="profilePic-chat-img" />
+      <img src={chat.profile.profilePic} alt="profilePic" className="profilePic-chat-img" />
       <div className="chat-text-container">
         <h4 className="relaxmethodspicker-title text-style-h-3 text-style-white">
-          {chat?.profile.name}:
+          {chat.profile.name}:
         </h4>
         <h4 className="relaxmethodspicker-title text-style-h-3 text-style-white">{chat?.text}</h4>
-        <p>{formatTime(chat!.createdAt)}</p>
+        <p>{formatTime(chat.createdAt)}</p>
       </div>
     </div>
   );
