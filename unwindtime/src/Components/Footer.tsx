@@ -10,10 +10,10 @@ import { useNavigate } from 'react-router-dom';
 
 import { GeneralState } from '../interfaces/interfaces';
 
-const dashboard = require('../Media/Footer/dashboard.svg') as string
-const unwinds = require('../Media/Footer/unwinds.svg') as string
-const chats = require('../Media/Footer/chats.svg') as string
-const updateProfile = require('../Services/firestore') as Function
+import dashboard from '../Media/Footer/dashboard.svg';
+import unwinds from '../Media/Footer/unwinds.svg';
+import chats from '../Media/Footer/chats.svg';
+const updateProfile = require('../Services/firestore')
 
 const Footer = () => {
   const navigate = useNavigate();

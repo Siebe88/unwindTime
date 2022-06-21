@@ -7,7 +7,7 @@ import moment from 'moment';
 import { Props, GeneralState } from '../interfaces/interfaces'
 
 const formatTime = (datestamp: number) => {
-  return moment(new Date(datestamp * 1000)).format('HH:mm');
+  return moment(new Date(datestamp * 1000)).format('HH:mm'); // unit testing
 };
 export default function ChatMessage({ chat }: Props) {
   const profile = useSelector((state: GeneralState) => state.profile.value);
