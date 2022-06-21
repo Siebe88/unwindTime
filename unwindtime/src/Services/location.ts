@@ -4,7 +4,7 @@ export async function getLocation() {
   } else {
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        console.log(position, "position");
+  
         return {
           lat: position.coords.latitude,
           lng: position.coords.longitude,

@@ -1,28 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, {  useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
   auth,
   logInWithEmailAndPassword,
-  signInWithGoogle,
-  // signInWithFacebook,
+  signInWithGoogle
 } from '../Services/firebase';
-import { useAuthState } from 'react-firebase-hooks/auth';
+
 import  WelcomeSVG from '../Media/WelcomeSVG.svg';
 import './Login.css';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [user, loading] = useAuthState(auth);
-  const navigate = useNavigate();
 
-  useEffect(() => {
-    if (loading) {
-      // maybe trigger a loading screen
-      return;
-    }
-    if (user) navigate('/dashboard');
-  });
 
   return (
     <div className="login">

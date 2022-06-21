@@ -5,13 +5,11 @@ import { useDocument } from "react-firebase-hooks/firestore";
 import { doc, updateDoc, arrayUnion } from "firebase/firestore";
 import { db } from "../Services/firebaseConnection";
 import { useSelector } from "react-redux";
-
 import  UnwindLogo from "../Media/RelaxMethods/Coffee.svg";
-// const UnwindLogo = require('../Media/RelaxMethods/Coffee.svg') as string;
 import { requestOptions, State, Chat, NewChat, EventHandler, UnwindType } from "../../Interfaces";
 import Unwind from "../Components/Unwind";
 import ChatMessage from "../Components/ChatMessage";
-import { FirebaseError } from "firebase/app";
+
 
 function UnwindChat() {
   const navigate = useNavigate();
@@ -19,7 +17,7 @@ function UnwindChat() {
   const location = useSelector((state:State) => state.location.value);
 
   let { unwindID } = useParams();
-  // const [user, loadingAuth] = useAuthState(auth);
+
   const dummy:any = useRef();
 
   const [unwind, loading, error] = useDocument(doc(db, "unwinds", unwindID as string) , {
@@ -28,14 +26,13 @@ function UnwindChat() {
 
   // Subscribe the devices corresponding to the registration tokens to the
   // topic.
-  console.log(unwind, "unwinddd")
+
   useEffect(() => {
     if (loading) return;
-    // if (!user) return navigate('/');
-    console.log(unwind, "unwinddd")
+  
     if (!unwind?.hasOwnProperty('_document')) return navigate("/unwinds");
     dummy.current?.scrollIntoView({ behavior: "smooth" });
-  }, [unwind]); //eslint-disable-line
+  }, [unwind]); 
 
   const [formValue, setFormValue] = useState("");
 

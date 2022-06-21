@@ -2,12 +2,11 @@ import React from 'react';
 import { storage } from '../Services/firebaseConnection';
 import { useSelector, useDispatch } from 'react-redux';
 import { changeProfilePic, changeProfileName } from '../reducers/profile';
-
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { v4 } from 'uuid';
 import { motion } from 'framer-motion';
 import './SetProfilePic.css';
-import {State, EventHandler} from '../../Interfaces'
+import {State} from '../../Interfaces'
 
 function SetProfilePic() {
   const dispatch = useDispatch();
