@@ -35,19 +35,19 @@ interface Chat {
   createdAt: number;
 }
 interface Props {
-  chat: Chat;
-  relaxMethod: RelaxMethods;
-  onClickRelaxMethod: Function;
-  classColor: string;
-  unwind: DocumentData;
-  location: Location;
-  unwindID: string;
-  selectedUnwind: RelaxMethods;
-  handleTillTimeChange: Function;
-  handleFromTimeChange: Function;
-  fromUnwind: Date;
-  tillUnwind: Date;
-  unwinds: DocumentData[];
+  chat?: Chat;
+  relaxMethod?: RelaxMethods;
+  onClickRelaxMethod?: Function;
+  classColor?: string;
+  unwind?: DocumentData;
+  location?: Location;
+  unwindID?: string;
+  selectedUnwind?: RelaxMethods;
+  handleTillTimeChange?: Function;
+  handleFromTimeChange?: Function;
+  fromUnwind?: Date;
+  tillUnwind?: Date;
+  unwinds?: DocumentData[];
 }
 
 export { State, Profile, Chat, Props, RelaxMethods, Location, GeneralState };
