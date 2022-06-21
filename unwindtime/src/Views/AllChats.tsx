@@ -1,5 +1,5 @@
 import "./AllChats.css";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../Services/firebase";
@@ -15,25 +15,28 @@ function AllChats() {
   const navigate = useNavigate();
   const profile = useSelector((state:State) => state.profile.value);
   const location = useSelector((state:State) => state.location.value);
+  const [unwindQuery, setUwindQuery] = useState()
+
+
+  useEffect(()=>{
+    if ( profile.uid) {
+
+      const queryUnwinds = query(
+        collection(db, "unwinds"),
+        where("attachedUsers", "array-contains", profile.uid)
+      );
+
+      setUwindQuery(queryUnwinds)
+  }}, [profile.uid])
+
 
   //Get's realtime new unwinds from firebase
-  useEffect(() => {
 
-    if (!profile.uid) return navigate("/");
-    
-  }, []); 
-
-
-
-  const queryUnwinds = query(
-    collection(db, "unwinds"),
-    where("attachedUsers", "array-contains", profile.uid)
-  );
-  const [unwinds, loading, error] = useCollection(queryUnwinds, {
+  const [unwinds, loading, error] = useCollection(unwindQuery, {
     snapshotListenOptions: { includeMetadataChanges: true },
   });
 
-
+if(!profile.uid) {return <div>loading</div>}
   return (
     <div className="allchats-container">
       <div className="unwinds-status-container">
@@ -56,7 +59,6 @@ function AllChats() {
         
       )}
     </div>
-  );
-}
-
+  )}
+           
 export default AllChats;
