@@ -6,11 +6,12 @@ import { auth, logout } from '../Services/firebase';
 
 import RelaxMethod from '../Components/RelaxMethod';
 import { useSelector, useDispatch } from 'react-redux';
-import { switchFavo } from '../reducers/favoRelaxMethods.ts';
+import { switchFavo } from '../reducers/favoRelaxMethods';
 
 import { relaxMethods } from '../Media/relaxMethodsSVG';
 import { updateProfile } from '../Services/firestore';
 import SetProfilePic from '../Components/SetProfilePic';
+
 
 function Dashboard() {
   const [user, loadingAuth] = useAuthState(auth);
@@ -20,6 +21,7 @@ function Dashboard() {
 
   // Redux state setting
   const profile = useSelector((state) => state.profile.value);
+
   const favoRelaxMethods = useSelector((state) => state.favoRelaxMethods);
 
   //BUG need to rework routing

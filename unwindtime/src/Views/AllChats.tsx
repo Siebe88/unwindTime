@@ -14,11 +14,13 @@ import { useCollection } from 'react-firebase-hooks/firestore';
 import { collection, query, where } from 'firebase/firestore';
 import { db } from '../Services/firebaseConnection';
 
+import {GeneralState} from '../interfaces/interfaces'
+
 function AllChats() {
   const [user, loadingAuth] = useAuthState(auth);
   const navigate = useNavigate();
-  const profile = useSelector((state) => state.profile.value);
-  const location = useSelector((state) => state.location.value);
+  const profile = useSelector((state:GeneralState) =>  state.profile.value);
+  const location = useSelector((state:GeneralState) => state.location.value);
 
   //Get's realtime new unwinds from firebase
   const queryUnwinds = query(
