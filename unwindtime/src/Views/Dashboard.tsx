@@ -6,9 +6,9 @@ import { auth, logout } from "../Services/firebase";
 
 import RelaxMethod from "../Components/RelaxMethod";
 import { useSelector, useDispatch } from "react-redux";
-import { switchFavo } from "../reducers/favoRelaxMethods.ts";
+import { switchFavo } from "../reducers/favoRelaxMethods";
 
-import { relaxMethods } from "../Media/relaxMethodsSVG";
+import  relaxMethods  from "../Media/relaxMethodsSVG";
 import { updateProfile } from "../Services/firestore";
 import SetProfilePic from "../Components/SetProfilePic";
 import { RelaxOption, State } from "../../Interfaces";
@@ -28,10 +28,10 @@ function Dashboard() {
     if (!user) return navigate("/");
   }); //eslint-disable-line
 
-  const clickEventSaveProfile = async (e) => {
+  const clickEventSaveProfile = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
 
-    updateProfile(profile, favoRelaxMethods);
+    updateProfile(profile, favoRelaxMethods as unknown as RelaxOption);
     return navigate("/unwinds");
   };
 

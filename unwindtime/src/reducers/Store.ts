@@ -4,10 +4,10 @@ import {addNewFavoArray, deleteFavo, switchFavo, addFavo} from "./favoRelaxMetho
 
 export const store = configureStore({
   reducer: {
-    addNewFavoArray: addNewFavoArray,
-    addFavo: addFavo,
-    deleteFavo: deleteFavo,
-    switchFavo: switchFavo
+    addNewFavoArray: addNewFavoArray as any,
+    addFavo: addFavo as any,
+    deleteFavo: deleteFavo as any,
+    switchFavo: switchFavo as any
   }
 })
 

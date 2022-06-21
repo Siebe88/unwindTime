@@ -1,46 +1,48 @@
 import './Footer.css';
 import React from 'react';
-import { ReactComponent as Dashboard } from '../Media/Footer/dashboard.svg';
-import { ReactComponent as Unwinds } from '../Media/Footer/unwinds.svg';
-import { ReactComponent as Chats } from '../Media/Footer/chats.svg';
+import  dashboard  from '../Media/Footer/dashboard.svg';
+import   unwinds  from '../Media/Footer/unwinds.svg';
+import chats  from '../Media/Footer/chats.svg';
 import { useSelector } from 'react-redux';
 import { updateProfile } from '../Services/firestore';
 
 import { useNavigate } from 'react-router-dom';
-
+import { RelaxOption, State } from '../../Interfaces';
 const Footer = () => {
   const navigate = useNavigate();
 
-  const profile = useSelector((state) => state.profile.value);
-  const favoRelaxMethods = useSelector((state) => state.favoRelaxMethods);
+  const profile = useSelector((state:State) => state.profile.value);
+  const favoRelaxMethods = useSelector((state:State) => state.favoRelaxMethods);
 
   const toDashboard = () => {
     return navigate(`/dashboard`);
   };
 
   const toUnwinds = () => {
-    updateProfile(profile, favoRelaxMethods);
+    updateProfile(profile, favoRelaxMethods as unknown as RelaxOption);
     navigate(`/unwinds`);
   };
 
   const toChats = () => {
-    updateProfile(profile, favoRelaxMethods);
+    updateProfile(profile, favoRelaxMethods  as unknown as RelaxOption) ;
     navigate(`/allchats`);
   };
 
   return (
     <div className="footer-container">
       <button onClick={toDashboard} className="navButton notSelected">
-        {' '}
-        <Dashboard />{' '}
+      <img src={dashboard}></img>
+
       </button>
       <button onClick={toUnwinds} className="navButton notSelected">
         {' '}
-        <Unwinds />{' '}
+        <img src={unwinds}></img>
+  
       </button>
-      <button onClick={toChats} className="navButton notSelected">
+      <button name='chatsbtn' onClick={toChats} className="navButton notSelected">
         {' '}
-        <Chats />{' '}
+        <img src={chats}></img>
+
       </button>
     </div>
   );

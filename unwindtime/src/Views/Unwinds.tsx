@@ -9,9 +9,9 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../Services/firebase";
 
 import UnwindFilterBox from "../Components/UnwindFilterBox";
-import { ReactComponent as CreateUnwind } from "../Media/UnwindActionButtons/createUnwind.svg";
-import { ReactComponent as List } from "../Media/UnwindActionButtons/list.svg";
-import { ReactComponent as Map } from "../Media/UnwindActionButtons/map.svg";
+import  CreateUnwind  from "../Media/UnwindActionButtons/createUnwind.svg";
+import  List  from "../Media/UnwindActionButtons/list.svg";
+import  Map  from "../Media/UnwindActionButtons/map.svg";
 import { useNavigate } from "react-router-dom";
 import Unwind from "../Components/Unwind";
 import UnwindsMap from "../Components/UnwindsMap";
@@ -20,7 +20,7 @@ import { useCollection } from "react-firebase-hooks/firestore";
 
 import { createNewUnwind } from "../Services/unwinds";
 
-import { collection, query, where } from "firebase/firestore";
+import { collection, DocumentData, query, where } from "firebase/firestore";
 import { db } from "../Services/firebaseConnection";
 
 import {RelaxOption, State, EventHandler} from "../../Interfaces"
@@ -32,16 +32,16 @@ function Unwinds() {
 
   const [showMap, setShowMap] = useState(false);
 
-  const [fromUnwind , setFromUnwind] = useState(new Date());
+  const [fromUnwind , setFromUnwind] = useState(moment(new Date()).format('HH:mm'));
   const [tillUnwind, setTillUnwind] = useState(
-    moment(new Date()).add(15, "minutes")._d);
+    moment(new Date()).add(15, "minutes").format('HH:mm'));  //todo replace with Format
 
   //Get's realtime new unwinds from firebase
   const queryUnwinds = query(
     collection(db, "unwinds"),
     where("till", ">", fromUnwind)
   );
-  const [unwinds, loading, error] = useCollection(queryUnwinds, {
+  const [unwinds, loading, error] = useCollection< DocumentData>(queryUnwinds, {
     snapshotListenOptions: { includeMetadataChanges: true },
   });
 
@@ -78,13 +78,13 @@ function Unwinds() {
     const dateValue = moment(tillUnwind).format("YYYY-MM-DD");
     const newValue = moment(dateValue + " " + event.target.value);
   
-    setTillUnwind(newValue._d);
+    setTillUnwind(newValue.format('HH:mm'));
   }
 
   function handleFromTimeChange(event:EventHandler) {
     const dateValue = moment(fromUnwind).format("YYYY-MM-DD");
     const newValue = moment(dateValue + " " + event.target.value);
-    setFromUnwind(newValue._d);
+    setFromUnwind(newValue.format('HH:mm'));
   }
 
   return (
@@ -105,18 +105,18 @@ function Unwinds() {
             className="action-button"
           >
             {" "}
-            <CreateUnwind />{" "}
+            <img src={CreateUnwind} />{" "}
           </motion.button>
         ) : (
           <></>
         )}
         <button className="action-button">
           {" "}
-          <List onClick={() => setShowMap(false)} />{" "}
+          <img src={List} onClick={() => setShowMap(false)} />{" "}
         </button>
         <button className="action-button">
           {" "}
-          <Map onClick={() => setShowMap(true)} />{" "}
+          <img src={Map} onClick={() => setShowMap(true)} />{" "}
         </button>
       </div>
       <div className="unwinds-container">
@@ -134,7 +134,7 @@ function Unwinds() {
                   !selectedUnwind.hasOwnProperty('name') ||
                 
                   unwind.data().relaxMethod.name === selectedUnwind.name
-              ) : <></>}
+              ) : undefined}
             ></UnwindsMap>
           ) : (
             <></>

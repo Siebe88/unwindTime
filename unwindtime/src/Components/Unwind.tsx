@@ -6,10 +6,17 @@ import { getDistance } from 'geolib';
 import { useNavigate } from 'react-router-dom';
 import { Props, UnwindType } from '../../Interfaces';
 import { motion } from 'framer-motion';
+import { GeolibInputCoordinates } from 'geolib/es/types';
+import { constants } from 'buffer';
 
 
-export default function Unwind({ unwind, location, unwindID }:Props) {
+export default function Unwind(props:Props) {
 
+
+
+const {unwind}:any  = props;
+const {location}:Props =  props;
+const {unwindID}:Props = props;
 
   const navigate = useNavigate();
   const formatTime = (datestamp:number) => {
@@ -17,8 +24,8 @@ export default function Unwind({ unwind, location, unwindID }:Props) {
   };
 
   const distanceBetween =
-    location.latitude && unwind.location.latitude
-      ? `Distance: ${getDistance(location, unwind.location, 1)} meters away`
+    location?.latitude && unwind?.location.latitude
+      ? `Distance: ${getDistance(location as GeolibInputCoordinates, unwind.location, 1)} meters away`
       : '~';
 
   const conClickToChat = () => {
@@ -27,21 +34,19 @@ export default function Unwind({ unwind, location, unwindID }:Props) {
 
   return (
     <>
-      <motion.button
-        // whileHover={{ scale: 1.1 }}
-        // whileTap={{ scale: 0.9 }}
+      <motion.button 
         className="unwind-event-container"
         onClick={conClickToChat}
-        unwind={unwind}
-      >
-        <img className="profile-unwind-img" src={unwind.createdBy.profilePic} alt="" />
+        
+        >
+        <img className="profile-unwind-img" src={unwind?.createdBy.profilePic} alt="" />
         <div className="name-and-time-container">
-          <p>{unwind.createdBy.name} </p>
-          <p>{`${formatTime(unwind.from)} - ${formatTime(unwind.till)}`}</p>
+          <p>{unwind?.createdBy.name} </p>
+          <p>{`${formatTime(unwind?.from)} - ${formatTime(unwind?.till)}`}</p>
           <p> {distanceBetween} </p>
         </div>
         <RelaxMethod
-          relaxMethod={unwind.relaxMethod}
+          relaxMethod={unwind?.relaxMethod}
           classColor="favoriteMethod"
           onClickRelaxMethod={() => 1 + 1}
         ></RelaxMethod>

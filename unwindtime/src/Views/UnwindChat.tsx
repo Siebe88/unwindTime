@@ -6,11 +6,12 @@ import { doc, updateDoc, arrayUnion } from "firebase/firestore";
 import { db } from "../Services/firebaseConnection";
 import { useSelector } from "react-redux";
 
-import { ReactComponent as UnwindLogo } from "../Media/RelaxMethods/Coffee.svg";
+import  UnwindLogo from "../Media/RelaxMethods/Coffee.svg";
 // const UnwindLogo = require('../Media/RelaxMethods/Coffee.svg') as string;
-import { requestOptions, State, Chat, EventHandler } from "../../Interfaces";
+import { requestOptions, State, Chat, NewChat, EventHandler, UnwindType } from "../../Interfaces";
 import Unwind from "../Components/Unwind";
 import ChatMessage from "../Components/ChatMessage";
+import { FirebaseError } from "firebase/app";
 
 function UnwindChat() {
   const navigate = useNavigate();
@@ -19,9 +20,9 @@ function UnwindChat() {
 
   let { unwindID } = useParams();
   // const [user, loadingAuth] = useAuthState(auth);
-  const dummy = useRef<HTMLSpanElement>();
+  const dummy:any = useRef();
 
-  const [unwind, loading, error] = useDocument(doc(db, "unwinds", unwindID), {
+  const [unwind, loading, error] = useDocument(doc(db, "unwinds", unwindID as string) , {
     snapshotListenOptions: { includeMetadataChanges: true },
   });
 
@@ -65,9 +66,9 @@ function UnwindChat() {
       .catch((error) => console.log("error", error));
   };
 
-  const sendMessage = async (e:EventHandler) => {
+  const sendMessage = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
-    const chat = {
+    const newchat = {
       text: formValue,
       profile: {
         profilePic: profile.profilePic,
@@ -77,19 +78,19 @@ function UnwindChat() {
         relaxMethods: profile.relaxMethods,
         token: profile.token
       },
-      createdAt: new Date(),
+      createdAt: new Date() as unknown as number,
     };
 
     // Atomically add a new chatMessage and attachedFollowers
     //TODO add tokens
-    const unwindRef = doc(db, "unwinds", unwindID);
+    const unwindRef = doc(db, "unwinds", unwindID as string);
     await updateDoc(unwindRef, {
-      chat: arrayUnion(chat),
+      chat: arrayUnion(newchat),
       attachedUsers: arrayUnion(profile.uid),
       registrationTokens: arrayUnion(profile.token),
     });
 
-    sendPush(chat);
+    sendPush(newchat) ;
 
     setFormValue("");
     dummy.current?.scrollIntoView({ behavior: "smooth" });
@@ -102,10 +103,10 @@ function UnwindChat() {
           {error && <strong>Error: {JSON.stringify(error)}</strong>}
           {loading && <span>Document: Loading...</span>}
         </p>
-        {unwind && unwind._document && (
+        {unwind  && unwind?.hasOwnProperty('_document') && (
           <Unwind
             key={unwind.id}
-            unwind={unwind.data()}
+            unwind={unwind.data()} 
             unwindID={unwind.id}
             location={location}
           ></Unwind>
@@ -113,10 +114,8 @@ function UnwindChat() {
       </div>
       <div className="chat-container">
         {unwind &&
-          unwind._document &&
-          unwind
-            .data()
-            .chat.map((chat, index) => (
+           unwind?.hasOwnProperty('_document') &&
+          unwind?.data()?.chat.map((chat:Chat, index:number) => (
               <ChatMessage key={index} chat={chat}></ChatMessage>
             ))}
         <span ref={dummy}></span>
@@ -135,7 +134,7 @@ function UnwindChat() {
           className="chat-submit-button"
           disabled={!formValue}
         >
-          <UnwindLogo></UnwindLogo>
+          <img src={UnwindLogo}></img>
         </button>
       </form>
     </div>
