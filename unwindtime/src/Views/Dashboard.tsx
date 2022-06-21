@@ -72,6 +72,7 @@ function Dashboard() {
       </div>
 
       <button
+      name="letsUnwindBtn"
         className="dashboard__btn go_button text-style-h-3 color-button-grey"
         onClick={clickEventSaveProfile}
       >
@@ -79,6 +80,7 @@ function Dashboard() {
         Okay, let's unwind!
       </button>
       <button
+      name='logoutBtn'
         className="dashboard__btn text-style-h-3 color-button-red"
         onClick={logout}
       >

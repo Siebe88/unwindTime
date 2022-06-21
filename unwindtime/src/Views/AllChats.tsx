@@ -26,7 +26,7 @@ function AllChats() {
         where("attachedUsers", "array-contains", profile.uid)
       );
 
-      setUwindQuery(queryUnwinds)
+      setUwindQuery(queryUnwinds as unknown as any)
   }}, [profile.uid])
 
 
