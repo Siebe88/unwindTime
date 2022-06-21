@@ -3,7 +3,7 @@ import { DocumentData } from "firebase/firestore";
 interface GeneralState {
   profile: State;
   favoRelaxMethods: RelaxMethods[];
-  location: 
+  
 }
 
 interface State {
