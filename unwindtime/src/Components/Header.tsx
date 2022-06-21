@@ -1,5 +1,7 @@
 import './Header.css';
-import { ReactComponent as Logo } from '../Media/Logo.svg';
+import React from 'react';
+const Logo = require('../Media/Logo.svg') as string;
+// import { ReactComponent as Logo } from '../Media/Logo.svg';
 
 export default function Header() {
   return (
