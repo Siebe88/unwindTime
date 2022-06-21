@@ -8,10 +8,10 @@ import RelaxMethod from '../Components/RelaxMethod';
 import { useSelector, useDispatch } from 'react-redux';
 import { switchFavo } from '../reducers/favoRelaxMethods';
 
-import { relaxMethods } from '../Media/relaxMethodsSVG';
+import  relaxMethods from '../Media/relaxMethodsSVG';
 import { updateProfile } from '../Services/firestore';
 import SetProfilePic from '../Components/SetProfilePic';
-import { GeneralState } from '../interfaces/interfaces';
+import { GeneralState, RelaxMethods } from '../interfaces/interfaces';
 
 
 function Dashboard() {
@@ -30,14 +30,14 @@ function Dashboard() {
     if (!user) return navigate('/');
   }); //eslint-disable-line
 
-  const clickEventSaveProfile = async (e) => {
+  const clickEventSaveProfile = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
 
     updateProfile(profile, favoRelaxMethods);
     return navigate('/unwinds');
   };
 
-  const onClickRelaxMethod = (relaxMethod) => {
+  const onClickRelaxMethod = (relaxMethod: RelaxMethods) => {
     dispatch(switchFavo(relaxMethod));
   };
 
