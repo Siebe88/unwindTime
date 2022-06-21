@@ -35,7 +35,7 @@
 
 .dashboard__btn {
   padding: 10px;
-  font-size: 18px;
+  font-size: 18px !important;
   margin-top: 10px;
   border: none;
   color: white;

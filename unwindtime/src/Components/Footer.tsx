@@ -13,7 +13,7 @@ import { GeneralState } from '../interfaces/interfaces';
 import dashboard from '../Media/Footer/dashboard.svg';
 import unwinds from '../Media/Footer/unwinds.svg';
 import chats from '../Media/Footer/chats.svg';
-const updateProfile = require('../Services/firestore')
+import {updateProfile} from '../Services/firestore';
 
 const Footer = () => {
   const navigate = useNavigate();
