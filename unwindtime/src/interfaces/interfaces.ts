@@ -1,5 +1,9 @@
 import { DocumentData, QuerySnapshot } from 'firebase/firestore'
 
+interface GeneralState {
+  profile : State
+}
+
 interface State {
     value: Profile
   }
@@ -48,4 +52,4 @@ interface Profile {
   }
 
 
-  export { State, Profile, Chat, Props, RelaxMethods, Location }
+  export { State, Profile, Chat, Props, RelaxMethods, Location, GeneralState }
