@@ -4,6 +4,7 @@ import { Profile } from '../../Interfaces';
 
 
 export async function createNewUnwind(profile:Profile, unwind:DocumentData) {
+  
   const unwindDoc = {
     createdAt: new Date(),
     ...unwind,
@@ -27,7 +28,7 @@ export async function createNewUnwindChat(unwind:DocumentData, profile:Profile, 
 }
 
 export async function deleteChat(unwind:DocumentData) {
-  console.log(unwind, 'uwind inside')
 
-   deleteDoc(doc(db, 'unwindChat', unwind));
+
+   deleteDoc(doc(db, 'unwindChat', ));
 }

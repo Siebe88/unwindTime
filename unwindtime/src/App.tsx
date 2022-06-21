@@ -7,10 +7,8 @@ import Dashboard from "./Views/Dashboard";
 import Unwinds from "./Views/Unwinds";
 import UnwindChat from "./Views/UnwindChat";
 import AllChats from "./Views/AllChats";
-
 import Header from "./Components/Header";
 import Footer from "./Components/Footer";
-
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./Services/firebase";
 import { useDispatch } from "react-redux";
@@ -20,17 +18,15 @@ import { addNewFavoArray } from "./reducers/favoRelaxMethods";
 import { setLocation } from "./reducers/location";
 import React, { useEffect, useState } from "react";
 import { LoadScript } from "@react-google-maps/api";
-
 import {
   messaging,
   onMessageListener,
   fetchToken,
 } from "./Services/firebaseConnection";
-
 import { getToken, MessagePayload, onMessage } from "firebase/messaging";
-import { PayloadAction } from "@reduxjs/toolkit";
 
-//please just work
+
+
 
 function App() {
   const [user, loading] = useAuthState(auth);
@@ -127,7 +123,6 @@ function App() {
 
   onMessage(messaging, (payload) => {
     console.log("Message received. ", payload);
-    // ...
   });
 
   return (

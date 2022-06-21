@@ -4,17 +4,18 @@ import './Unwind.css';
 import RelaxMethod from './RelaxMethod';
 import { getDistance } from 'geolib';
 import { useNavigate } from 'react-router-dom';
-import { Props, UnwindType } from '../../Interfaces';
+import { Props, State } from '../../Interfaces';
 import { motion } from 'framer-motion';
 import { GeolibInputCoordinates } from 'geolib/es/types';
-import { constants } from 'buffer';
-import { deleteChat } from '../Services/unwinds';
-import { collection, addDoc, DocumentData, deleteDoc, doc } from 'firebase/firestore';
+import {  deleteDoc, doc } from 'firebase/firestore';
 import { db } from '../Services/firebaseConnection';
+import { useSelector } from 'react-redux';
+
+
 export default function Unwind(props:Props) {
 
 
-
+  const profile = useSelector((state:State) => state.profile.value);
 const {unwind}:any  = props;
 const {location}:Props =  props;
 const {unwindID}:Props = props;
@@ -32,11 +33,6 @@ const {unwindID}:Props = props;
   const conClickToChat = () => {
     navigate(`/unwindchat/${unwindID}`);
   };
-
-const handleDel = (unwind) => {
-
- return deleteChat(unwind)
-}
 
 
   return (
@@ -59,7 +55,7 @@ const handleDel = (unwind) => {
         ></RelaxMethod>
        
       </motion.button>
-      <div onClick={() => deleteDoc(doc(db, "unwinds", unwindID))}>del</div>
+{     profile.uid === unwind.createdBy.uid ? <div onClick={() => deleteDoc(doc(db, "unwinds", unwindID as unknown as string))}>del</div> : <></>}
     </>
   );
 }

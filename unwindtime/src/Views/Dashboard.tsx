@@ -3,15 +3,14 @@ import React, { useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 import { auth, logout } from "../Services/firebase";
-
 import RelaxMethod from "../Components/RelaxMethod";
 import { useSelector, useDispatch } from "react-redux";
 import { switchFavo } from "../reducers/favoRelaxMethods";
-
 import  relaxMethods  from "../Media/relaxMethodsSVG";
 import { updateProfile } from "../Services/firestore";
 import SetProfilePic from "../Components/SetProfilePic";
 import { RelaxOption, State } from "../../Interfaces";
+
 function Dashboard() {
   const [user, loadingAuth] = useAuthState(auth);
 
@@ -83,7 +82,7 @@ function Dashboard() {
       >
         Logout
       </button>
-      {/* </div> */}
+   
     </div>
   );
 }

@@ -1,13 +1,9 @@
 import "./Unwinds.css";
-
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-
 import { motion } from "framer-motion";
-
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../Services/firebase";
-
 import UnwindFilterBox from "../Components/UnwindFilterBox";
 import  CreateUnwind  from "../Media/UnwindActionButtons/createUnwind.svg";
 import  List  from "../Media/UnwindActionButtons/list.svg";
@@ -15,14 +11,10 @@ import  Map  from "../Media/UnwindActionButtons/map.svg";
 import { useNavigate } from "react-router-dom";
 import Unwind from "../Components/Unwind";
 import UnwindsMap from "../Components/UnwindsMap";
-
 import { useCollection } from "react-firebase-hooks/firestore";
-
 import { createNewUnwind } from "../Services/unwinds";
-
 import { collection, DocumentData, query, where } from "firebase/firestore";
 import { db } from "../Services/firebaseConnection";
-
 import {RelaxOption, State, EventHandler} from "../../Interfaces"
 import moment from "moment";
 
@@ -33,9 +25,7 @@ function Unwinds() {
   const [showMap, setShowMap] = useState(false);
 
   const [fromUnwind, setFromUnwind] = useState(new Date());
-  const [tillUnwind, setTillUnwind] = useState(moment(new Date(), moment.defaultFormat).add(15, 'minutes').toDate()); //todo replace with Format
-
-
+  const [tillUnwind, setTillUnwind] = useState(moment(new Date(), moment.defaultFormat).add(15, 'minutes').toDate()); 
 
   //Get's realtime new unwinds from firebase
   const queryUnwinds = query(
@@ -59,7 +49,6 @@ function Unwinds() {
 
   const createUnwind = () => {
   
-
     const unwind = {
       relaxMethod: selectedUnwind,
       from: fromUnwind,
@@ -78,18 +67,18 @@ function Unwinds() {
 
   function handleTillTimeChange(event:EventHandler) {
     const dateValue = moment(tillUnwind).format("YYYY-MM-DD");
-    const newValue = moment(dateValue + " " + event.target.value)
+    const newValue = moment(dateValue + " " + event.target.value, moment.defaultFormat).toDate()
   
+    console.log(newValue, 'newvalue no d')
 
-
-    setTillUnwind(newValue._d);
+    setTillUnwind(newValue);
   }
 
   function handleFromTimeChange(event:EventHandler) {
    
     const dateValue = moment(fromUnwind).format("YYYY-MM-DD");
-    const newValue = moment(dateValue + " " + event.target.value)
-    setFromUnwind(newValue._d)
+    const newValue = moment(dateValue + " " + event.target.value, moment.defaultFormat).toDate()
+    setFromUnwind(newValue)
   }
 
   return (

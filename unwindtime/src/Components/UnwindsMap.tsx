@@ -3,33 +3,20 @@ import Unwind from "./Unwind";
 import {
   GoogleMap,
   useJsApiLoader,
-  Marker,
   InfoWindow,
 } from "@react-google-maps/api"; //eslint-disable-line
 
-
 import { Props } from "../../Interfaces";
-
-
 
 const containerStyle = {
   width: "100%",
   height: "100%",
 };
 
-
-
-
-
-
-
 function UnwindsMap(props:Props) {
-
 
   const {location} = props;
   const {unwinds} = props;
-
-
 
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
@@ -37,9 +24,6 @@ function UnwindsMap(props:Props) {
   });
 
 
-
-
-  console.log(unwinds, 'all unwinds')
 
   return isLoaded && location ? (
     <GoogleMap
