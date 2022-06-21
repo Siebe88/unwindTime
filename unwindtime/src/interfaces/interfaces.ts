@@ -3,10 +3,14 @@ import { DocumentData } from "firebase/firestore";
 interface GeneralState {
   profile: State;
   favoRelaxMethods: RelaxMethods[];
+  location: 
 }
 
 interface State {
   value: Profile;
+}
+interface LocationState {
+    value: Location
 }
 
 interface User {
@@ -32,10 +36,10 @@ interface RelaxMethods {
   transform: string;
 }
 interface Location {
-  lat: number | null;
-  lng: number | null;
-  latitude: number | null;
-  longitude: number | null;
+  lat: number  ;
+  lng: number ;
+  latitude: number ;
+  longitude: number ;
 }
 
 interface Chat {
@@ -59,4 +63,4 @@ interface Props {
   unwinds: DocumentData[];
 }
 
-export { State, Profile, Chat, Props, RelaxMethods, Location, GeneralState, User };
+export { State, Profile, Chat, Props, RelaxMethods, Location, LocationState, GeneralState, User };
