@@ -6,14 +6,14 @@ import moment from 'moment';
 
 import { Props, GeneralState } from '../interfaces/interfaces'
 
+const formatTime = (datestamp: number) => {
+  return moment(new Date(datestamp * 1000)).format('HH:mm');
+};
 export default function ChatMessage({ chat }: Props) {
   const profile = useSelector((state: GeneralState) => state.profile.value);
 
   const messageClass = chat.profile.uid === profile.uid ? 'sent' : 'received';
 
-  const formatTime = (datestamp: number) => {
-    return moment(new Date(datestamp * 1000)).format('HH:mm');
-  };
 
   return (
     <div className={`chatmessage-container ${messageClass}`}>

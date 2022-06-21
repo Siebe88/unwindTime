@@ -9,7 +9,7 @@ export const favoRelaxMethodsSlice = createSlice({
   reducers: {
     addNewFavoArray: (state: RelaxMethods[], action:PayloadAction<RelaxMethods[]>) => {
       action.payload.forEach((methodFavo) => {
-        if (!state.some((method) => method.name === methodFavo.name)) {
+        if (!state.some((method) => method.name === methodFavo.name)) { //avoid directly pushing and mutating the state - fix it
           state.push(methodFavo);
         }
       });
@@ -32,6 +32,7 @@ export const favoRelaxMethodsSlice = createSlice({
          state?.push(action.payload);
       }
     },
+
   },
 });
 

@@ -13,7 +13,7 @@ function SetProfilePic() {
   const dispatch = useDispatch();
   const profile = useSelector((state: GeneralState) => state.profile.value);
 
-  const uploadFile = (profilePic: Blob | ArrayBuffer | null | any) => {
+  const uploadFile = (profilePic: File ) => {//misleading naming -> profile folder/file
     if (profilePic == null) return;
     const imageRef = ref(storage, `profilePics/${profilePic.name + v4()}`);
     uploadBytes(imageRef, profilePic).then((snapshot) => {
