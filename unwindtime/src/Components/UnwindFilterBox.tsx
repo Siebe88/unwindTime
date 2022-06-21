@@ -6,6 +6,13 @@ import moment from 'moment';
 import RelaxMethod from './RelaxMethod';
 import { Props, State } from "../../Interfaces";
 
+
+
+
+  let minDate = new Date().toISOString().slice(11, 16).toString();
+  console.log(minDate, 'mindate')
+
+
 function UnwindFilterBox({
   onClickRelaxMethod,
   selectedUnwind,
@@ -15,7 +22,7 @@ function UnwindFilterBox({
   tillUnwind,
 }:Props) {
   const favoRelaxMethods = useSelector((state:State) => state.favoRelaxMethods);
-
+  console.log(moment(fromUnwind).format('HH:mm'), 'siebe mindate')
   return (
     <div className="relaxmethods-selector-parent-container">
       <form action="">
@@ -39,7 +46,7 @@ function UnwindFilterBox({
           <h3 className="text-style-h-3">From:</h3>
           <input
             type="time"
-            min={moment(fromUnwind).format('HH:mm')}
+            min={minDate}
             defaultValue={moment(fromUnwind).format('HH:mm')}
             onChange={handleFromTimeChange}
             required

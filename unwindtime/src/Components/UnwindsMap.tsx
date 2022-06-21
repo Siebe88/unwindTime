@@ -19,6 +19,10 @@ const containerStyle = {
 
 
 
+
+
+
+
 function UnwindsMap(props:Props) {
 
 
@@ -32,7 +36,10 @@ function UnwindsMap(props:Props) {
     googleMapsApiKey: "AIzaSyCez882QWlP85wQRNooAi0llw1ymzL96zI",
   });
 
-  const [map, setMap] = React.useState(null); //eslint-disable-line
+
+
+
+  console.log(unwinds, 'all unwinds')
 
   return isLoaded && location ? (
     <GoogleMap
@@ -46,15 +53,20 @@ function UnwindsMap(props:Props) {
           {unwinds.map((unwind) => {
          
             return (
-              <InfoWindow position={location as  unknown as google.maps.LatLng} key={unwind.id}>
-                <Unwind
-                  key={unwind.id}
-                  unwind={unwind.data()}
-                  unwindID={unwind.id}
-                  location={location}
-                  
-                ></Unwind>
-              </InfoWindow>
+             
+          
+                <InfoWindow position={location as  unknown as google.maps.LatLng} key={unwind.id}   >
+                  <Unwind
+                    key={unwind.id}
+                    unwind={unwind.data()}
+                    unwindID={unwind.id}
+                    location={location}
+                    
+                  ></Unwind>
+                </InfoWindow>
+              
+              
+          
             );
           })}
         </div>

@@ -25,8 +25,11 @@ export const favoRelaxMethodsSlice = createSlice({
        state.filter((method) => method['name'] !== action.payload.name);
     },
     switchFavo: (state: RelaxOption[] | void, action:PayloadAction<RelaxOption>) => {
-      if (state?.some((method) => method['name'] === action.payload.name)) {
-         state?.filter((method) => method['name'] !== action.payload.name);
+  
+      
+     
+      if (state?.some((method) => method.name === action.payload.name)) {
+        return state.filter((method) => method.name !== action.payload.name) as unknown as any;
       } else {
         state?.push(action.payload);
       }

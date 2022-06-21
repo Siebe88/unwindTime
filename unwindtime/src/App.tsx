@@ -140,9 +140,9 @@ function App() {
             <Route path="/" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/reset" element={<Reset />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/unwinds" element={<Unwinds />} />
-            <Route path="/allchats" element={<AllChats />} />
+            {user ? <Route path="/dashboard" element={<Dashboard />} /> : <Route path="/" element={<Login />} /> } 
+           {user ?  <Route path="/unwinds" element={<Unwinds />} /> : <Route path="/" element={<Login />} /> } 
+           {user ? <Route path="/allchats" element={<AllChats />} /> : <Route path="/" element={<Login />} /> } 
             <Route path="/unwindChat/:unwindID" element={<UnwindChat />} />
             <Route path="*" element={<Login />} />
           </Routes>
