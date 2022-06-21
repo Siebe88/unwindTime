@@ -6,7 +6,6 @@ import {
   sendPasswordResetEmail,
   signOut,
   FacebookAuthProvider,
-  AuthError,
 } from 'firebase/auth';
 import { query, getDocs, collection, where, addDoc } from 'firebase/firestore';
 import { createNewProfile } from './firestore';

@@ -17,6 +17,14 @@ function AllChats() {
   const location = useSelector((state:State) => state.location.value);
 
   //Get's realtime new unwinds from firebase
+  useEffect(() => {
+
+    if (!profile.uid) return navigate("/");
+    
+  }, []); 
+
+
+
   const queryUnwinds = query(
     collection(db, "unwinds"),
     where("attachedUsers", "array-contains", profile.uid)
@@ -25,10 +33,6 @@ function AllChats() {
     snapshotListenOptions: { includeMetadataChanges: true },
   });
 
-  useEffect(() => {
-    if (loadingAuth) return;
-    if (!user) return navigate("/");
-  }, []); //eslint-disable-line
 
   return (
     <div className="allchats-container">
