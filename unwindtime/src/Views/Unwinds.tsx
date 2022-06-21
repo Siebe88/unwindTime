@@ -86,11 +86,10 @@ function Unwinds() {
   }
 
   function handleFromTimeChange(event:EventHandler) {
+   
     const dateValue = moment(fromUnwind).format("YYYY-MM-DD");
     const newValue = moment(dateValue + " " + event.target.value)
- 
-    
-    setFromUnwind(newValue._d);
+    setFromUnwind(newValue._d)
   }
 
   return (
