@@ -4,16 +4,14 @@ import { useSelector } from "react-redux";
 import moment from "moment";
 import { Props, State } from "../../Interfaces";
 
-
-export default function ChatMessage({chat}:Props) {
-
-
-  const profile = useSelector((state:State) => {   
-  return state.profile.value});
+export default function ChatMessage({ chat }: Props) {
+  const profile = useSelector((state: State) => {
+    return state.profile.value;
+  });
 
   const messageClass = chat?.profile.uid === profile.uid ? "sent" : "received";
 
-  const formatTime = (datestamp:number) => {
+  const formatTime = (datestamp: number) => {
     return moment(new Date(datestamp * 1000)).format("HH:mm");
   };
 

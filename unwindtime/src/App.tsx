@@ -25,9 +25,6 @@ import {
 } from "./Services/firebaseConnection";
 import { getToken, MessagePayload, onMessage } from "firebase/messaging";
 
-
-
-
 function App() {
   const [user, loading] = useAuthState(auth);
   const [notification, setNotification] = useState({ title: "", body: "" });
@@ -96,9 +93,8 @@ function App() {
   };
 
   const getLocation = () => {
-
     if (!navigator.geolocation) {
-      setStatus("Geolocation is not supported by your browser")
+      setStatus("Geolocation is not supported by your browser");
     } else {
       setStatus("Locating...");
       navigator.geolocation.getCurrentPosition(
@@ -135,9 +131,21 @@ function App() {
             <Route path="/" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/reset" element={<Reset />} />
-            {user ? <Route path="/dashboard" element={<Dashboard />} /> : <Route path="/" element={<Login />} /> } 
-           {user ?  <Route path="/unwinds" element={<Unwinds />} /> : <Route path="/" element={<Login />} /> } 
-           {user ? <Route path="/allchats" element={<AllChats />} /> : <Route path="/" element={<Login />} /> } 
+            {user ? (
+              <Route path="/dashboard" element={<Dashboard />} />
+            ) : (
+              <Route path="/" element={<Login />} />
+            )}
+            {user ? (
+              <Route path="/unwinds" element={<Unwinds />} />
+            ) : (
+              <Route path="/" element={<Login />} />
+            )}
+            {user ? (
+              <Route path="/allchats" element={<AllChats />} />
+            ) : (
+              <Route path="/" element={<Login />} />
+            )}
             <Route path="/unwindChat/:unwindID" element={<UnwindChat />} />
             <Route path="*" element={<Login />} />
           </Routes>
