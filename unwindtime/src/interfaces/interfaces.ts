@@ -1,4 +1,4 @@
-import { DocumentData, QuerySnapshot } from 'firebase/firestore'
+import { DocumentData } from 'firebase/firestore'
 
 interface GeneralState {
     profile : State

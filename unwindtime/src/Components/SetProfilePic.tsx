@@ -7,12 +7,13 @@ import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { v4 } from 'uuid';
 import { motion } from 'framer-motion';
 import './SetProfilePic.css';
+import { GeneralState } from '../interfaces/interfaces';
 
 function SetProfilePic() {
   const dispatch = useDispatch();
-  const profile = useSelector((state) => state.profile.value);
+  const profile = useSelector((state: GeneralState) => state.profile.value);
 
-  const uploadFile = (profilePic) => {
+  const uploadFile = (profilePic: Blob | ArrayBuffer | null | any) => {
     if (profilePic == null) return;
     const imageRef = ref(storage, `profilePics/${profilePic.name + v4()}`);
     uploadBytes(imageRef, profilePic).then((snapshot) => {
@@ -22,7 +23,7 @@ function SetProfilePic() {
     });
   };
 
-  const onChangeProfileName = (event) => { // how are we chancing the db?
+  const onChangeProfileName = (event: { target: { value: string; }; }) => { // how are we chancing the db?
     // console.log('ChangeValue', event.target.value);
     dispatch(changeProfileName(event.target.value));
   };
@@ -55,7 +56,8 @@ function SetProfilePic() {
             type="file"
             className="profilepic-input"
             onChange={(event) => {
-              uploadFile(event.target.files[0]);
+              const file = (event.target as HTMLInputElement).files![0];
+              uploadFile(file);
             }}
           />
         </div>

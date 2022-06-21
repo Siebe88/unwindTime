@@ -23,7 +23,7 @@ const auth = getAuth(app);
 const messaging = getMessaging(app);
 
 //source: https://blog.logrocket.com/push-notifications-react-firebase/
-const fetchToken = (setTokenFound) => {
+const fetchToken = (setTokenFound: (arg0: boolean) => void) => {
   // console.log('frbconf', firebaseConfig)
   return getToken(messaging, {
 
