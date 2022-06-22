@@ -59,7 +59,7 @@ export default function Unwind(props: Props) {
       </motion.button>
       {profile.uid === unwind.createdBy.uid ? (
         <div
-        name='deleteBtn'
+        data-test='deleteBtn'
           onClick={() =>
             deleteDoc(doc(db, "unwinds", unwindID as unknown as string))
           }

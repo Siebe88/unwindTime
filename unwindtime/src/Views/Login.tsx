@@ -16,7 +16,7 @@ function Login() {
   return (
     <div className="login">
       <div className="login__container">
-        <img src={WelcomeSVG} className="WelcomeSVG" />
+        <img  src={WelcomeSVG} className="WelcomeSVG" />
         <input
           name="email"
           type="text"
@@ -46,13 +46,10 @@ function Login() {
         <button className="login__btn login__google" onClick={signInWithGoogle}>
           Login with Google
         </button>
-        {/* <button className="login__btn login__facebook" onClick={signInWithFacebook}>
-          Login with Facebook
-        </button> */}
-        <div>
-          <Link to="/reset">Forgot Password</Link>
+              <div>
+          <Link to="/reset" data-test='resetLink'>Forgot Password</Link>
         </div>
-        <div>
+        <div data-test='noAccount'>
           Don't have an account? <Link to="/register">Register</Link> now.
         </div>
       </div>
