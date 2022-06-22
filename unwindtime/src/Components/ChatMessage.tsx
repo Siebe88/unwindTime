@@ -1,19 +1,17 @@
 import './ChatMessage.css';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import moment from 'moment';
+import {ChatProps, GeneralState } from '../interfaces/interfaces'
+import {formatTime} from '../Services/utils'
+
 // import { motion } from 'framer-motion';
 
-import {ChatProps, GeneralState } from '../interfaces/interfaces'
 
-const formatTime = (datestamp: number) => {
-  return moment(new Date(datestamp * 1000)).format('HH:mm'); // unit testing
-};
+
 export default function ChatMessage( {chat}: ChatProps) {
   const profile = useSelector((state: GeneralState) => state.profile.value);
 
   const messageClass = chat.profile.uid === profile.uid ? 'sent' : 'received';
-
 
   return (
     <div className={`chatmessage-container ${messageClass}`}>

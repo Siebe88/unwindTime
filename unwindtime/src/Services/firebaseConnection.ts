@@ -15,7 +15,10 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
+<<<<<<< HEAD
 
+=======
+>>>>>>> fbe2c036cfcf2399126f4b345e73df37b979071d
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const storage = getStorage(app);
@@ -51,6 +54,7 @@ const fetchToken = (setTokenFound: (arg0: boolean) => void) => {
 
 const onMessageListener = () =>
   new Promise((resolve) => {
+
     onMessage(messaging, (payload) => {
       resolve(payload);
     });

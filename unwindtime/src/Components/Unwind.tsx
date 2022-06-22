@@ -1,13 +1,13 @@
 /* eslint-disable no-restricted-globals */
-import React from 'react';
-import moment from 'moment';
-import './Unwind.css';
-import RelaxMethod from './RelaxMethod';
-import { getDistance } from 'geolib';
-import { useNavigate } from 'react-router-dom';
-import { GeolibInputCoordinates } from 'geolib/es/types';
-import { motion } from 'framer-motion';
-import { UnwindProps } from '../interfaces/interfaces';
+import React from "react";
+import "./Unwind.css";
+import RelaxMethod from "./RelaxMethod";
+import { getDistance } from "geolib";
+import { useNavigate } from "react-router-dom";
+import { GeolibInputCoordinates } from "geolib/es/types";
+import { motion } from "framer-motion";
+import { UnwindProps } from "../interfaces/interfaces";
+import { formatTime } from "../Services/utils";
 
 export default function Unwind(props: UnwindProps) {
   const { unwind } = props;
@@ -15,9 +15,6 @@ export default function Unwind(props: UnwindProps) {
   const { unwindID } = props;
 
   const navigate = useNavigate();
-  const formatTime = (datestamp: number) => {
-    return moment(new Date(datestamp * 1000)).format('HH:mm');
-  };
 
   const distanceBetween =
     location?.latitude && unwind?.location.latitude
@@ -25,7 +22,7 @@ export default function Unwind(props: UnwindProps) {
           location as GeolibInputCoordinates,
           unwind?.location,
           1
-        )} meters away`
+        )} m`
       : '~';
 
   const conClickToChat = () => {
@@ -35,8 +32,12 @@ export default function Unwind(props: UnwindProps) {
   return (
     <>
       <motion.button
-        // whileHover={{ scale: 1.1 }}
-        // whileTap={{ scale: 0.9 }}
+        whileHover={{
+          scale: 1.1,
+          boxShadow: "10px 10px 0 rgba(0, 0, 0, 0.2)",
+          cursor:'pointer'
+        }}
+        whileTap={{ scale: 0.9 }}
         className="unwind-event-container"
         onClick={conClickToChat}
       >

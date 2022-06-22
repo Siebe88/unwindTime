@@ -1,17 +1,17 @@
-import { DocumentData } from "firebase/firestore";
+import { DocumentData, Timestamp } from "firebase/firestore";
 import { ChangeEventHandler } from "react";
 
 interface GeneralState {
   profile: State;
   favoRelaxMethods: RelaxMethods[];
-  location: LocationState
+  location: LocationState;
 }
 
 interface State {
   value: Profile;
 }
 interface LocationState {
-  value: Location
+  value: Location;
 }
 
 interface User {
@@ -46,7 +46,7 @@ interface Location {
 interface Chat {
   text: string;
   profile: Profile;
-  createdAt: number;
+  createdAt: Timestamp ;
 }
 interface ChatProps {
   chat: Chat;
@@ -59,7 +59,7 @@ interface RelaxMethodProps {
 }
 
 interface UnwindProps {
-  unwind?: DocumentData | undefined;
+  unwind?: DocumentData;
   unwindID: string;
   location: Location;
 }
@@ -67,7 +67,7 @@ interface UnwindProps {
 interface UnwindFilterBoxProps {
   onClickRelaxMethod: Function;
   selectedUnwind: RelaxMethods;
-  handleTillTimeChange:  ChangeEventHandler<HTMLInputElement>;
+  handleTillTimeChange: ChangeEventHandler<HTMLInputElement>;
   handleFromTimeChange: ChangeEventHandler<HTMLInputElement>;
   fromUnwind: Date;
   tillUnwind: Date;
@@ -78,9 +78,18 @@ interface UnwindsMapProps {
   location: Location;
 }
 
-
-
-
-
-
-export { State, Profile, Chat, ChatProps, RelaxMethods, Location, LocationState, GeneralState, User, RelaxMethodProps, UnwindProps, UnwindFilterBoxProps, UnwindsMapProps };
+export {
+  State,
+  Profile,
+  Chat,
+  ChatProps,
+  RelaxMethods,
+  Location,
+  LocationState,
+  GeneralState,
+  User,
+  RelaxMethodProps,
+  UnwindProps,
+  UnwindFilterBoxProps,
+  UnwindsMapProps,
+};

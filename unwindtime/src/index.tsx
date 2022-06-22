@@ -1,8 +1,9 @@
+//@ts-nocheck
 import { configureStore } from '@reduxjs/toolkit';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
-import App from './App.js';
+import App from './App';
 import './index.css';
 import favoRelaxMethodsSlice from './reducers/favoRelaxMethods';
 import locationReducer from './reducers/location.ts';
