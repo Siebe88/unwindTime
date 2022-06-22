@@ -13,84 +13,57 @@ describe('renders the login page', () => {
     cy.get('[name="login"]').should('have.length', 1);//change this?
   })
 
-  it('login with email and password', async() => {
+  it('login with email and password', () => {
     cy.visit('/');
     cy.get('[type="email"]').type('halil@gmail.com');
     cy.get('[type="password"]').type('123456');
+
     cy.get('[name="login"]').click();
     cy.url().should('eq', 'http://localhost:3000/dashboard');
+
+    cy.wait(3000)
+    cy.get('.color-button-red').click(); //logout
+
     cy.clearCookies();
+
+
   })
   //create a logout after testing
   // test the negative cases/scenarios
 
 
-  it('login with invalid email and password', async() => {
+  it('login with invalid email and password', () => {
     cy.visit('/');
     cy.get('[type="email"]').type('123@345.com');
     cy.get('[type="password"]').type('123456');
     cy.get('[name="login"]').click();
-    cy.url().should('eq', `http://localhost:3000/login`);
-    cy.get('.alert').should('have.length', 1);
+
+    cy.url().should('eq', `http://localhost:3000/`);
     cy.clearCookies();
   }
   )
 
 
-  it('login with invalid email', async() => {
+  it('login with invalid email', () => {
     cy.visit('/');
     cy.get('[type="email"]').type('123@345.com');
     cy.get('[type="password"]').type('123456');
     cy.get('[name="login"]').click();
-    cy.url().should('eq', `http://localhost:3000/login`);
-    cy.get('.alert').should('have.length', 1);
+    cy.url().should('eq', `http://localhost:3000/`);
     cy.clearCookies();
   }
   )
 
-  it('login with invalid password', async() => {
+  it('login with invalid password', () => {
     cy.visit('/');
     cy.get('[type="email"]').type('halil@gmail.com')
     cy.get('[type="password"]').type('123456');
     cy.get('[name="login"]').click();
-    cy.url().should('eq', `http://localhost:3000/login`);
-    cy.get('.alert').should('have.length', 1);
+    cy.url().should('eq', `http://localhost:3000/`);
     cy.clearCookies();
   }
   )
 
-  it('login with empty email and password', async() => {
-    cy.visit('/');
-    cy.get('[type="email"]').type('');
-    cy.get('[type="password"]').type('');
-    cy.get('[name="login"]').click();
-    cy.url().should('eq', `http://localhost:3000/login`);
-    cy.get('.alert').should('have.length', 1);
-    cy.clearCookies();
-  }
-  )
-
-  it('login with empty email', async() => {
-    cy.visit('/');
-    cy.get('[type="email"]').type('');
-    cy.get('[type="password"]').type('123456');
-    cy.get('[name="login"]').click();
-    cy.url().should('eq', `http://localhost:3000/login`);
-    cy.get('.alert').should('have.length', 1);
-    cy.clearCookies();
-  }
-  )
-
-  it('login with empty password', async() => {
-    cy.visit('/');
-    cy.get('[type="email"]').type('halil@gmail.com');
-    cy.get('[type="password"]').type('');
-    cy.get('[name="login"]').click();
-    cy.url().should('eq', `http://localhost:3000/login`);
-    cy.get('.alert').should('have.length', 1);
-    cy.clearCookies();
-  }
-  )
 
 
 
