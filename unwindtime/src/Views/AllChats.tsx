@@ -1,5 +1,5 @@
 import "./AllChats.css";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../Services/firebase";
@@ -15,30 +15,38 @@ function AllChats() {
   const navigate = useNavigate();
   const profile = useSelector((state:State) => state.profile.value);
   const location = useSelector((state:State) => state.location.value);
+  const [unwindQuery, setUwindQuery] = useState()
+
+
+  useEffect(()=>{
+    if ( profile.uid) {
+
+      const queryUnwinds = query(
+        collection(db, "unwinds"),
+        where("attachedUsers", "array-contains", profile.uid)
+      );
+
+      setUwindQuery(queryUnwinds as unknown as any)
+  }}, [profile.uid])
+
 
   //Get's realtime new unwinds from firebase
-  const queryUnwinds = query(
-    collection(db, "unwinds"),
-    where("attachedUsers", "array-contains", profile.uid)
-  );
-  const [unwinds, loading, error] = useCollection(queryUnwinds, {
+
+  const [unwinds, loading, error] = useCollection(unwindQuery, {
     snapshotListenOptions: { includeMetadataChanges: true },
   });
 
-  useEffect(() => {
-    if (loadingAuth) return;
-    if (!user) return navigate("/");
-  }, []); //eslint-disable-line
-
+if(!profile.uid) {return <div>loading</div>}
   return (
     <div className="allchats-container">
       <div className="unwinds-status-container">
         {error && <strong>Error: {JSON.stringify(error)}</strong>}
-        {loading && <span>Collection: Loading...</span>}
+        {loading && <span>Collection Loading...</span>}
       </div>
       {profile.uid && unwinds && (
         <div>
-          {unwinds.docs.map((unwind) => (
+          {unwinds.docs.sort((a, b) => b.data().createdAt - a.data().createdAt)
+          .map((unwind) => (
             <Unwind
               key={unwind.id}
               unwind={unwind.data()}
@@ -46,10 +54,11 @@ function AllChats() {
               location={location}
             ></Unwind>
           ))}
+          
         </div>
+        
       )}
     </div>
-  );
-}
-
+  )}
+           
 export default AllChats;

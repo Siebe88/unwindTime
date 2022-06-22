@@ -1,13 +1,9 @@
 import "./Unwinds.css";
-
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-
 import { motion } from "framer-motion";
-
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../Services/firebase";
-
 import UnwindFilterBox from "../Components/UnwindFilterBox";
 import  CreateUnwind  from "../Media/UnwindActionButtons/createUnwind.svg";
 import  List  from "../Media/UnwindActionButtons/list.svg";
@@ -15,14 +11,10 @@ import  Map  from "../Media/UnwindActionButtons/map.svg";
 import { useNavigate } from "react-router-dom";
 import Unwind from "../Components/Unwind";
 import UnwindsMap from "../Components/UnwindsMap";
-
 import { useCollection } from "react-firebase-hooks/firestore";
-
 import { createNewUnwind } from "../Services/unwinds";
-
 import { collection, DocumentData, query, where } from "firebase/firestore";
 import { db } from "../Services/firebaseConnection";
-
 import {RelaxOption, State, EventHandler} from "../../Interfaces"
 import moment from "moment";
 
@@ -32,9 +24,8 @@ function Unwinds() {
 
   const [showMap, setShowMap] = useState(false);
 
-  const [fromUnwind , setFromUnwind] = useState(moment(new Date()).format('HH:mm'));
-  const [tillUnwind, setTillUnwind] = useState(
-    moment(new Date()).add(15, "minutes").format('HH:mm'));  //todo replace with Format
+  const [fromUnwind, setFromUnwind] = useState(new Date());
+  const [tillUnwind, setTillUnwind] = useState(moment(new Date(), moment.defaultFormat).add(15, 'minutes').toDate()); 
 
   //Get's realtime new unwinds from firebase
   const queryUnwinds = query(
@@ -57,14 +48,14 @@ function Unwinds() {
   }, []); //eslint-disable-line
 
   const createUnwind = () => {
+  
     const unwind = {
       relaxMethod: selectedUnwind,
       from: fromUnwind,
       till: tillUnwind,
       location: location,
     };
-
-    createNewUnwind(profile, unwind);
+    unwind.relaxMethod.name ?  createNewUnwind(profile, unwind) : alert('Select a category')   
   };
 
   const onClickRelaxMethod = (relaxMethod:RelaxOption) => {
@@ -76,15 +67,18 @@ function Unwinds() {
 
   function handleTillTimeChange(event:EventHandler) {
     const dateValue = moment(tillUnwind).format("YYYY-MM-DD");
-    const newValue = moment(dateValue + " " + event.target.value);
+    const newValue = moment(dateValue + " " + event.target.value, moment.defaultFormat).toDate()
   
-    setTillUnwind(newValue.format('HH:mm'));
+    console.log(newValue, 'newvalue no d')
+
+    setTillUnwind(newValue);
   }
 
   function handleFromTimeChange(event:EventHandler) {
+   
     const dateValue = moment(fromUnwind).format("YYYY-MM-DD");
-    const newValue = moment(dateValue + " " + event.target.value);
-    setFromUnwind(newValue.format('HH:mm'));
+    const newValue = moment(dateValue + " " + event.target.value, moment.defaultFormat).toDate()
+    setFromUnwind(newValue)
   }
 
   return (
@@ -100,24 +94,25 @@ function Unwinds() {
       <div className="unwindActions-container">
         {selectedUnwind.hasOwnProperty('name') ? (
           <motion.button
-            whileHover={{ scale: 2.2 }}
+            whileHover={{ scale: 1.4 }}
             onClick={createUnwind}
-            className="action-button"
-          >
+            className="action-button" 
+            name='createUnwind'
+            >
             {" "}
             <img src={CreateUnwind} />{" "}
           </motion.button>
         ) : (
           <></>
-        )}
-        <button className="action-button">
+          )}
+        <motion.button whileHover={{ scale: 1.3 }} className="action-button">
           {" "}
           <img src={List} onClick={() => setShowMap(false)} />{" "}
-        </button>
-        <button className="action-button">
+        </motion.button>
+        <motion.button whileHover={{ scale: 1.16 }} className="action-button">
           {" "}
           <img src={Map} onClick={() => setShowMap(true)} />{" "}
-        </button>
+        </motion.button>
       </div>
       <div className="unwinds-container">
         <div className="unwinds-status-container">
@@ -147,8 +142,7 @@ function Unwinds() {
                   (unwind) =>
                     !selectedUnwind.name ||
                     unwind.data().relaxMethod.name === selectedUnwind.name
-                )
-                .map((unwind) => (
+                ).map((unwind) => (
                   <Unwind
                     key={unwind.id}
                     unwind={unwind.data()}

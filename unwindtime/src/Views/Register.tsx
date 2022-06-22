@@ -1,25 +1,29 @@
-import React, { useEffect, useState } from 'react';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { Link, useNavigate } from 'react-router-dom';
-import { auth, registerWithEmailAndPassword, signInWithGoogle } from '../Services/firebase';
-import './Register.css';
+import React, { useEffect, useState } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  auth,
+  registerWithEmailAndPassword,
+  signInWithGoogle,
+} from "../Services/firebase";
+import "./Register.css";
 
 function Register() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
   const [user, loading] = useAuthState(auth);
   const navigate = useNavigate();
 
   const register = () => {
-    if (!name) alert('Please enter name');
+    if (!name) alert("Please enter name");
     registerWithEmailAndPassword(name, email, password);
   };
 
   useEffect(() => {
     if (loading) return;
-    if (user) navigate('/dashboard');
-  }, [user, loading]); // eslint-disable-line react-hooks/exhaustive-deps
+    if (user) navigate("/dashboard");
+  }, [user, loading]);
 
   return (
     <div className="register">
@@ -48,7 +52,10 @@ function Register() {
         <button className="register__btn" onClick={register}>
           Register
         </button>
-        <button className="register__btn register__google" onClick={signInWithGoogle}>
+        <button
+          className="register__btn register__google"
+          onClick={signInWithGoogle}
+        >
           Register with Google
         </button>
 

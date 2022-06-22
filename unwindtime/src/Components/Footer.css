@@ -1,20 +1,22 @@
 .footer-container {
   display: flex;
   justify-content: center;
+  align-items: center;
   justify-content: space-around;
   background-color: var(--color-gray-900);
-  height: 7vh;
-  /* align-items: stretch; */
+  padding: 5px;
+  margin-top: 10px;
+  position: sticky;
+  bottom: 0;
+  width: 100%
 }
 
 .navButton {
   display: flex;
-  padding: 0;
   border: 1px solid var(--color-Gray-1000);
-  border-radius: 5px;
-  box-sizing: border-box;
   background-color: transparent;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
+}
+
+.toUnwindsBtn{
+  transform: scale(1.8);
 }

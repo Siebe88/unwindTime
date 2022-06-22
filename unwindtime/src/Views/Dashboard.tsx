@@ -3,15 +3,14 @@ import React, { useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 import { auth, logout } from "../Services/firebase";
-
 import RelaxMethod from "../Components/RelaxMethod";
 import { useSelector, useDispatch } from "react-redux";
 import { switchFavo } from "../reducers/favoRelaxMethods";
-
-import  relaxMethods  from "../Media/relaxMethodsSVG";
+import relaxMethods from "../Media/relaxMethodsSVG";
 import { updateProfile } from "../Services/firestore";
 import SetProfilePic from "../Components/SetProfilePic";
 import { RelaxOption, State } from "../../Interfaces";
+
 function Dashboard() {
   const [user, loadingAuth] = useAuthState(auth);
 
@@ -19,8 +18,10 @@ function Dashboard() {
   const dispatch = useDispatch();
 
   // Redux state setting
-  const profile = useSelector((state:State) => state.profile.value);
-  const favoRelaxMethods = useSelector((state:State) => state.favoRelaxMethods);
+  const profile = useSelector((state: State) => state.profile.value);
+  const favoRelaxMethods = useSelector(
+    (state: State) => state.favoRelaxMethods
+  );
 
   //BUG need to rework routing
   useEffect(() => {
@@ -28,7 +29,7 @@ function Dashboard() {
     if (!user) return navigate("/");
   }); //eslint-disable-line
 
-  const clickEventSaveProfile = async (e: { preventDefault: () => void; }) => {
+  const clickEventSaveProfile = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
     updateProfile(profile, favoRelaxMethods as unknown as RelaxOption);
@@ -50,8 +51,8 @@ function Dashboard() {
         </h3>
         <div className="relaxmethods-container">
           {relaxMethods
-            .sort((a:RelaxOption, b:RelaxOption) => a.id - b.id)
-            .map((relaxMethod:RelaxOption) => {
+            .sort((a: RelaxOption, b: RelaxOption) => a.id - b.id)
+            .map((relaxMethod: RelaxOption) => {
               return (
                 <RelaxMethod
                   key={relaxMethod.id}
@@ -59,7 +60,7 @@ function Dashboard() {
                   onClickRelaxMethod={onClickRelaxMethod}
                   classColor={
                     favoRelaxMethods.some(
-                      (method:RelaxOption) => method.name === relaxMethod.name
+                      (method: RelaxOption) => method.name === relaxMethod.name
                     )
                       ? "favoriteMethod"
                       : "nonfavoriteMethod"
@@ -71,6 +72,7 @@ function Dashboard() {
       </div>
 
       <button
+      name="letsUnwindBtn"
         className="dashboard__btn go_button text-style-h-3 color-button-grey"
         onClick={clickEventSaveProfile}
       >
@@ -78,12 +80,12 @@ function Dashboard() {
         Okay, let's unwind!
       </button>
       <button
+      name='logoutBtn'
         className="dashboard__btn text-style-h-3 color-button-red"
         onClick={logout}
       >
         Logout
       </button>
-      {/* </div> */}
     </div>
   );
 }

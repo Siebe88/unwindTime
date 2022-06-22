@@ -1,45 +1,51 @@
-import React from 'react';
-import moment from 'moment';
-import './Unwind.css';
-import RelaxMethod from './RelaxMethod';
-import { getDistance } from 'geolib';
-import { useNavigate } from 'react-router-dom';
-import { Props, UnwindType } from '../../Interfaces';
-import { motion } from 'framer-motion';
-import { GeolibInputCoordinates } from 'geolib/es/types';
-import { constants } from 'buffer';
+import React from "react";
+import moment from "moment";
+import "./Unwind.css";
+import RelaxMethod from "./RelaxMethod";
+import { getDistance } from "geolib";
+import { useNavigate } from "react-router-dom";
+import { Props, State } from "../../Interfaces";
+import { motion } from "framer-motion";
+import { GeolibInputCoordinates } from "geolib/es/types";
+import { deleteDoc, doc } from "firebase/firestore";
+import { db } from "../Services/firebaseConnection";
+import { useSelector } from "react-redux";
 
-
-export default function Unwind(props:Props) {
-
-
-
-const {unwind}:any  = props;
-const {location}:Props =  props;
-const {unwindID}:Props = props;
+export default function Unwind(props: Props) {
+  const profile = useSelector((state: State) => state.profile.value);
+  const { unwind }: any = props;
+  const { location }: Props = props;
+  const { unwindID }: Props = props;
 
   const navigate = useNavigate();
-  const formatTime = (datestamp:number) => {
-    return moment(new Date(datestamp * 1000)).format('HH:mm');
+  const formatTime = (datestamp: number) => {
+    return moment(new Date(datestamp * 1000)).format("HH:mm");
   };
 
   const distanceBetween =
     location?.latitude && unwind?.location.latitude
-      ? `Distance: ${getDistance(location as GeolibInputCoordinates, unwind.location, 1)} meters away`
-      : '~';
+      ? `Distance: ${getDistance(
+          location as GeolibInputCoordinates,
+          unwind.location,
+          1
+        )} meters away`
+      : "~";
 
   const conClickToChat = () => {
     navigate(`/unwindchat/${unwindID}`);
   };
 
   return (
-    <>
-      <motion.button 
+    <div className="unwind-outer-container">
+      <motion.button
         className="unwind-event-container"
         onClick={conClickToChat}
-        
-        >
-        <img className="profile-unwind-img" src={unwind?.createdBy.profilePic} alt="" />
+      >
+        <img
+          className="profile-unwind-img"
+          src={unwind?.createdBy.profilePic}
+          alt=""
+        />
         <div className="name-and-time-container">
           <p>{unwind?.createdBy.name} </p>
           <p>{`${formatTime(unwind?.from)} - ${formatTime(unwind?.till)}`}</p>
@@ -51,6 +57,19 @@ const {unwindID}:Props = props;
           onClickRelaxMethod={() => 1 + 1}
         ></RelaxMethod>
       </motion.button>
-    </>
+      {profile.uid === unwind.createdBy.uid ? (
+        <button
+        className="deleteBtn"
+        data-test='deleteBtn'
+          onClick={() =>
+            deleteDoc(doc(db, "unwinds", unwindID as unknown as string))
+          }
+        >
+          Delete
+        </button>
+      ) : (
+        <></>
+      )}
+    </div>
   );
 }

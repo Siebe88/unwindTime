@@ -5,41 +5,40 @@ import { useDocument } from "react-firebase-hooks/firestore";
 import { doc, updateDoc, arrayUnion } from "firebase/firestore";
 import { db } from "../Services/firebaseConnection";
 import { useSelector } from "react-redux";
-
-import  UnwindLogo from "../Media/RelaxMethods/Coffee.svg";
-// const UnwindLogo = require('../Media/RelaxMethods/Coffee.svg') as string;
-import { requestOptions, State, Chat, NewChat, EventHandler, UnwindType } from "../../Interfaces";
+import UnwindLogo from "../Media/RelaxMethods/Coffee.svg";
+import { requestOptions, State, Chat } from "../../Interfaces";
 import Unwind from "../Components/Unwind";
 import ChatMessage from "../Components/ChatMessage";
-import { FirebaseError } from "firebase/app";
 
 function UnwindChat() {
   const navigate = useNavigate();
-  const profile = useSelector((state:State) => state.profile.value);
-  const location = useSelector((state:State) => state.location.value);
+  const profile = useSelector((state: State) => state.profile.value);
+  const location = useSelector((state: State) => state.location.value);
 
   let { unwindID } = useParams();
-  // const [user, loadingAuth] = useAuthState(auth);
-  const dummy:any = useRef();
 
-  const [unwind, loading, error] = useDocument(doc(db, "unwinds", unwindID as string) , {
-    snapshotListenOptions: { includeMetadataChanges: true },
-  });
+  const dummy: any = useRef();
+
+  const [unwind, loading, error] = useDocument(
+    doc(db, "unwinds", unwindID as string),
+    {
+      snapshotListenOptions: { includeMetadataChanges: true },
+    }
+  );
 
   // Subscribe the devices corresponding to the registration tokens to the
   // topic.
-  console.log(unwind, "unwinddd")
+
   useEffect(() => {
     if (loading) return;
-    // if (!user) return navigate('/');
-    console.log(unwind, "unwinddd")
-    if (!unwind?.hasOwnProperty('_document')) return navigate("/unwinds");
+
+    if (!unwind?.hasOwnProperty("_document")) return navigate("/unwinds");
     dummy.current?.scrollIntoView({ behavior: "smooth" });
-  }, [unwind]); //eslint-disable-line
+  }, [unwind]);
 
   const [formValue, setFormValue] = useState("");
 
-  const sendPush = async (chat:Chat) => {
+  const sendPush = async (chat: Chat) => {
     const body = {
       unwindID: unwindID,
       chat: chat,
@@ -50,7 +49,7 @@ function UnwindChat() {
 
     var raw = JSON.stringify(body);
 
-    var requestOptions:requestOptions = {
+    var requestOptions: requestOptions = {
       method: "POST",
       headers: myHeaders,
       body: raw,
@@ -66,7 +65,7 @@ function UnwindChat() {
       .catch((error) => console.log("error", error));
   };
 
-  const sendMessage = async (e: { preventDefault: () => void; }) => {
+  const sendMessage = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     const newchat = {
       text: formValue,
@@ -76,7 +75,7 @@ function UnwindChat() {
         uid: profile.uid,
         email: profile.email,
         relaxMethods: profile.relaxMethods,
-        token: profile.token
+        token: profile.token,
       },
       createdAt: new Date() as unknown as number,
     };
@@ -90,7 +89,7 @@ function UnwindChat() {
       registrationTokens: arrayUnion(profile.token),
     });
 
-    sendPush(newchat) ;
+    sendPush(newchat);
 
     setFormValue("");
     dummy.current?.scrollIntoView({ behavior: "smooth" });
@@ -103,10 +102,10 @@ function UnwindChat() {
           {error && <strong>Error: {JSON.stringify(error)}</strong>}
           {loading && <span>Document: Loading...</span>}
         </p>
-        {unwind  && unwind?.hasOwnProperty('_document') && (
+        {unwind && unwind?.hasOwnProperty("_document") && (
           <Unwind
             key={unwind.id}
-            unwind={unwind.data()} 
+            unwind={unwind.data()}
             unwindID={unwind.id}
             location={location}
           ></Unwind>
@@ -114,8 +113,10 @@ function UnwindChat() {
       </div>
       <div className="chat-container">
         {unwind &&
-           unwind?.hasOwnProperty('_document') &&
-          unwind?.data()?.chat.map((chat:Chat, index:number) => (
+          unwind?.hasOwnProperty("_document") &&
+          unwind
+            ?.data()
+            ?.chat.map((chat: Chat, index: number) => (
               <ChatMessage key={index} chat={chat}></ChatMessage>
             ))}
         <span ref={dummy}></span>
@@ -123,6 +124,7 @@ function UnwindChat() {
 
       <form onSubmit={sendMessage} className="chat-fomr-container">
         <input
+        name='chatInput'
           className="chat-message-input text-style-h-3 "
           value={formValue}
           onChange={(e) => setFormValue(e.target.value)}

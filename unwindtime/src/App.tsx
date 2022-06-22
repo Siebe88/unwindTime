@@ -7,10 +7,8 @@ import Dashboard from "./Views/Dashboard";
 import Unwinds from "./Views/Unwinds";
 import UnwindChat from "./Views/UnwindChat";
 import AllChats from "./Views/AllChats";
-
 import Header from "./Components/Header";
 import Footer from "./Components/Footer";
-
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./Services/firebase";
 import { useDispatch } from "react-redux";
@@ -20,17 +18,12 @@ import { addNewFavoArray } from "./reducers/favoRelaxMethods";
 import { setLocation } from "./reducers/location";
 import React, { useEffect, useState } from "react";
 import { LoadScript } from "@react-google-maps/api";
-
 import {
   messaging,
   onMessageListener,
   fetchToken,
 } from "./Services/firebaseConnection";
-
 import { getToken, MessagePayload, onMessage } from "firebase/messaging";
-import { PayloadAction } from "@reduxjs/toolkit";
-
-//please just work
 
 function App() {
   const [user, loading] = useAuthState(auth);
@@ -100,9 +93,8 @@ function App() {
   };
 
   const getLocation = () => {
-
     if (!navigator.geolocation) {
-      setStatus("Geolocation is not supported by your browser")
+      setStatus("Geolocation is not supported by your browser");
     } else {
       setStatus("Locating...");
       navigator.geolocation.getCurrentPosition(
@@ -127,22 +119,36 @@ function App() {
 
   onMessage(messaging, (payload) => {
     console.log("Message received. ", payload);
-    // ...
   });
+
+
+
 
   return (
     <div className="app">
-      <LoadScript googleMapsApiKey="AIzaSyCez882QWlP85wQRNooAi0llw1ymzL96zI"></LoadScript>
+      {/* <LoadScript style={{display:'none'}} googleMapsApiKey="AIzaSyCez882QWlP85wQRNooAi0llw1ymzL96zI"></LoadScript> */}
       <Header></Header>
       <Router>
         <div className="main-container">
           <Routes>
-            <Route path="/" element={<Login />} />
+            {!user ? <Route path="/" element={<Login />} /> :    <Route path="/dashboard" element={<Dashboard />} />}
             <Route path="/register" element={<Register />} />
             <Route path="/reset" element={<Reset />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/unwinds" element={<Unwinds />} />
-            <Route path="/allchats" element={<AllChats />} />
+            {user ? (
+              <Route path="/dashboard" element={<Dashboard />} />
+            ) : (
+              <Route path="/" element={<Login />} />
+            )}
+            {user ? (
+              <Route path="/unwinds" element={<Unwinds />} />
+            ) : (
+              <Route path="/" element={<Login />} />
+            )}
+            {user ? (
+              <Route path="/allchats" element={<AllChats />} />
+            ) : (
+              <Route path="/" element={<Login />} />
+            )}
             <Route path="/unwindChat/:unwindID" element={<UnwindChat />} />
             <Route path="*" element={<Login />} />
           </Routes>
