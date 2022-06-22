@@ -2,6 +2,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 90vh;
-  overflow: scroll;
+  height: 80vh;
+  overflow-y: scroll;
+ 
+  margin: auto;
+  padding: 0 30px;
 }

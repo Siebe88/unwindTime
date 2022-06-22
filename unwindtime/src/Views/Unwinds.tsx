@@ -94,25 +94,25 @@ function Unwinds() {
       <div className="unwindActions-container">
         {selectedUnwind.hasOwnProperty('name') ? (
           <motion.button
-            whileHover={{ scale: 2.2 }}
+            whileHover={{ scale: 1.4 }}
             onClick={createUnwind}
             className="action-button" 
             name='createUnwind'
-          >
+            >
             {" "}
             <img src={CreateUnwind} />{" "}
           </motion.button>
         ) : (
           <></>
-        )}
-        <button className="action-button">
+          )}
+        <motion.button whileHover={{ scale: 1.3 }} className="action-button">
           {" "}
           <img src={List} onClick={() => setShowMap(false)} />{" "}
-        </button>
-        <button className="action-button">
+        </motion.button>
+        <motion.button whileHover={{ scale: 1.16 }} className="action-button">
           {" "}
           <img src={Map} onClick={() => setShowMap(true)} />{" "}
-        </button>
+        </motion.button>
       </div>
       <div className="unwinds-container">
         <div className="unwinds-status-container">

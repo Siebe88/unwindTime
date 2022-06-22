@@ -42,7 +42,7 @@ function UnwindFilterBox({
           })}
         </div>
         <div className="timesetter-container">
-          <h3 className="text-style-h-3">From:</h3>
+          <h3 className="text-style-h-3 fromText">From:</h3>
           <input
             type="time"
             min={moment(fromUnwind).format('HH:mm')}
