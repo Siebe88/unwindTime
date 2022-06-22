@@ -16,8 +16,8 @@ import { auth } from "./Services/firebase";
 import { useDispatch } from "react-redux";
 import { findProfile } from "./Services/firestore";
 import { loginProfile, changeProfileToken } from "./reducers/profile";
-import { addNewFavoArray } from "./reducers/favoRelaxMethods.ts";
-import { setLocation } from "./reducers/location.ts";
+import { addNewFavoArray } from "./reducers/favoRelaxMethods";
+import { setLocation } from "./reducers/location";
 import React, { useEffect, useState } from "react";
 import { LoadScript } from "@react-google-maps/api";
 
@@ -38,6 +38,7 @@ function App() {
 
   onMessageListener()
     .then((payload) => {
+      console.log(payload)
       setNotification({
         title: payload.notification.title,
         body: payload.notification.body,
@@ -128,7 +129,8 @@ function App() {
   });
 
   return (
-    <div className="app">
+    <div
+    className="app">
       <LoadScript googleMapsApiKey="AIzaSyCez882QWlP85wQRNooAi0llw1ymzL96zI"></LoadScript>
       <Header></Header>
       <Router>

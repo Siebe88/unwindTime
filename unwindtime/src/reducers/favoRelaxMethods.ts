@@ -25,7 +25,7 @@ export const favoRelaxMethodsSlice = createSlice({
     // deleteFavo: (state: RelaxMethods[], action:PayloadAction<RelaxMethods>) => { // probably the filter is the reason of the error check it later
     //   return state.filter((method) => method.name !== action.payload.name);
     // },
-    toggleFavo: (state: RelaxMethods[] | any, action:PayloadAction<RelaxMethods>) => { // probably the filter is the reason of the error check it later. Find a way to do it without filter
+    toggleFavo: (state: RelaxMethods[] , action:PayloadAction<RelaxMethods>) => { // probably the filter is the reason of the error check it later. Find a way to do it without filter
       if (state?.some((method) => method.name === action.payload.name)) {
         return state.filter((method: { name: string; }) => method.name !== action.payload.name) as unknown as any;
       }
