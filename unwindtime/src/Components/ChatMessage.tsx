@@ -16,6 +16,7 @@ export default function ChatMessage({ chat }: Props) {
   };
 
   return (
+    <div className="chatWrapper">
     <div className={`chatmessage-container ${messageClass}`}>
       <img
         src={chat?.profile.profilePic}
@@ -23,14 +24,15 @@ export default function ChatMessage({ chat }: Props) {
         className="profilePic-chat-img"
       />
       <div className="chat-text-container">
-        <h4 className="relaxmethodspicker-title text-style-h-3 text-style-white">
+        <h4 className="relaxmethodspicker-title sender text-style-h-3 text-style-white">
           {chat?.profile.name}:
         </h4>
-        <h4 className="relaxmethodspicker-title text-style-h-3 text-style-white">
+        <h4 className="relaxmethodspicker-title chattext text-style-h-3 text-style-white">
           {chat?.text}
         </h4>
         <p>{formatTime(chat?.createdAt)}</p>
       </div>
+    </div>
     </div>
   );
 }

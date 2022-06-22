@@ -122,7 +122,7 @@ function UnwindChat() {
         <span ref={dummy}></span>
       </div>
 
-      <form onSubmit={sendMessage} className="chat-fomr-container">
+      <form onSubmit={sendMessage} className="chat-form-container">
         <input
         name='chatInput'
           className="chat-message-input text-style-h-3 "
