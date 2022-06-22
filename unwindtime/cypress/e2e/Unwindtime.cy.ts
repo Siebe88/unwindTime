@@ -24,7 +24,11 @@ describe("UnwindTime", () => {
     cy.pause();
     cy.get('[class="unwind-event-container"]').first().click();
     cy.pause();
-    cy.get('[name="chatInput"]').type("testing is EX-CIT-ING!");
+    cy.get('[name="chatInput"]').type("TEST IS BORING");
+    cy.pause();
+    cy.get('[class="chat-submit-button"]').click();
+    cy.pause();
+    cy.get('[name="chatInput"]').type("OPPPSSSS...IT IS EX-CIT-ING!");
     cy.pause();
     cy.get('[class="chat-submit-button"]').click();
     cy.pause();
