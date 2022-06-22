@@ -15,7 +15,9 @@ function UnwindsMap({ location, unwinds }: UnwindsMapProps) {
 
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
-    googleMapsApiKey: 'AIzaSyCez882QWlP85wQRNooAi0llw1ymzL96zI',
+    googleMapsApiKey :  process.env.REACT_APP_GOOGLEMAP_API_KEY || ''
+
+
   });
 
   const [map, setMap] = React.useState(null); //eslint-disable-line
