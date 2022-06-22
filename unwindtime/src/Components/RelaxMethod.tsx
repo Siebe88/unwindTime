@@ -9,9 +9,11 @@ export default function RelaxMethod({
   return (
     <div className={"relaxMethod " + classColor}>
       <div
+        name='name'
         className="relaxButton"
         onClick={() => onClickRelaxMethod!(relaxMethod)}
         title={relaxMethod?.name}
+        key={relaxMethod?.name}
       >
         <svg width="50" height="50" viewBox="0 0 50 50">
           <path

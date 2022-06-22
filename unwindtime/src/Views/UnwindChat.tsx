@@ -124,6 +124,7 @@ function UnwindChat() {
 
       <form onSubmit={sendMessage} className="chat-fomr-container">
         <input
+        name='chatInput'
           className="chat-message-input text-style-h-3 "
           value={formValue}
           onChange={(e) => setFormValue(e.target.value)}

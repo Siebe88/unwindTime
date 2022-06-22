@@ -45,8 +45,8 @@ function UnwindFilterBox({
           <h3 className="text-style-h-3">From:</h3>
           <input
             type="time"
-            min="09:00"
-            defaultValue={moment(fromUnwind).format("HH:mm")}
+            min={moment(fromUnwind).format('HH:mm')}
+            defaultValue={moment(fromUnwind).format('HH:mm')}
             onChange={handleFromTimeChange}
             required
           ></input>

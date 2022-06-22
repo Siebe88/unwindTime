@@ -121,6 +121,9 @@ function App() {
     console.log("Message received. ", payload);
   });
 
+
+
+
   return (
     <div className="app">
       <LoadScript googleMapsApiKey="AIzaSyCez882QWlP85wQRNooAi0llw1ymzL96zI"></LoadScript>
@@ -128,7 +131,7 @@ function App() {
       <Router>
         <div className="main-container">
           <Routes>
-            <Route path="/" element={<Login />} />
+            {!user ? <Route path="/" element={<Login />} /> :    <Route path="/dashboard" element={<Dashboard />} />}
             <Route path="/register" element={<Register />} />
             <Route path="/reset" element={<Reset />} />
             {user ? (
