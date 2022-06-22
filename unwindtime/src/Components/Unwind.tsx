@@ -1,13 +1,13 @@
 /* eslint-disable no-restricted-globals */
-import React from 'react';
-import './Unwind.css';
-import RelaxMethod from './RelaxMethod';
-import { getDistance } from 'geolib';
-import { useNavigate } from 'react-router-dom';
-import { GeolibInputCoordinates } from 'geolib/es/types';
-import { motion } from 'framer-motion';
-import { UnwindProps } from '../interfaces/interfaces';
-import {formatTime} from '../Services/utils'
+import React from "react";
+import "./Unwind.css";
+import RelaxMethod from "./RelaxMethod";
+import { getDistance } from "geolib";
+import { useNavigate } from "react-router-dom";
+import { GeolibInputCoordinates } from "geolib/es/types";
+import { motion } from "framer-motion";
+import { UnwindProps } from "../interfaces/interfaces";
+import { formatTime } from "../Services/utils";
 
 export default function Unwind(props: UnwindProps) {
   const { unwind } = props;
@@ -15,7 +15,6 @@ export default function Unwind(props: UnwindProps) {
   const { unwindID } = props;
 
   const navigate = useNavigate();
-
 
   const distanceBetween =
     location?.latitude && unwind?.location.latitude

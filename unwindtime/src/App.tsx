@@ -117,7 +117,7 @@ function App() {
 
   return (
     <div className="app">
-      <LoadScript googleMapsApiKey="AIzaSyCez882QWlP85wQRNooAi0llw1ymzL96zI"></LoadScript>
+      <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLEMAP_API_KEY}></LoadScript>
       <Header></Header>
       <Router>
         <div className="main-container">
