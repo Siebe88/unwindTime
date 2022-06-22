@@ -1,5 +1,3 @@
-
-
 describe("UnwindTime", () => {
   it("Should check app basic functionality", async () => {
     cy.visit("http://localhost:3000/");
@@ -43,5 +41,3 @@ describe("UnwindTime", () => {
     cy.get('[name="logoutBtn"]').click();
   });
 });
-
-

@@ -34,7 +34,7 @@ function UnwindChat() {
 
     if (!unwind?.hasOwnProperty("_document")) return navigate("/unwinds");
     dummy.current?.scrollIntoView({ behavior: "smooth" });
-  }, [unwind]);
+  }, [loading, navigate, unwind]);
 
   const [formValue, setFormValue] = useState("");
 
@@ -124,7 +124,7 @@ function UnwindChat() {
 
       <form onSubmit={sendMessage} className="chat-form-container">
         <input
-        name='chatInput'
+          name="chatInput"
           className="chat-message-input text-style-h-3 "
           value={formValue}
           onChange={(e) => setFormValue(e.target.value)}
