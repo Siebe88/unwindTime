@@ -7,6 +7,7 @@ import Dashboard from "./Views/Dashboard";
 import Unwinds from "./Views/Unwinds";
 import UnwindChat from "./Views/UnwindChat";
 import AllChats from "./Views/AllChats";
+import ProtectedRoute from "./Services/ProtectedRoute";
 
 import Header from "./Components/Header";
 import Footer from "./Components/Footer";
@@ -129,7 +130,7 @@ function App() {
 
   return (
     <div className="app">
-      <LoadScript googleMapsApiKey="AIzaSyCez882QWlP85wQRNooAi0llw1ymzL96zI"></LoadScript>
+      <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLEMAP_API_KEY}></LoadScript>
       <Header></Header>
       <Router>
         <div className="main-container">
@@ -137,9 +138,11 @@ function App() {
             <Route exact path="/" element={<Login />} />
             <Route exact path="/register" element={<Register />} />
             <Route exact path="/reset" element={<Reset />} />
+          <Route element={<ProtectedRoute user={user}/>}>
             <Route exact path="/dashboard" element={<Dashboard />} />
-            <Route exact path="/unwinds" element={<Unwinds />} />
-            <Route path="/allchats" element={<AllChats />} />
+            <Route exact path="/unwinds" element={ <Unwinds />}/>
+            <Route path="/allchats" element={ <AllChats />} />
+          </Route>
             <Route path="/unwindChat/:unwindID" element={<UnwindChat />} />
             <Route path="*" element={<Login />} />
           </Routes>
