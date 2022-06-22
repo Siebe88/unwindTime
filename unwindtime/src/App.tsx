@@ -126,7 +126,7 @@ function App() {
 
   return (
     <div className="app">
-      <LoadScript googleMapsApiKey="AIzaSyCez882QWlP85wQRNooAi0llw1ymzL96zI"></LoadScript>
+      {/* <LoadScript style={{display:'none'}} googleMapsApiKey="AIzaSyCez882QWlP85wQRNooAi0llw1ymzL96zI"></LoadScript> */}
       <Header></Header>
       <Router>
         <div className="main-container">

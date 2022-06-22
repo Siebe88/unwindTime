@@ -1,7 +1,7 @@
 import React from "react";
 import Unwind from "./Unwind";
 import { GoogleMap, useJsApiLoader, InfoWindow } from "@react-google-maps/api"; //eslint-disable-line
-
+import "./UnwindsMap.css";
 import { Props } from "../../Interfaces";
 
 const containerStyle = {
@@ -19,6 +19,7 @@ function UnwindsMap(props: Props) {
   });
 
   return isLoaded && location ? (
+    <div className="infoWindow">
     <GoogleMap
       mapContainerStyle={containerStyle}
       id="41684020cb892eae"
@@ -26,10 +27,10 @@ function UnwindsMap(props: Props) {
       zoom={14}
     >
       {unwinds && (
-        <div>
+        <div >
           {unwinds.map((unwind) => {
             return (
-              <InfoWindow
+              <InfoWindow 
                 position={location as unknown as google.maps.LatLng}
                 key={unwind.id}
               >
@@ -45,6 +46,7 @@ function UnwindsMap(props: Props) {
         </div>
       )}
     </GoogleMap>
+    </div>
   ) : (
     <h1>Loading</h1>
   );

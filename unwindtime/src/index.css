@@ -29,6 +29,13 @@
   font-style: normal;
   text-decoration: none;
 }
+.fromText {
+  padding-left:5px;
+}
+input{
+  border-radius: 5px;
+  border-color: lightgray;
+}
 .text-style-white {
   color: var(--color-gray-100);
   margin: 6px;

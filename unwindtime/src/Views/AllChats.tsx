@@ -41,7 +41,7 @@ if(!profile.uid) {return <div>loading</div>}
     <div className="allchats-container">
       <div className="unwinds-status-container">
         {error && <strong>Error: {JSON.stringify(error)}</strong>}
-        {loading && <span>Collection: Loading...</span>}
+        {loading && <span>Collection Loading...</span>}
       </div>
       {profile.uid && unwinds && (
         <div>

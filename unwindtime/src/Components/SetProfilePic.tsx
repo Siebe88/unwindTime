@@ -32,8 +32,8 @@ function SetProfilePic() {
   return (
     <>
       <div className="introtext-container">
-        <h4 className="relaxmethodspicker-title text-style-h-3 text-style-white">
-          Welcome,{" "}
+        <h3 className="relaxmethodspicker-title text-style-h-3 text-style-white">
+          Welcome:{" "}
           <input
             autoComplete="off"
             value={profile.name}
@@ -42,10 +42,10 @@ function SetProfilePic() {
             className="profilename-input text-style-h-3 text-style-white"
             name="fortest"
           />
-        </h4>
-        <h4 className="relaxmethodspicker-title text-style-h-3 text-style-white">
-          please select a cool profile pic:
-        </h4>
+        </h3>
+        <text className="relaxmethodspicker-title text-style-h-4 text-style-white">
+          click on your profile picture to select a new one:
+        </text>
       </div>
       <motion.button whileHover={{ scale: 1.1 }} className="action-button">
         <div className="image-upload">

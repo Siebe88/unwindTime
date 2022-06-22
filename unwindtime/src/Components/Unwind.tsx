@@ -36,7 +36,7 @@ export default function Unwind(props: Props) {
   };
 
   return (
-    <>
+    <div className="unwind-outer-container">
       <motion.button
         className="unwind-event-container"
         onClick={conClickToChat}
@@ -58,17 +58,18 @@ export default function Unwind(props: Props) {
         ></RelaxMethod>
       </motion.button>
       {profile.uid === unwind.createdBy.uid ? (
-        <div
+        <button
+        className="deleteBtn"
         data-test='deleteBtn'
           onClick={() =>
             deleteDoc(doc(db, "unwinds", unwindID as unknown as string))
           }
         >
-          del
-        </div>
+          Delete
+        </button>
       ) : (
         <></>
       )}
-    </>
+    </div>
   );
 }
