@@ -10,11 +10,9 @@ import {formatTime} from '../Services/utils'
 
 export default function ChatMessage( {chat}: ChatProps) {
   const profile = useSelector((state: GeneralState) => state.profile.value);
-  console.log('chat',chat)
 
   const messageClass = chat.profile.uid === profile.uid ? 'sent' : 'received';
 
-console.log('chat.createdAt', chat.createdAt)
   return (
     <div className={`chatmessage-container ${messageClass}`}>
       <img src={chat.profile.profilePic} alt="profilePic" className="profilePic-chat-img" />

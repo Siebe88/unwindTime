@@ -23,7 +23,7 @@ export default function Unwind(props: UnwindProps) {
           location as GeolibInputCoordinates,
           unwind?.location,
           1
-        )} meters away`
+        )} m`
       : '~';
 
   const conClickToChat = () => {
@@ -33,7 +33,11 @@ export default function Unwind(props: UnwindProps) {
   return (
     <>
       <motion.button
-        whileHover={{ scale: 1.1 }}
+        whileHover={{
+          scale: 1.1,
+          boxShadow: "10px 10px 0 rgba(0, 0, 0, 0.2)",
+          cursor:'pointer'
+        }}
         whileTap={{ scale: 0.9 }}
         className="unwind-event-container"
         onClick={conClickToChat}

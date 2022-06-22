@@ -1,3 +1,4 @@
+//@ts-nocheck
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Login from "./Views/Login";
@@ -7,6 +8,7 @@ import Dashboard from "./Views/Dashboard";
 import Unwinds from "./Views/Unwinds";
 import UnwindChat from "./Views/UnwindChat";
 import AllChats from "./Views/AllChats";
+import ProtectedRoute from "./Services/ProtectedRoute";
 
 import Header from "./Components/Header";
 import Footer from "./Components/Footer";
@@ -20,6 +22,7 @@ import { addNewFavoArray } from "./reducers/favoRelaxMethods";
 import { setLocation } from "./reducers/location";
 import React, { useEffect, useState } from "react";
 import { LoadScript } from "@react-google-maps/api";
+
 
 import {
   messaging,
@@ -36,31 +39,15 @@ function App() {
   const [isTokenFound, setTokenFound] = useState(false);
   fetchToken(setTokenFound);
 
-  onMessageListener()
-    .then((payload) => {
-      console.log(payload)
-      setNotification({
-        title: payload.notification.title,
-        body: payload.notification.body,
-      });
-      setShow(true);
-      console.log(payload);
-      console.log("Show", show);
-      console.log("notifcation", notification);
-      console.log("isTokenFound", isTokenFound);
-    })
-    .catch((err) => console.log("failed: ", err));
-
-  onMessageListener()
-    .then((payload) => {
-      setNotification({
-        title: payload.notification.title,
-        body: payload.notification.body,
-      });
-      console.log(payload);
-      console.log("notifcation", notification);
-    })
-    .catch((err) => console.log("failed: ", err));
+  // onMessageListener()
+  //   .then((payload) => {
+  //     setNotification({
+  //       title: payload.notification.title,
+  //       body: payload.notification.body,
+  //     });
+  //     setShow(true);
+  //   })
+  //   .catch((err) => console.log("failed: ", err));
 
   const [status, setStatus] = useState(null);
 
@@ -129,8 +116,7 @@ function App() {
   });
 
   return (
-    <div
-    className="app">
+    <div className="app">
       <LoadScript googleMapsApiKey="AIzaSyCez882QWlP85wQRNooAi0llw1ymzL96zI"></LoadScript>
       <Header></Header>
       <Router>
@@ -139,9 +125,11 @@ function App() {
             <Route exact path="/" element={<Login />} />
             <Route exact path="/register" element={<Register />} />
             <Route exact path="/reset" element={<Reset />} />
+            <Route element={<ProtectedRoute user={user}/>} >
             <Route exact path="/dashboard" element={<Dashboard />} />
             <Route exact path="/unwinds" element={<Unwinds />} />
             <Route path="/allchats" element={<AllChats />} />
+            </ Route>
             <Route path="/unwindChat/:unwindID" element={<UnwindChat />} />
             <Route path="*" element={<Login />} />
           </Routes>

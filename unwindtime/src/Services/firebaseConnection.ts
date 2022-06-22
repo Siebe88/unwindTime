@@ -15,7 +15,6 @@ const firebaseConfig = {
 };
 console.log('FBkey',firebaseConfig.apiKey);
 // Initialize Firebase
-console.log('env', process.env)
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const storage = getStorage(app);
@@ -51,6 +50,7 @@ const fetchToken = (setTokenFound: (arg0: boolean) => void) => {
 
 const onMessageListener = () =>
   new Promise((resolve) => {
+
     onMessage(messaging, (payload) => {
       resolve(payload);
     });

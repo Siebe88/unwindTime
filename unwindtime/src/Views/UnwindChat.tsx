@@ -33,7 +33,6 @@ function UnwindChat() {
     // if (!user) return navigate('/');
     //@ts-ignore
     if (!unwind._document) return navigate('/unwinds');
-    console.log('dummy',dummy)
    dummy.current?.scrollIntoView({ behavior: 'smooth' });
 
   }, [unwind]); //eslint-disable-line
@@ -79,9 +78,6 @@ function UnwindChat() {
     // Atomically add a new chatMessage and attachedFollowers
     //TODO add tokens
     const unwindRef = doc(db, 'unwinds', unwindID as string);
-    console.log('chat', chat)
-    console.log('profile uid', profile.uid)
-    console.log('prof token', profile.token)
     await updateDoc(unwindRef, {
       chat: arrayUnion(chat),
       attachedUsers: arrayUnion(profile.uid),
