@@ -84,23 +84,24 @@ describe('select an unwind', () => {
   }
   )
 
-  // it('click the unwind', () => {
-  //   cy.wait(2000);
-  //   cy.get('.unwinds-container > :nth-child(2) > :nth-child(1)').click();
-  // }
-  // )
+  it('click the unwind', () => {
+    cy.wait(2000);
+    cy.get('.unwinds-container > :nth-child(2) > :nth-child(1)').click();
+  }
+  )
 })
 
-// describe('sent a message', () => {
-//   it('sent a message', () => {
-//     cy.wait(2000);
-//     cy.get('.chat-message-input').type('hello');
-//     cy.get('.chat-message-input').should('have.value', 'hello');
-//     // cy.wait(5000);
-//     // cy.get('.chat-submit-button').click();
-//   }
-//   )
-// })
+describe('sent a message', () => {
+  it('sent a message', () => {
+    cy.wait(2000);
+    cy.get('.chat-message-input').type('hello');
+    cy.get('.chat-message-input').should('have.value', 'hello');
+    cy.wait(5000);
+    cy.get('.chat-submit-button').click();
+    cy.wait(3000);
+  }
+  )
+})
 
 describe('go to all chat page', () => {
   it('go to all chat page', () => {

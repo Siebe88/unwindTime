@@ -115,10 +115,10 @@ function Unwinds() {
         )}
 
         <button className="action-button">
-          <img src={listSVG} alt="list unwinds" />
+          <img src={listSVG} alt="list unwinds" onClick={() => setShowMap(false)} />
         </button>
         <button className="action-button">
-          <img src={mapSVG} alt="map unwinds" />
+          <img src={mapSVG} alt="map unwinds" onClick={() => setShowMap(true)} />
         </button>
       </div>
       <div className="unwinds-container">
