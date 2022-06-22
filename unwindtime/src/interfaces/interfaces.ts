@@ -1,18 +1,17 @@
 import { DocumentData, Timestamp } from "firebase/firestore";
-import { Snapshot } from "framer-motion/types/projection/node/types";
 import { ChangeEventHandler } from "react";
 
 interface GeneralState {
   profile: State;
   favoRelaxMethods: RelaxMethods[];
-  location: LocationState
+  location: LocationState;
 }
 
 interface State {
   value: Profile;
 }
 interface LocationState {
-  value: Location
+  value: Location;
 }
 
 interface User {
@@ -68,7 +67,7 @@ interface UnwindProps {
 interface UnwindFilterBoxProps {
   onClickRelaxMethod: Function;
   selectedUnwind: RelaxMethods;
-  handleTillTimeChange:  ChangeEventHandler<HTMLInputElement>;
+  handleTillTimeChange: ChangeEventHandler<HTMLInputElement>;
   handleFromTimeChange: ChangeEventHandler<HTMLInputElement>;
   fromUnwind: Date;
   tillUnwind: Date;
@@ -79,9 +78,18 @@ interface UnwindsMapProps {
   location: Location;
 }
 
-
-
-
-
-
-export { State, Profile, Chat, ChatProps, RelaxMethods, Location, LocationState, GeneralState, User, RelaxMethodProps, UnwindProps, UnwindFilterBoxProps, UnwindsMapProps };
+export {
+  State,
+  Profile,
+  Chat,
+  ChatProps,
+  RelaxMethods,
+  Location,
+  LocationState,
+  GeneralState,
+  User,
+  RelaxMethodProps,
+  UnwindProps,
+  UnwindFilterBoxProps,
+  UnwindsMapProps,
+};

@@ -1,3 +1,4 @@
+//@ts-nocheck
 import './UnwindChat.css';
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
@@ -10,6 +11,8 @@ import unwindLogo from '../Media/RelaxMethods/Coffee.svg';
 
 import Unwind from '../Components/Unwind';
 import ChatMessage from '../Components/ChatMessage';
+
+import {Timestamp} from 'firebase/firestore'
 
 function UnwindChat() {
   const navigate = useNavigate();
@@ -73,7 +76,7 @@ function UnwindChat() {
       profile: { profilePic: profile.profilePic, name: profile.name, uid: profile.uid },
       createdAt: Timestamp.fromDate(new Date()),
     };
-    
+
 
     // Atomically add a new chatMessage and attachedFollowers
     //TODO add tokens
