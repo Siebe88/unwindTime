@@ -1,4 +1,5 @@
-import { DocumentData } from "firebase/firestore";
+import { DocumentData, Timestamp } from "firebase/firestore";
+import { Snapshot } from "framer-motion/types/projection/node/types";
 import { ChangeEventHandler } from "react";
 
 interface GeneralState {
@@ -46,7 +47,7 @@ interface Location {
 interface Chat {
   text: string;
   profile: Profile;
-  createdAt: number;
+  createdAt: Timestamp ;
 }
 interface ChatProps {
   chat: Chat;
@@ -59,7 +60,7 @@ interface RelaxMethodProps {
 }
 
 interface UnwindProps {
-  unwind?: DocumentData | undefined;
+  unwind?: DocumentData;
   unwindID: string;
   location: Location;
 }

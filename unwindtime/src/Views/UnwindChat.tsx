@@ -2,7 +2,7 @@ import './UnwindChat.css';
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useDocument } from 'react-firebase-hooks/firestore';
-import { doc, updateDoc, arrayUnion } from 'firebase/firestore';
+import { doc, updateDoc, arrayUnion, Timestamp } from 'firebase/firestore';
 import { db } from '../Services/firebaseConnection';
 import { useSelector } from 'react-redux';
 import { GeneralState, Chat } from '../interfaces/interfaces'
@@ -18,7 +18,7 @@ function UnwindChat() {
 
   let { unwindID } = useParams();
   // const [user, loadingAuth] = useAuthState(auth);
-  const dummy = useRef();
+  const dummy = useRef<HTMLSpanElement>()
 
   const [unwind, loading, error] = useDocument(doc(db, 'unwinds', unwindID as string), {
     snapshotListenOptions: { includeMetadataChanges: true },
@@ -30,8 +30,11 @@ function UnwindChat() {
   useEffect(() => {
     if (loading) return;
     // if (!user) return navigate('/');
+    //@ts-ignore
     if (!unwind._document) return navigate('/unwinds');
-    dummy.current?.scrollIntoView({ behavior: 'smooth' });
+    console.log('dummy',dummy)
+   dummy.current?.scrollIntoView({ behavior: 'smooth' });
+
   }, [unwind]); //eslint-disable-line
 
   const [formValue, setFormValue] = useState('');
@@ -65,12 +68,12 @@ function UnwindChat() {
 
   const sendMessage = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
-    // const chat = {
-    //   text: formValue,
-    //   profile: { profilePic: profile.profilePic, name: profile.name, uid: profile.uid },
-    //   createdAt: new Date(),
-    // };
-    const chat = {} as Chat;
+    const chat = {
+      text: formValue,
+      profile: { profilePic: profile.profilePic, name: profile.name, uid: profile.uid },
+      createdAt: Timestamp.fromDate(new Date()),
+    };
+    
 
     // Atomically add a new chatMessage and attachedFollowers
     //TODO add tokens
@@ -83,11 +86,10 @@ function UnwindChat() {
       attachedUsers: arrayUnion(profile.uid),
       registrationTokens: arrayUnion(profile.token),
     });
-
     sendPush(chat);
 
     setFormValue('');
-    dummy.current.scrollIntoView({ behavior: 'smooth' });
+  dummy.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
@@ -97,7 +99,8 @@ function UnwindChat() {
           {error && <strong>Error: {JSON.stringify(error)}</strong>}
           {loading && <span>Document: Loading...</span>}
         </p>
-        {unwind && unwind._document && (
+        {    //@ts-ignore
+        unwind && unwind._document && (
           <Unwind
             key={unwind.id}
             unwind={unwind.data()}
@@ -107,12 +110,15 @@ function UnwindChat() {
         )}
       </div>
       <div className="chat-container">
-        {unwind &&
-          unwind._document &&
+        {
+          unwind &&
+          //@ts-ignore
           unwind
             .data()
             .chat.map((chat: Chat, index: React.Key | null | undefined) => <ChatMessage key={index} chat={chat}></ChatMessage>)}
-        <span ref={dummy}></span>
+        <span
+        //@ts-ignore
+        ref={dummy} ></span>
       </div>
 
       <form onSubmit={sendMessage} className="chat-fomr-container">
