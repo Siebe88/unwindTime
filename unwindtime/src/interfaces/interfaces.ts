@@ -1,5 +1,6 @@
 import { DocumentData } from "firebase/firestore";
 import { ChangeEventHandler } from "react";
+import {Timestamp} from 'firebase/firestore'
 
 interface GeneralState {
   profile: State;
@@ -46,7 +47,7 @@ interface Location {
 interface Chat {
   text: string;
   profile: Profile;
-  createdAt: number;
+  createdAt: Timestamp;
 }
 interface ChatProps {
   chat: Chat;

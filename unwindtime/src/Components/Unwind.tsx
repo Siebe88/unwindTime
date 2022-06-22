@@ -33,8 +33,8 @@ export default function Unwind(props: UnwindProps) {
   return (
     <>
       <motion.button
-        // whileHover={{ scale: 1.1 }}
-        // whileTap={{ scale: 0.9 }}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
         className="unwind-event-container"
         onClick={conClickToChat}
       >

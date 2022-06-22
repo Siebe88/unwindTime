@@ -115,6 +115,9 @@ function Unwinds() {
         <button className="action-button">
           <img src={mapSVG} alt="map unwinds" />
         </button>
+        <button className="action-button" >
+          CLEAR
+        </button>
       </div>
       <div className="unwinds-container">
         <div className="unwinds-status-container">
