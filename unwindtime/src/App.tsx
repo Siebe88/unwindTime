@@ -125,11 +125,11 @@ function App() {
             <Route exact path="/" element={<Login />} />
             <Route exact path="/register" element={<Register />} />
             <Route exact path="/reset" element={<Reset />} />
-            <Route element={<ProtectedRoute user={user}/>} >
+          <Route element={<ProtectedRoute user={user}/>} >
             <Route exact path="/dashboard" element={<Dashboard />} />
             <Route exact path="/unwinds" element={<Unwinds />} />
             <Route path="/allchats" element={<AllChats />} />
-            </ Route>
+          </ Route>
             <Route path="/unwindChat/:unwindID" element={<UnwindChat />} />
             <Route path="*" element={<Login />} />
           </Routes>
