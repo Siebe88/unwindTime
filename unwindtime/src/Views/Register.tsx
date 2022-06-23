@@ -23,7 +23,7 @@ function Register() {
   useEffect(() => {
     if (loading) return;
     if (user) navigate("/dashboard");
-  }, [user, loading]);
+  }, [user, loading, navigate]);
 
   return (
     <div className="register">
@@ -33,7 +33,7 @@ function Register() {
           className="register__textBox"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          placeholder="name"
+          placeholder="Name"
         />
         <input
           type="text"
