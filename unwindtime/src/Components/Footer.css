@@ -8,7 +8,7 @@
   margin-top: 10px;
   position: sticky;
   bottom: 0;
-  width: 100%
+  width: 100%;
 }
 
 .navButton {
@@ -17,6 +17,6 @@
   background-color: transparent;
 }
 
-.toUnwindsBtn{
+.toUnwindsBtn {
   transform: scale(1.8);
 }

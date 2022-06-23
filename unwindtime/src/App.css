@@ -1,13 +1,12 @@
-
-body{
+body {
   width: 100%;
   height: auto;
   margin: 0;
   padding: 0;
   background: var(--color-gray-800);
 }
-a:visited{
- color: black;
+a:visited {
+  color: black;
 }
 
 #root {
@@ -22,12 +21,11 @@ a:visited{
   flex-direction: column;
   text-align: center;
   background-color: var(--color-gray-800);
-
 }
 
 .main-container {
   height: auto;
-  margin-bottom: 5vh
+  margin-bottom: 5vh;
 }
 
 .App-logo {
@@ -64,4 +62,3 @@ a:visited{
     transform: rotate(360deg);
   }
 }
-

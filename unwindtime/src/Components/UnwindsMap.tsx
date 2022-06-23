@@ -1,6 +1,6 @@
 import React from "react";
 import Unwind from "./Unwind";
-import { GoogleMap, useJsApiLoader, InfoWindow } from "@react-google-maps/api"; //eslint-disable-line
+import { GoogleMap, useJsApiLoader, InfoWindow } from "@react-google-maps/api";
 import "./UnwindsMap.css";
 import { Props } from "../../Interfaces";
 
@@ -20,32 +20,32 @@ function UnwindsMap(props: Props) {
 
   return isLoaded && location ? (
     <div className="infoWindow">
-    <GoogleMap
-      mapContainerStyle={containerStyle}
-      id="41684020cb892eae"
-      center={location as unknown as google.maps.LatLng}
-      zoom={14}
-    >
-      {unwinds && (
-        <div >
-          {unwinds.map((unwind) => {
-            return (
-              <InfoWindow 
-                position={location as unknown as google.maps.LatLng}
-                key={unwind.id}
-              >
-                <Unwind
+      <GoogleMap
+        mapContainerStyle={containerStyle}
+        id="41684020cb892eae"
+        center={location as unknown as google.maps.LatLng}
+        zoom={14}
+      >
+        {unwinds && (
+          <div>
+            {unwinds.map((unwind) => {
+              return (
+                <InfoWindow
+                  position={location as unknown as google.maps.LatLng}
                   key={unwind.id}
-                  unwind={unwind.data()}
-                  unwindID={unwind.id}
-                  location={location}
-                ></Unwind>
-              </InfoWindow>
-            );
-          })}
-        </div>
-      )}
-    </GoogleMap>
+                >
+                  <Unwind
+                    key={unwind.id}
+                    unwind={unwind.data()}
+                    unwindID={unwind.id}
+                    location={location}
+                  ></Unwind>
+                </InfoWindow>
+              );
+            })}
+          </div>
+        )}
+      </GoogleMap>
     </div>
   ) : (
     <h1>Loading</h1>

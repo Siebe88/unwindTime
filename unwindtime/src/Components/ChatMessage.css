@@ -1,12 +1,10 @@
-.chatmessage-container  {
+.chatmessage-container {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-margin: auto;
+  margin: auto;
   color: var(--color-gray-100);
-
-
 }
 
 .profilePic-chat-img {
@@ -26,15 +24,15 @@ margin: auto;
   text-align: left;
 }
 
-.sender{
+.sender {
   text-decoration: underline;
 }
 
-.relaxmethodspicker-title{
+.relaxmethodspicker-title {
   word-break: break-all;
 }
 
-.chat-text-container{
+.chat-text-container {
   width: 50%;
 }
 

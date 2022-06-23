@@ -9,7 +9,7 @@ export default function RelaxMethod({
   return (
     <div className={"relaxMethod " + classColor}>
       <div
-        data-test='relaxButton'
+        data-test="relaxButton"
         className="relaxButton"
         onClick={() => onClickRelaxMethod!(relaxMethod)}
         title={relaxMethod?.name}

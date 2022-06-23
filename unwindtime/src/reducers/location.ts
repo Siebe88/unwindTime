@@ -1,5 +1,5 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import {LocationValue, Location} from '../../Interfaces'
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { LocationValue, Location } from "../../Interfaces";
 const initialStateValue = {
   lat: undefined,
   lng: undefined,
@@ -8,10 +8,10 @@ const initialStateValue = {
 };
 
 const locationSlice = createSlice({
-  name: 'location',
+  name: "location",
   initialState: { value: initialStateValue },
   reducers: {
-    setLocation: (state:Location, action:PayloadAction<LocationValue>) => {
+    setLocation: (state: Location, action: PayloadAction<LocationValue>) => {
       state.value = action.payload;
     },
   },

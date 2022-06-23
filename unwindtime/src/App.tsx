@@ -17,13 +17,12 @@ import { loginProfile, changeProfileToken } from "./reducers/profile";
 import { addNewFavoArray } from "./reducers/favoRelaxMethods";
 import { setLocation } from "./reducers/location";
 import React, { useEffect, useState } from "react";
-import { LoadScript } from "@react-google-maps/api";
 import {
   messaging,
   onMessageListener,
   fetchToken,
 } from "./Services/firebaseConnection";
-import { getToken, MessagePayload, onMessage } from "firebase/messaging";
+import { getToken, onMessage } from "firebase/messaging";
 
 function App() {
   const [user, loading] = useAuthState(auth);
@@ -63,7 +62,6 @@ function App() {
 
   useEffect(() => {
     if (loading) return;
-    // if (!user) return navigate('/');
     fetchProfile();
     getLocation();
     getNotifcationToken();
@@ -121,17 +119,17 @@ function App() {
     console.log("Message received. ", payload);
   });
 
-
-
-
   return (
     <div className="app">
-      {/* <LoadScript style={{display:'none'}} googleMapsApiKey="AIzaSyCez882QWlP85wQRNooAi0llw1ymzL96zI"></LoadScript> */}
       <Header></Header>
       <Router>
         <div className="main-container">
           <Routes>
-            {!user ? <Route path="/" element={<Login />} /> :    <Route path="/dashboard" element={<Dashboard />} />}
+            {!user ? (
+              <Route path="/" element={<Login />} />
+            ) : (
+              <Route path="/dashboard" element={<Dashboard />} />
+            )}
             <Route path="/register" element={<Register />} />
             <Route path="/reset" element={<Reset />} />
             {user ? (

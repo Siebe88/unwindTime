@@ -32,10 +32,18 @@ const Footer = () => {
 
   return (
     <div className="footer-container">
-      <button name="toDashboardBtn" onClick={toDashboard} className="navButton notSelected">
+      <button
+        name="toDashboardBtn"
+        onClick={toDashboard}
+        className="navButton notSelected"
+      >
         <img src={dashboard}></img>
       </button>
-      <button name='toUnwindsBtn' onClick={toUnwinds} className="navButton notSelected toUnwindsBtn">
+      <button
+        name="toUnwindsBtn"
+        onClick={toUnwinds}
+        className="navButton notSelected toUnwindsBtn"
+      >
         {" "}
         <img src={unwinds}></img>
       </button>

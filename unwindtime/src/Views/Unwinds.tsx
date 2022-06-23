@@ -5,9 +5,9 @@ import { motion } from "framer-motion";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../Services/firebase";
 import UnwindFilterBox from "../Components/UnwindFilterBox";
-import  CreateUnwind  from "../Media/UnwindActionButtons/createUnwind.svg";
-import  List  from "../Media/UnwindActionButtons/list.svg";
-import  Map  from "../Media/UnwindActionButtons/map.svg";
+import CreateUnwind from "../Media/UnwindActionButtons/createUnwind.svg";
+import List from "../Media/UnwindActionButtons/list.svg";
+import Map from "../Media/UnwindActionButtons/map.svg";
 import { useNavigate } from "react-router-dom";
 import Unwind from "../Components/Unwind";
 import UnwindsMap from "../Components/UnwindsMap";
@@ -15,7 +15,7 @@ import { useCollection } from "react-firebase-hooks/firestore";
 import { createNewUnwind } from "../Services/unwinds";
 import { collection, DocumentData, query, where } from "firebase/firestore";
 import { db } from "../Services/firebaseConnection";
-import {RelaxOption, State, EventHandler} from "../../Interfaces"
+import { RelaxOption, State, EventHandler } from "../../Interfaces";
 import moment from "moment";
 
 function Unwinds() {
@@ -25,60 +25,66 @@ function Unwinds() {
   const [showMap, setShowMap] = useState(false);
 
   const [fromUnwind, setFromUnwind] = useState(new Date());
-  const [tillUnwind, setTillUnwind] = useState(moment(new Date(), moment.defaultFormat).add(15, 'minutes').toDate()); 
+  const [tillUnwind, setTillUnwind] = useState(
+    moment(new Date(), moment.defaultFormat).add(15, "minutes").toDate()
+  );
 
   //Get's realtime new unwinds from firebase
   const queryUnwinds = query(
     collection(db, "unwinds"),
     where("till", ">", fromUnwind)
   );
-  const [unwinds, loading, error] = useCollection< DocumentData>(queryUnwinds, {
+  const [unwinds, loading, error] = useCollection<DocumentData>(queryUnwinds, {
     snapshotListenOptions: { includeMetadataChanges: true },
   });
 
-  const profile = useSelector((state:State) => state.profile.value);
-  const location = useSelector((state:State) => state.location.value);
+  const profile = useSelector((state: State) => state.profile.value);
+  const location = useSelector((state: State) => state.location.value);
 
-  // set selected unwind method
-  const [selectedUnwind, setSelectedUnwind] = useState({name : ""});
+  const [selectedUnwind, setSelectedUnwind] = useState({ name: "" });
 
   useEffect(() => {
     if (loadingAuth) return;
     if (!user) return navigate("/");
-  }, []); //eslint-disable-line
+  }, [loadingAuth, navigate, user]);
 
   const createUnwind = () => {
-  
     const unwind = {
       relaxMethod: selectedUnwind,
       from: fromUnwind,
       till: tillUnwind,
       location: location,
     };
-    unwind.relaxMethod.name ?  createNewUnwind(profile, unwind) : alert('Select a category')   
+    unwind.relaxMethod.name
+      ? createNewUnwind(profile, unwind)
+      : alert("Select a category");
   };
 
-  const onClickRelaxMethod = (relaxMethod:RelaxOption) => {
-    
+  const onClickRelaxMethod = (relaxMethod: RelaxOption) => {
     selectedUnwind.name !== relaxMethod.name
       ? setSelectedUnwind(relaxMethod)
-      : setSelectedUnwind({name: ""});
+      : setSelectedUnwind({ name: "" });
   };
 
-  function handleTillTimeChange(event:EventHandler) {
+  function handleTillTimeChange(event: EventHandler) {
     const dateValue = moment(tillUnwind).format("YYYY-MM-DD");
-    const newValue = moment(dateValue + " " + event.target.value, moment.defaultFormat).toDate()
-  
-    console.log(newValue, 'newvalue no d')
+    const newValue = moment(
+      dateValue + " " + event.target.value,
+      moment.defaultFormat
+    ).toDate();
+
+    console.log(newValue, "newvalue no d");
 
     setTillUnwind(newValue);
   }
 
-  function handleFromTimeChange(event:EventHandler) {
-   
+  function handleFromTimeChange(event: EventHandler) {
     const dateValue = moment(fromUnwind).format("YYYY-MM-DD");
-    const newValue = moment(dateValue + " " + event.target.value, moment.defaultFormat).toDate()
-    setFromUnwind(newValue)
+    const newValue = moment(
+      dateValue + " " + event.target.value,
+      moment.defaultFormat
+    ).toDate();
+    setFromUnwind(newValue);
   }
 
   return (
@@ -92,19 +98,19 @@ function Unwinds() {
         tillUnwind={tillUnwind}
       ></UnwindFilterBox>
       <div className="unwindActions-container">
-        {selectedUnwind.hasOwnProperty('name') ? (
+        {selectedUnwind.hasOwnProperty("name") ? (
           <motion.button
             whileHover={{ scale: 1.4 }}
             onClick={createUnwind}
-            className="action-button" 
-            name='createUnwind'
-            >
+            className="action-button"
+            name="createUnwind"
+          >
             {" "}
             <img src={CreateUnwind} />{" "}
           </motion.button>
         ) : (
           <></>
-          )}
+        )}
         <motion.button whileHover={{ scale: 1.3 }} className="action-button">
           {" "}
           <img src={List} onClick={() => setShowMap(false)} />{" "}
@@ -123,13 +129,15 @@ function Unwinds() {
           location.lat && !loading ? (
             <UnwindsMap
               location={location}
-              unwinds={unwinds ? unwinds.docs.filter(
-                (unwind) =>
-                
-                  !selectedUnwind.hasOwnProperty('name') ||
-                
-                  unwind.data().relaxMethod.name === selectedUnwind.name
-              ) : undefined}
+              unwinds={
+                unwinds
+                  ? unwinds.docs.filter(
+                      (unwind) =>
+                        !selectedUnwind.hasOwnProperty("name") ||
+                        unwind.data().relaxMethod.name === selectedUnwind.name
+                    )
+                  : undefined
+              }
             ></UnwindsMap>
           ) : (
             <></>
@@ -142,7 +150,8 @@ function Unwinds() {
                   (unwind) =>
                     !selectedUnwind.name ||
                     unwind.data().relaxMethod.name === selectedUnwind.name
-                ).map((unwind) => (
+                )
+                .map((unwind) => (
                   <Unwind
                     key={unwind.id}
                     unwind={unwind.data()}

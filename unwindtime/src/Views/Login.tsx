@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
-  auth,
   logInWithEmailAndPassword,
   signInWithGoogle,
 } from "../Services/firebase";
@@ -16,7 +15,7 @@ function Login() {
   return (
     <div className="login">
       <div className="login__container">
-        <img  src={WelcomeSVG} className="WelcomeSVG" />
+        <img src={WelcomeSVG} className="WelcomeSVG" />
         <input
           name="email"
           type="text"
@@ -38,7 +37,7 @@ function Login() {
           className="login__btn"
           onClick={() => {
             logInWithEmailAndPassword(email, password);
-            navigate("/dashboard")
+            navigate("/dashboard");
           }}
         >
           Login
@@ -46,10 +45,12 @@ function Login() {
         <button className="login__btn login__google" onClick={signInWithGoogle}>
           Login with Google
         </button>
-              <div>
-          <Link to="/reset" data-test='resetLink'>Forgot Password</Link>
+        <div>
+          <Link to="/reset" data-test="resetLink">
+            Forgot Password
+          </Link>
         </div>
-        <div data-test='noAccount'>
+        <div data-test="noAccount">
           Don't have an account? <Link to="/register">Register</Link> now.
         </div>
       </div>

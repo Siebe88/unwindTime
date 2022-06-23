@@ -23,11 +23,10 @@ function Dashboard() {
     (state: State) => state.favoRelaxMethods
   );
 
-  //BUG need to rework routing
   useEffect(() => {
     if (loadingAuth) return;
     if (!user) return navigate("/");
-  }); //eslint-disable-line
+  });
 
   const clickEventSaveProfile = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -72,7 +71,7 @@ function Dashboard() {
       </div>
 
       <button
-      name="letsUnwindBtn"
+        name="letsUnwindBtn"
         className="dashboard__btn go_button text-style-h-3 color-button-grey"
         onClick={clickEventSaveProfile}
       >
@@ -80,7 +79,7 @@ function Dashboard() {
         Okay, let's unwind!
       </button>
       <button
-      name='logoutBtn'
+        name="logoutBtn"
         className="dashboard__btn text-style-h-3 color-button-red"
         onClick={logout}
       >

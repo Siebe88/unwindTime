@@ -5,7 +5,7 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-around;
-  height:auto;
+  height: auto;
   background: var(--color-gray-100);
   border-radius: 12px;
   border: 1px solid black;
@@ -29,27 +29,24 @@ p {
   margin: 0;
 }
 
+.unwind-outer-container {
+  display: flex;
+  flex-direction: column;
 
-
-.unwind-outer-container{
-display: flex;
-flex-direction: column;
-
-
-min-width: fit-content;
-display: flex;
-align-items: flex-end;
-justify-content: space-between;
-height:auto;
-margin: 20px 5px;
-background: var(--color-gray-100);
-border-radius: 12px;
-padding: 10px;
+  min-width: fit-content;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  height: auto;
+  margin: 20px 5px;
+  background: var(--color-gray-100);
+  border-radius: 12px;
+  padding: 10px;
 }
 
-.deleteBtn{
- margin-top: 5px;
- border: 0.5px solid rgba(0, 0, 0, 0.205);
- border-radius: 6px;
- padding: 2px 5px;
+.deleteBtn {
+  margin-top: 5px;
+  border: 0.5px solid rgba(0, 0, 0, 0.205);
+  border-radius: 6px;
+  padding: 2px 5px;
 }

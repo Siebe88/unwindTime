@@ -10,29 +10,29 @@
 }
 .text-style-h-2 {
   font-size: 30px;
-  font-family: 'Chewy';
+  font-family: "Chewy";
   font-weight: normal;
   font-style: normal;
   text-decoration: none;
 }
 .text-style-h-1 {
   font-size: 35px;
-  font-family: 'Chewy';
+  font-family: "Chewy";
   font-weight: normal;
   font-style: normal;
   text-decoration: none;
 }
 .text-style-h-3 {
   font-size: 25px;
-  font-family: 'Chewy';
+  font-family: "Chewy";
   font-weight: normal;
   font-style: normal;
   text-decoration: none;
 }
 .fromText {
-  padding-left:5px;
+  padding-left: 5px;
 }
-input{
+input {
   border-radius: 5px;
   border-color: lightgray;
 }
@@ -50,7 +50,7 @@ input{
 
 .text-style-h-4 {
   font-size: 16px;
-  font-family: 'Chewy';
+  font-family: "Chewy";
   font-weight: normal;
   font-style: normal;
   text-decoration: none;
@@ -58,7 +58,7 @@ input{
 
 .text-style-text-100-bold {
   font-size: 20px;
-  font-family: 'Roboto';
+  font-family: "Roboto";
   font-weight: bolder;
   font-style: normal;
   text-decoration: none;
@@ -66,35 +66,33 @@ input{
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
-    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
 }
 
-/* width */
 ::-webkit-scrollbar {
   width: 5px;
   height: 5px;
 }
 
-/* Track */
 ::-webkit-scrollbar-track {
   box-shadow: inset 0 0 5px grey;
   border-radius: 10px;
 }
 
-/* Handle */
 ::-webkit-scrollbar-thumb {
   background: rgb(132, 132, 132);
   border-radius: 10px;
 }
 
-/* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: rgb(249, 188, 57);
 }

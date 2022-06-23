@@ -4,8 +4,6 @@ import moment from "moment";
 import RelaxMethod from "./RelaxMethod";
 import { Props, State } from "../../Interfaces";
 
-let minDate = new Date().toISOString().slice(11, 16).toString();
-
 function UnwindFilterBox({
   onClickRelaxMethod,
   selectedUnwind,
@@ -45,8 +43,8 @@ function UnwindFilterBox({
           <h3 className="text-style-h-3 fromText">From:</h3>
           <input
             type="time"
-            min={moment(fromUnwind).format('HH:mm')}
-            defaultValue={moment(fromUnwind).format('HH:mm')}
+            min={moment(fromUnwind).format("HH:mm")}
+            defaultValue={moment(fromUnwind).format("HH:mm")}
             onChange={handleFromTimeChange}
             required
           ></input>

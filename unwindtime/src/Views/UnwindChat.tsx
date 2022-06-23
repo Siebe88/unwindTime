@@ -81,7 +81,6 @@ function UnwindChat() {
     };
 
     // Atomically add a new chatMessage and attachedFollowers
-    //TODO add tokens
     const unwindRef = doc(db, "unwinds", unwindID as string);
     await updateDoc(unwindRef, {
       chat: arrayUnion(newchat),
