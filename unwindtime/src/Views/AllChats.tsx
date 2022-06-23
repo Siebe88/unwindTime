@@ -41,7 +41,7 @@ function AllChats() {
         {loading && <span>Collection Loading...</span>}
       </div>
       {profile.uid && unwinds && (
-        <div>
+        <div className="unwind-wrapper">
           {unwinds.docs
             .sort((a, b) => b.data().createdAt - a.data().createdAt)
             .map((unwind) => (

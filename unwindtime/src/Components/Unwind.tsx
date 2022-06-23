@@ -24,11 +24,11 @@ export default function Unwind(props: Props) {
 
   const distanceBetween =
     location?.latitude && unwind?.location.latitude
-      ? `Distance: ${getDistance(
-          location as GeolibInputCoordinates,
-          unwind.location,
-          1
-        )} meters away`
+      ? `  ${Math.round((getDistance(
+        location as GeolibInputCoordinates,
+        unwind.location,
+        1
+      ) / 1000)).toFixed(1)} kms away`
       : "~";
 
   const conClickToChat = () => {

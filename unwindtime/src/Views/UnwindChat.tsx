@@ -95,7 +95,7 @@ function UnwindChat() {
   };
 
   return (
-    <div>
+    <div className="chat-wrapper">
       <div className="statusChat-container">
         <p>
           {error && <strong>Error: {JSON.stringify(error)}</strong>}

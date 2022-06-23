@@ -8,8 +8,8 @@
 }
 
 .profilePic-chat-img {
-  width: 80px;
-  height: 80px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   margin: 2px 5px;
 }
@@ -37,7 +37,7 @@
 }
 
 .sent .chattext {
-  background-color: rgba(0, 128, 0, 0.236);
+  background-color: rgba(0, 128, 0, 0.553);
   padding: 15px;
   border-radius: 12px;
 }
@@ -46,4 +46,22 @@
   background-color: rgba(81, 81, 145, 0.236);
   padding: 15px;
   border-radius: 12px;
+}
+
+
+@media screen and (max-width: 650px) {
+  .chat-text-container {
+    max-width: 90%;
+
+  }
+
+  .chat-text-container > * {
+    font-size: 18px;
+    word-wrap: break-word;
+  }
+}
+
+.chat-form-container{
+  padding-right: 15px;
+  padding-left: 5px;
 }
