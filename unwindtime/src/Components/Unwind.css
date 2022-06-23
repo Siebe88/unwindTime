@@ -32,7 +32,8 @@ p {
 .unwind-outer-container {
   display: flex;
   flex-direction: column;
-
+	border: 1px solid rgba(128, 128, 128, 0.445);
+	box-shadow: 10px 10px 10px 1px rgba(6, 5, 5, 0.511);
   min-width: fit-content;
   display: flex;
   align-items: flex-end;
