@@ -33,7 +33,7 @@
 }
 
 .chat-text-container {
-  width: 50%;
+  max-width: 50%;
 }
 
 .sent .chattext {
