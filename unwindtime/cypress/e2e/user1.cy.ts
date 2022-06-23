@@ -1,5 +1,7 @@
 //@ts-nocheck
 
+import { Item } from "framer-motion/types/components/Reorder/Item";
+
 const baseUrl = 'http://localhost:3000/';
 
 describe('renders the login page', () => {
@@ -83,6 +85,15 @@ describe('select an unwind', () => {
     cy.get('.unwindActions-container > :nth-child(1)').click();
   }
   )
+  it('click map', () => {
+    cy.wait(2000);
+    cy.get('.unwindActions-container > :nth-child(3)').click()
+    cy.wait(2000)
+  })
+  it('click list', () => {
+    cy.wait(2000);
+    cy.get('.unwindActions-container > :nth-child(2) > img').click()
+  })
 
   it('click the unwind', () => {
     cy.wait(2000);
@@ -90,6 +101,7 @@ describe('select an unwind', () => {
   }
   )
 })
+
 
 describe('sent a message', () => {
   it('sent a message', () => {
@@ -116,9 +128,9 @@ describe('go to all chat page', () => {
 
 describe('logout', () => {
   it('logout', () => {
-    cy.wait(10000);
+    cy.wait(3000);
     cy.visit('/dashboard');
-    cy.wait(5000);
+    cy.wait(3000);
     cy.get('.color-button-red').click();
     cy.clearCookies();
   }

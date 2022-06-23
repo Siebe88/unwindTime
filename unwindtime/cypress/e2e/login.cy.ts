@@ -57,7 +57,7 @@ describe('renders the login page', () => {
   it('login with invalid password', () => {
     cy.visit('/');
     cy.get('[type="email"]').type('halil@gmail.com')
-    cy.get('[type="password"]').type('123456');
+    cy.get('[type="password"]').type('12345678');
     cy.get('[name="login"]').click();
     cy.url().should('eq', `http://localhost:3000/`);
     cy.clearCookies();
