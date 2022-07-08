@@ -3,13 +3,13 @@
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  margin-bottom: 10px;
+  margin: auto;
   color: var(--color-gray-100);
 }
 
 .profilePic-chat-img {
-  width: 80px;
-  height: 80px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   margin: 2px 5px;
 }
@@ -22,4 +22,46 @@
 .received {
   flex-direction: row;
   text-align: left;
+}
+
+.sender {
+  text-decoration: underline;
+}
+
+.relaxmethodspicker-title {
+  word-break: break-all;
+}
+
+.chat-text-container {
+  max-width: 50%;
+}
+
+.sent .chattext {
+  background-color: rgba(0, 128, 0, 0.553);
+  padding: 15px;
+  border-radius: 12px;
+}
+
+.received .chattext {
+  background-color: rgba(81, 81, 145, 0.236);
+  padding: 15px;
+  border-radius: 12px;
+}
+
+
+@media screen and (max-width: 650px) {
+  .chat-text-container {
+    max-width: 90%;
+
+  }
+
+  .chat-text-container > * {
+    font-size: 18px;
+    word-wrap: break-word;
+  }
+}
+
+.chat-form-container{
+  padding-right: 15px;
+  padding-left: 5px;
 }
