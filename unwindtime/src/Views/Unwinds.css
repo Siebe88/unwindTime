@@ -3,30 +3,22 @@
   background: var(--color-gray-100);
   border-radius: 12px;
   width: 90%;
-  margin: auto;
-  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 }
 
 .relaxmethods-selector-container {
   display: flex;
-  flex-wrap: wrap;
   flex-direction: row;
   align-items: center;
-  padding: 5px;
+
+  overflow: auto;
   justify-content: center;
-  width: 100%;
-  overflow-y: scroll;
 }
 
 .timesetter-container {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
-}
-
-.timesetter-container > * {
-  margin-right: 15px;
+  justify-content: space-around;
 }
 
 .unwinds-parent-container {
@@ -34,7 +26,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 10px;
 }
 
 .unwinds-container {
@@ -54,7 +45,8 @@
   flex-direction: row;
   align-items: center;
   justify-content: flex-end;
-  width: 95%;
+  width: 100%;
+  /* padding: 10px; */
   border-radius: 12px;
   padding-right: 30px;
 }

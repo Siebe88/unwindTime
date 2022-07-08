@@ -1,15 +1,13 @@
 .unwind-event-container {
-  width: 100%;
+  width: 40vh;
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
   align-items: center;
-  justify-content: space-around;
-  height: auto;
+  justify-content: space-between;
+  height: 10vh;
+  margin: 20px 5px;
   background: var(--color-gray-100);
   border-radius: 12px;
-  border: 1px solid black;
-  padding: 10px;
 }
 
 .profile-unwind-img {
@@ -28,34 +26,3 @@
 p {
   margin: 0;
 }
-
-.unwind-outer-container {
-  display: flex;
-  flex-direction: column;
-	border: 1px solid rgba(128, 128, 128, 0.445);
-	box-shadow: 10px 10px 10px 1px rgba(6, 5, 5, 0.511);
-  width: fit-content;
-  min-width: 285px;
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  height: auto;
-  margin: 20px 5px;
-  background: var(--color-gray-100);
-  border-radius: 12px;
-  padding: 10px;
-}
-
-.deleteBtn {
-  margin-top: 5px;
-  border: 0.5px solid rgba(0, 0, 0, 0.205);
-  border-radius: 6px;
-  padding: 2px 5px;
-}
-
-
-@media screen and (max-width:400px) {
-  .unwind-outer-container{
-    min-width: fit-content;
-  }
-  }

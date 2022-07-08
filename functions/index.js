@@ -12,13 +12,20 @@ const cors = require('cors')({ origin: true });
 exports.sendHttpPushNotificationMultiple = functions.https.onRequest(async (req, res) => {
   // const userId = req.body.userId; //userId is the id of the user
   return cors(req, res, async () => {
+    console.log('req.body', req.body);
+
     res.set('Access-Control-Allow-Origin', '*');
     const unwindID = req.body.unwindID;
+    console.log('unwindID', unwindID);
     const chat = req.body.chat;
+    console.log('chat', chat);
     const document = firestore.doc('unwinds/' + unwindID);
 
     const doc = await document.get();
+    console.log('Document data:', doc);
     const unwind = doc.data();
+
+    console.log('unwind', unwind);
 
     const registrationTokens = unwind.registrationTokens;
 
@@ -35,6 +42,7 @@ exports.sendHttpPushNotificationMultiple = functions.https.onRequest(async (req,
       .sendMulticast(message)
       .then((response) => {
         // Response is a message ID string.
+        console.log('Successfully sent message:', response);
         res.send('Successfully sent message: ' + response);
       })
       .catch(

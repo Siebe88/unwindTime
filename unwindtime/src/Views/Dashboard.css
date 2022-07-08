@@ -1,7 +1,7 @@
 .relaxmethods-parent-container {
   background: var(--color-gray-100);
   border-radius: 12px;
-  margin: 10px 20px;
+  margin: 0px 20px;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 }
 
@@ -10,6 +10,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  padding: 13px 6px;
   flex-wrap: wrap;
 }
 
@@ -24,10 +25,8 @@
   display: flex;
   flex-direction: column;
   text-align: center;
-
   background-color: #dcdcdc;
   padding: 30px;
-  height: auto;
 }
 
 .relaxmethodspicker-title {
@@ -35,14 +34,13 @@
 }
 
 .dashboard__btn {
+  padding: 10px;
   font-size: 18px;
   margin-top: 10px;
   border: none;
   color: white;
 
-  width: 50vw;
-  min-width: 243.5px;
-  max-width: 350px;
+  width: 50%;
   height: 40px;
   padding: 10px;
   display: flex;
@@ -51,6 +49,7 @@
   align-items: center;
   padding: 0px 56px;
   gap: 10px;
+  /* background: #343b4b; */
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 12px;
 }

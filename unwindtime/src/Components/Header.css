@@ -1,8 +1,9 @@
 .top-header-container {
+  /* position: absolute; */
   display: flex;
   justify-content: center;
   align-items: center;
-  height: auto;
+  height: 7vh;
   width: 100%;
   background-color: #dcdcdc;
 }

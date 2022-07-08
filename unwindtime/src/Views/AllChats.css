@@ -2,17 +2,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 80vh;
-  overflow-y: scroll;
-
-  margin: auto;
-  padding: 0 30px;
-}
-
-
-.unwind-wrapper{
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-  width: 80%;
+  height: 90vh;
+  overflow: scroll;
 }
