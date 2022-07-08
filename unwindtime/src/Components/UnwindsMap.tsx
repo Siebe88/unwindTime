@@ -33,43 +33,12 @@ function UnwindsMap({ location, unwinds }: UnwindsMapProps) {
   // }, []);
 
   return isLoaded && location ? (
-    <GoogleMap
-      mapContainerStyle={containerStyle}
-      id="41684020cb892eae"
-      center={location}
-      zoom={14}
-      // onLoad={onLoad}
-      // onUnmount={onUnmount}
-    >
-      {/* {unwinds && (
-        <div>
-          {unwinds.map((unwind) => (
-            <Marker
-              key={unwind.id}
-              icon={{
-                path: unwind.data().relaxMethod.svg,
-                fillColor: 'grey',
-                fillOpacity: 0.9,
-                scale: 1,
-                strokeColor: 'grey',
-                strokeWeight: 1,
-              }}
-              position={location}
-            ></Marker>
-          ))}
-        </div>
-      )} */}
-
+    <GoogleMap mapContainerStyle={containerStyle} id="41684020cb892eae" center={location} zoom={14}>
       {unwinds && (
         <div>
           {unwinds.map((unwind) => (
             <InfoWindow position={location} key={unwind.id}>
-              <Unwind
-                key={unwind.id}
-                unwind={unwind.data()}
-                unwindID={unwind.id}
-                location={location}
-              ></Unwind>
+              <Unwind key={unwind.id} unwind={unwind.data()} unwindID={unwind.id} location={location}></Unwind>
             </InfoWindow>
           ))}
         </div>
