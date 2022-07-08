@@ -1,21 +1,18 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import {
-  logInWithEmailAndPassword,
-  signInWithGoogle,
-} from "../Services/firebase";
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { logInWithEmailAndPassword, signInWithGoogle } from '../Services/firebase';
 
-import WelcomeSVG from "../Media/WelcomeSVG.svg";
-import "./Login.css";
+import WelcomeSVG from '../Media/WelcomeSVG.svg';
+import './Login.css';
 
 function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const navigate = useNavigate();
   return (
     <div className="login">
       <div className="login__container">
-        <img src={WelcomeSVG} className="WelcomeSVG" />
+        <img src={WelcomeSVG} className="WelcomeSVG" alt="Welcome" />
         <input
           name="email"
           type="text"
@@ -37,7 +34,7 @@ function Login() {
           className="login__btn"
           onClick={() => {
             logInWithEmailAndPassword(email, password);
-            navigate("/dashboard");
+            navigate('/dashboard');
           }}
         >
           Login

@@ -1,32 +1,28 @@
-import "./App.css";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Login from "./Views/Login";
-import Register from "./Views/Register";
-import Reset from "./Views/Reset";
-import Dashboard from "./Views/Dashboard";
-import Unwinds from "./Views/Unwinds";
-import UnwindChat from "./Views/UnwindChat";
-import AllChats from "./Views/AllChats";
-import Header from "./Components/Header";
-import Footer from "./Components/Footer";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "./Services/firebase";
-import { useDispatch } from "react-redux";
-import { findProfile } from "./Services/firestore";
-import { loginProfile, changeProfileToken } from "./reducers/profile";
-import { addNewFavoArray } from "./reducers/favoRelaxMethods";
-import { setLocation } from "./reducers/location";
-import React, { useEffect, useState } from "react";
-import {
-  messaging,
-  onMessageListener,
-  fetchToken,
-} from "./Services/firebaseConnection";
-import { getToken, onMessage } from "firebase/messaging";
+import './App.css';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Login from './Views/Login';
+import Register from './Views/Register';
+import Reset from './Views/Reset';
+import Dashboard from './Views/Dashboard';
+import Unwinds from './Views/Unwinds';
+import UnwindChat from './Views/UnwindChat';
+import AllChats from './Views/AllChats';
+import Header from './Components/Header';
+import Footer from './Components/Footer';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from './Services/firebase';
+import { useDispatch } from 'react-redux';
+import { findProfile } from './Services/firestore';
+import { loginProfile, changeProfileToken } from './reducers/profile';
+import { addNewFavoArray } from './reducers/favoRelaxMethods';
+import { setLocation } from './reducers/location';
+import React, { useEffect, useState } from 'react';
+import { messaging, onMessageListener, fetchToken } from './Services/firebaseConnection';
+import { getToken, onMessage } from 'firebase/messaging';
 
 function App() {
   const [user, loading] = useAuthState(auth);
-  const [notification, setNotification] = useState({ title: "", body: "" });
+  const [notification, setNotification] = useState({ title: '', body: '' });
   const [show, setShow] = useState(false);
   const [isTokenFound, setTokenFound] = useState(false);
   fetchToken(setTokenFound);
@@ -38,12 +34,8 @@ function App() {
         body: payload.notification?.body!,
       });
       setShow(true);
-      console.log(payload);
-      console.log("Show", show);
-      console.log("notifcation", notification);
-      console.log("isTokenFound", isTokenFound);
     })
-    .catch((err) => console.log("failed: ", err));
+    .catch((err) => console.log('failed: ', err));
 
   onMessageListener()
     .then((payload) => {
@@ -51,12 +43,11 @@ function App() {
         title: payload.notification?.title!,
         body: payload.notification?.body!,
       });
-      console.log(payload);
-      console.log("notifcation", notification);
+      console.log('notification', notification);
     })
-    .catch((err) => console.log("failed: ", err));
+    .catch((err) => console.log('failed: ', err));
 
-  const [status, setStatus] = useState("");
+  const [status, setStatus] = useState('');
 
   const dispatch = useDispatch();
 
@@ -80,10 +71,8 @@ function App() {
   const getNotifcationToken = async () => {
     try {
       const token = await getToken(messaging, {
-        vapidKey:
-          "BKzLRtr6U6-LR6IJEd4MxZNDHioh-_y-17RAV9fOtnTAsBElwuTQtQTum8NN0tTDSNa-MO99uSTeBCKOgm1BTyc",
+        vapidKey: 'BKzLRtr6U6-LR6IJEd4MxZNDHioh-_y-17RAV9fOtnTAsBElwuTQtQTum8NN0tTDSNa-MO99uSTeBCKOgm1BTyc',
       });
-      console.log("token", token);
       dispatch(changeProfileToken(token));
     } catch (err) {
       console.error(err);
@@ -92,12 +81,12 @@ function App() {
 
   const getLocation = () => {
     if (!navigator.geolocation) {
-      setStatus("Geolocation is not supported by your browser");
+      setStatus('Geolocation is not supported by your browser');
     } else {
-      setStatus("Locating...");
+      setStatus('Locating...');
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          setStatus("");
+          setStatus('');
           dispatch(
             setLocation({
               lat: position.coords.latitude as unknown as string,
@@ -108,15 +97,14 @@ function App() {
           );
         },
         () => {
-          setStatus("Unable to retrieve your location");
-          console.log(status);
+          setStatus('Unable to retrieve your location');
         }
       );
     }
   };
 
   onMessage(messaging, (payload) => {
-    console.log("Message received. ", payload);
+    console.log('Message received. ', payload);
   });
 
   return (
@@ -125,28 +113,12 @@ function App() {
       <Router>
         <div className="main-container">
           <Routes>
-            {!user ? (
-              <Route path="/" element={<Login />} />
-            ) : (
-              <Route path="/dashboard" element={<Dashboard />} />
-            )}
+            {!user ? <Route path="/" element={<Login />} /> : <Route path="/dashboard" element={<Dashboard />} />}
             <Route path="/register" element={<Register />} />
             <Route path="/reset" element={<Reset />} />
-            {user ? (
-              <Route path="/dashboard" element={<Dashboard />} />
-            ) : (
-              <Route path="/" element={<Login />} />
-            )}
-            {user ? (
-              <Route path="/unwinds" element={<Unwinds />} />
-            ) : (
-              <Route path="/" element={<Login />} />
-            )}
-            {user ? (
-              <Route path="/allchats" element={<AllChats />} />
-            ) : (
-              <Route path="/" element={<Login />} />
-            )}
+            {user ? <Route path="/dashboard" element={<Dashboard />} /> : <Route path="/" element={<Login />} />}
+            {user ? <Route path="/unwinds" element={<Unwinds />} /> : <Route path="/" element={<Login />} />}
+            {user ? <Route path="/allchats" element={<AllChats />} /> : <Route path="/" element={<Login />} />}
             <Route path="/unwindChat/:unwindID" element={<UnwindChat />} />
             <Route path="*" element={<Login />} />
           </Routes>

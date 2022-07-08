@@ -1,22 +1,22 @@
-import "./Unwinds.css";
-import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { motion } from "framer-motion";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../Services/firebase";
-import UnwindFilterBox from "../Components/UnwindFilterBox";
-import CreateUnwind from "../Media/UnwindActionButtons/createUnwind.svg";
-import List from "../Media/UnwindActionButtons/list.svg";
-import Map from "../Media/UnwindActionButtons/map.svg";
-import { useNavigate } from "react-router-dom";
-import Unwind from "../Components/Unwind";
-import UnwindsMap from "../Components/UnwindsMap";
-import { useCollection } from "react-firebase-hooks/firestore";
-import { createNewUnwind } from "../Services/unwinds";
-import { collection, DocumentData, query, where } from "firebase/firestore";
-import { db } from "../Services/firebaseConnection";
-import { RelaxOption, State, EventHandler } from "../../Interfaces";
-import moment from "moment";
+import './Unwinds.css';
+import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { motion } from 'framer-motion';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from '../Services/firebase';
+import UnwindFilterBox from '../Components/UnwindFilterBox';
+import CreateUnwind from '../Media/UnwindActionButtons/createUnwind.svg';
+import List from '../Media/UnwindActionButtons/list.svg';
+import Map from '../Media/UnwindActionButtons/map.svg';
+import { useNavigate } from 'react-router-dom';
+import Unwind from '../Components/Unwind';
+import UnwindsMap from '../Components/UnwindsMap';
+import { useCollection } from 'react-firebase-hooks/firestore';
+import { createNewUnwind } from '../Services/unwinds';
+import { collection, DocumentData, query, where } from 'firebase/firestore';
+import { db } from '../Services/firebaseConnection';
+import { RelaxOption, State, EventHandler } from '../../Interfaces';
+import moment from 'moment';
 
 function Unwinds() {
   const [user, loadingAuth] = useAuthState(auth);
@@ -25,15 +25,10 @@ function Unwinds() {
   const [showMap, setShowMap] = useState(false);
 
   const [fromUnwind, setFromUnwind] = useState(new Date());
-  const [tillUnwind, setTillUnwind] = useState(
-    moment(new Date(), moment.defaultFormat).add(15, "minutes").toDate()
-  );
+  const [tillUnwind, setTillUnwind] = useState(moment(new Date(), moment.defaultFormat).add(15, 'minutes').toDate());
 
   //Get's realtime new unwinds from firebase
-  const queryUnwinds = query(
-    collection(db, "unwinds"),
-    where("till", ">", fromUnwind)
-  );
+  const queryUnwinds = query(collection(db, 'unwinds'), where('till', '>', fromUnwind));
   const [unwinds, loading, error] = useCollection<DocumentData>(queryUnwinds, {
     snapshotListenOptions: { includeMetadataChanges: true },
   });
@@ -41,11 +36,11 @@ function Unwinds() {
   const profile = useSelector((state: State) => state.profile.value);
   const location = useSelector((state: State) => state.location.value);
 
-  const [selectedUnwind, setSelectedUnwind] = useState({ name: "" });
+  const [selectedUnwind, setSelectedUnwind] = useState({ name: '' });
 
   useEffect(() => {
     if (loadingAuth) return;
-    if (!user) return navigate("/");
+    if (!user) return navigate('/');
   }, [loadingAuth, navigate, user]);
 
   const createUnwind = () => {
@@ -55,35 +50,23 @@ function Unwinds() {
       till: tillUnwind,
       location: location,
     };
-    unwind.relaxMethod.name
-      ? createNewUnwind(profile, unwind)
-      : alert("Select a category");
+    unwind.relaxMethod.name ? createNewUnwind(profile, unwind) : alert('Select a category');
   };
 
   const onClickRelaxMethod = (relaxMethod: RelaxOption) => {
-    selectedUnwind.name !== relaxMethod.name
-      ? setSelectedUnwind(relaxMethod)
-      : setSelectedUnwind({ name: "" });
+    selectedUnwind.name !== relaxMethod.name ? setSelectedUnwind(relaxMethod) : setSelectedUnwind({ name: '' });
   };
 
   function handleTillTimeChange(event: EventHandler) {
-    const dateValue = moment(tillUnwind).format("YYYY-MM-DD");
-    const newValue = moment(
-      dateValue + " " + event.target.value,
-      moment.defaultFormat
-    ).toDate();
-
-    console.log(newValue, "newvalue no d");
+    const dateValue = moment(tillUnwind).format('YYYY-MM-DD');
+    const newValue = moment(dateValue + ' ' + event.target.value, moment.defaultFormat).toDate();
 
     setTillUnwind(newValue);
   }
 
   function handleFromTimeChange(event: EventHandler) {
-    const dateValue = moment(fromUnwind).format("YYYY-MM-DD");
-    const newValue = moment(
-      dateValue + " " + event.target.value,
-      moment.defaultFormat
-    ).toDate();
+    const dateValue = moment(fromUnwind).format('YYYY-MM-DD');
+    const newValue = moment(dateValue + ' ' + event.target.value, moment.defaultFormat).toDate();
     setFromUnwind(newValue);
   }
 
@@ -98,26 +81,26 @@ function Unwinds() {
         tillUnwind={tillUnwind}
       ></UnwindFilterBox>
       <div className="unwindActions-container">
-        {selectedUnwind.hasOwnProperty("name") ? (
+        {selectedUnwind.hasOwnProperty('name') ? (
           <motion.button
             whileHover={{ scale: 1.4 }}
             onClick={createUnwind}
             className="action-button"
             name="createUnwind"
           >
-            {" "}
-            <img src={CreateUnwind} />{" "}
+            {' '}
+            <img src={CreateUnwind} alt="Create a Unwind" />{' '}
           </motion.button>
         ) : (
           <></>
         )}
         <motion.button whileHover={{ scale: 1.3 }} className="action-button">
-          {" "}
-          <img src={List} onClick={() => setShowMap(false)} />{" "}
+          {' '}
+          <img src={List} onClick={() => setShowMap(false)} alt="Show unwinds as a list" />{' '}
         </motion.button>
         <motion.button whileHover={{ scale: 1.16 }} className="action-button">
-          {" "}
-          <img src={Map} onClick={() => setShowMap(true)} />{" "}
+          {' '}
+          <img src={Map} onClick={() => setShowMap(true)} alt="Show unwinds on a map" />{' '}
         </motion.button>
       </div>
       <div className="unwinds-container">
@@ -133,8 +116,7 @@ function Unwinds() {
                 unwinds
                   ? unwinds.docs.filter(
                       (unwind) =>
-                        !selectedUnwind.hasOwnProperty("name") ||
-                        unwind.data().relaxMethod.name === selectedUnwind.name
+                        !selectedUnwind.hasOwnProperty('name') || unwind.data().relaxMethod.name === selectedUnwind.name
                     )
                   : undefined
               }
@@ -146,18 +128,9 @@ function Unwinds() {
           unwinds && (
             <div>
               {unwinds.docs
-                .filter(
-                  (unwind) =>
-                    !selectedUnwind.name ||
-                    unwind.data().relaxMethod.name === selectedUnwind.name
-                )
+                .filter((unwind) => !selectedUnwind.name || unwind.data().relaxMethod.name === selectedUnwind.name)
                 .map((unwind) => (
-                  <Unwind
-                    key={unwind.id}
-                    unwind={unwind.data()}
-                    unwindID={unwind.id}
-                    location={location}
-                  ></Unwind>
+                  <Unwind key={unwind.id} unwind={unwind.data()} unwindID={unwind.id} location={location}></Unwind>
                 ))}
             </div>
           )

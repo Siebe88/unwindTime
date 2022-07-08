@@ -1,27 +1,22 @@
-import "./AllChats.css";
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../Services/firebase";
-import Unwind from "../Components/Unwind";
-import { useCollection } from "react-firebase-hooks/firestore";
-import { collection, query, where } from "firebase/firestore";
-import { db } from "../Services/firebaseConnection";
-import { State } from "../../Interfaces";
+import './AllChats.css';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import Unwind from '../Components/Unwind';
+import { useCollection } from 'react-firebase-hooks/firestore';
+import { collection, query, where } from 'firebase/firestore';
+import { db } from '../Services/firebaseConnection';
+import { State } from '../../Interfaces';
 
 function AllChats() {
   const profile = useSelector((state: State) => state.profile.value);
   const location = useSelector((state: State) => state.location.value);
-  const [unwindQuery, setUwindQuery] = useState();
+  const [unwindQuery, setUnwindQuery] = useState();
 
   useEffect(() => {
     if (profile.uid) {
-      const queryUnwinds = query(
-        collection(db, "unwinds"),
-        where("attachedUsers", "array-contains", profile.uid)
-      );
+      const queryUnwinds = query(collection(db, 'unwinds'), where('attachedUsers', 'array-contains', profile.uid));
 
-      setUwindQuery(queryUnwinds as unknown as any);
+      setUnwindQuery(queryUnwinds as unknown as any);
     }
   }, [profile.uid]);
 
@@ -45,12 +40,7 @@ function AllChats() {
           {unwinds.docs
             .sort((a, b) => b.data().createdAt - a.data().createdAt)
             .map((unwind) => (
-              <Unwind
-                key={unwind.id}
-                unwind={unwind.data()}
-                unwindID={unwind.id}
-                location={location}
-              ></Unwind>
+              <Unwind key={unwind.id} unwind={unwind.data()} unwindID={unwind.id} location={location}></Unwind>
             ))}
         </div>
       )}
