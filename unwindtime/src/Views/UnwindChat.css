@@ -1,8 +1,6 @@
 .chat-container {
-  height:50vh;
+  height: 62vh;
   overflow: auto;
-  width: 90%;
-  margin: 10px auto;
 }
 
 .statusChat-container {
@@ -33,7 +31,7 @@
   border: none;
 }
 
-.chat-form-container {
+.chat-fomr-container {
   display: flex;
   justify-content: center;
   height: 7vh;
