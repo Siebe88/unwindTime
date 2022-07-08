@@ -1,57 +1,59 @@
 //@ts-nocheck
-import "./App.css";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Login from "./Views/Login";
-import Register from "./Views/Register";
-import Reset from "./Views/Reset";
-import Dashboard from "./Views/Dashboard";
-import Unwinds from "./Views/Unwinds";
-import UnwindChat from "./Views/UnwindChat";
-import AllChats from "./Views/AllChats";
-import ProtectedRoute from "./Services/ProtectedRoute";
+import './App.css';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Login from './Views/Login';
+import Register from './Views/Register';
+import Reset from './Views/Reset';
+import Dashboard from './Views/Dashboard';
+import Unwinds from './Views/Unwinds';
+import UnwindChat from './Views/UnwindChat';
+import AllChats from './Views/AllChats';
+import ProtectedRoute from './Services/ProtectedRoute';
 
-import Header from "./Components/Header";
-import Footer from "./Components/Footer";
+import Header from './Components/Header';
+import Footer from './Components/Footer';
 
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "./Services/firebase";
-import { useDispatch } from "react-redux";
-import { findProfile } from "./Services/firestore";
-import { loginProfile, changeProfileToken } from "./reducers/profile";
-import { addNewFavoArray } from "./reducers/favoRelaxMethods";
-import { setLocation } from "./reducers/location";
-import React, { useEffect, useState } from "react";
-import { LoadScript } from "@react-google-maps/api";
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from './Services/firebase';
+import { useDispatch } from 'react-redux';
+import { findProfile } from './Services/firestore';
+import { loginProfile, changeProfileToken } from './reducers/profile';
+import { addNewFavoArray } from './reducers/favoRelaxMethods';
+import { setLocation } from './reducers/location';
+import React, { useEffect, useState } from 'react';
+import { LoadScript } from '@react-google-maps/api';
 
+import { messaging, fetchToken } from './Services/firebaseConnection';
 
-import {
-  messaging,
-  onMessageListener,
-  fetchToken,
-} from "./Services/firebaseConnection";
-
-import { getToken, onMessage } from "firebase/messaging";
+import { getToken, onMessage } from 'firebase/messaging';
 
 function App() {
   const [user, loading] = useAuthState(auth);
-  const [notification, setNotification] = useState({ title: "", body: "" });
+  const [notification, setNotification] = useState({ title: '', body: '' });
   const [show, setShow] = useState(false);
   const [isTokenFound, setTokenFound] = useState(false);
+  const [status, setStatus] = useState(null);
+  const dispatch = useDispatch();
   fetchToken(setTokenFound);
 
-  // onMessageListener()
-  //   .then((payload) => {
-  //     setNotification({
-  //       title: payload.notification.title,
-  //       body: payload.notification.body,
-  //     });
-  //     setShow(true);
-  //   })
-  //   .catch((err) => console.log("failed: ", err));
+  onMessageListener()
+    .then((payload) => {
+      setNotification({ title: payload.notification.title, body: payload.notification.body });
+      setShow(true);
+      console.log(payload);
+      console.log('Show', show);
+      console.log('notification', notification);
+      console.log('isTokenFound', isTokenFound);
+    })
+    .catch((err) => console.log('failed: ', err));
 
-  const [status, setStatus] = useState(null);
-
-  const dispatch = useDispatch();
+  onMessageListener()
+    .then((payload) => {
+      setNotification({ title: payload.notification.title, body: payload.notification.body });
+      console.log(payload);
+      console.log('notification', notification);
+    })
+    .catch((err) => console.log('failed: ', err));
 
   useEffect(() => {
     if (loading) {
@@ -60,7 +62,7 @@ function App() {
     // if (!user) return navigate('/');
     fetchProfile();
     getLocation();
-    getNotifcationToken();
+    getNotificationToken();
   }, [user]); //eslint-disable-line
 
   const fetchProfile = async () => {
@@ -73,7 +75,7 @@ function App() {
     }
   };
 
-  const getNotifcationToken = async () => {
+  const getNotificationToken = async () => {
     try {
       const token = await getToken(messaging, {
         vapidKey: process.env.REACT_APP_FIREBASE_VAPID_KEY,
@@ -87,10 +89,10 @@ function App() {
 
   const getLocation = () => {
     if (!navigator.geolocation) {
-      setStatus("Geolocation is not supported by your browser");
+      setStatus('Geolocation is not supported by your browser');
       return;
     }
-    setStatus("Locating...");
+    setStatus('Locating...');
     navigator.geolocation.getCurrentPosition(
       (position) => {
         setStatus(null);
@@ -104,14 +106,14 @@ function App() {
         );
       },
       () => {
-        setStatus("Unable to retrieve your location");
+        setStatus('Unable to retrieve your location');
         console.log(status);
       }
     );
   };
 
   onMessage(messaging, (payload) => {
-    console.log("Message received. ", payload);
+    console.log('Message received. ', payload);
     // ...
   });
 
@@ -125,11 +127,11 @@ function App() {
             <Route exact path="/" element={<Login />} />
             <Route exact path="/register" element={<Register />} />
             <Route exact path="/reset" element={<Reset />} />
-          <Route element={<ProtectedRoute user={user}/>} >
-            <Route exact path="/dashboard" element={<Dashboard />} />
-            <Route exact path="/unwinds" element={<Unwinds />} />
-            <Route path="/allchats" element={<AllChats />} />
-          </ Route>
+            <Route element={<ProtectedRoute user={user} />}>
+              <Route exact path="/dashboard" element={<Dashboard />} />
+              <Route exact path="/unwinds" element={<Unwinds />} />
+              <Route path="/allchats" element={<AllChats />} />
+            </Route>
             <Route path="/unwindChat/:unwindID" element={<UnwindChat />} />
             <Route path="*" element={<Login />} />
           </Routes>
