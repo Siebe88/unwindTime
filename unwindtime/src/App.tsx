@@ -23,37 +23,37 @@ import { setLocation } from './reducers/location';
 import React, { useEffect, useState } from 'react';
 import { LoadScript } from '@react-google-maps/api';
 
-import { messaging, fetchToken } from './Services/firebaseConnection';
+// import { messaging, fetchToken } from './Services/firebaseConnection';
 
-import { getToken, onMessage } from 'firebase/messaging';
+// import { getToken, onMessage } from 'firebase/messaging';
 
 function App() {
   const [user, loading] = useAuthState(auth);
-  const [notification, setNotification] = useState({ title: '', body: '' });
-  const [show, setShow] = useState(false);
-  const [isTokenFound, setTokenFound] = useState(false);
+  // const [notification, setNotification] = useState({ title: '', body: '' });
+  // const [show, setShow] = useState(false);
+  // const [isTokenFound, setTokenFound] = useState(false);
   const [status, setStatus] = useState(null);
   const dispatch = useDispatch();
-  fetchToken(setTokenFound);
+  // fetchToken(setTokenFound);
 
-  onMessageListener()
-    .then((payload) => {
-      setNotification({ title: payload.notification.title, body: payload.notification.body });
-      setShow(true);
-      console.log(payload);
-      console.log('Show', show);
-      console.log('notification', notification);
-      console.log('isTokenFound', isTokenFound);
-    })
-    .catch((err) => console.log('failed: ', err));
+  // onMessageListener()
+  //   .then((payload) => {
+  //     setNotification({ title: payload.notification.title, body: payload.notification.body });
+  //     setShow(true);
+  //     console.log(payload);
+  //     console.log('Show', show);
+  //     console.log('notification', notification);
+  //     console.log('isTokenFound', isTokenFound);
+  //   })
+  //   .catch((err) => console.log('failed: ', err));
 
-  onMessageListener()
-    .then((payload) => {
-      setNotification({ title: payload.notification.title, body: payload.notification.body });
-      console.log(payload);
-      console.log('notification', notification);
-    })
-    .catch((err) => console.log('failed: ', err));
+  // onMessageListener()
+  //   .then((payload) => {
+  //     setNotification({ title: payload.notification.title, body: payload.notification.body });
+  //     console.log(payload);
+  //     console.log('notification', notification);
+  //   })
+  //   .catch((err) => console.log('failed: ', err));
 
   useEffect(() => {
     if (loading) {
@@ -78,7 +78,8 @@ function App() {
   const getNotificationToken = async () => {
     try {
       const token = await getToken(messaging, {
-        vapidKey: process.env.REACT_APP_FIREBASE_VAPID_KEY,
+        // vapidKey: process.env.REACT_APP_FIREBASE_VAPID_KEY,
+        vapidKey: 'BKzLRtr6U6-LR6IJEd4MxZNDHioh-_y-17RAV9fOtnTAsBElwuTQtQTum8NN0tTDSNa-MO99uSTeBCKOgm1BTyc',
       });
       // console.log('token', token);
       dispatch(changeProfileToken(token));
@@ -112,10 +113,10 @@ function App() {
     );
   };
 
-  onMessage(messaging, (payload) => {
-    console.log('Message received. ', payload);
-    // ...
-  });
+  // onMessage(messaging, (payload) => {
+  //   console.log('Message received. ', payload);
+  //   // ...
+  // });
 
   return (
     <div className="app">
