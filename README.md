@@ -23,7 +23,7 @@ PictureThis was the solo project of Siebe Kylstra, and was refactored by the fol
 - Alicia Trujillo
 - Tekraj Gurung
 
-They transformed the project into typescript, added features and tests (for which I am really grateful)
+They transformed the project into typescript, made the CSS a lot nicer and added new features and tests (for which I am really grateful).
 
 ## Getting Started
 

@@ -23,8 +23,8 @@ import { getToken, onMessage } from 'firebase/messaging';
 function App() {
   const [user, loading] = useAuthState(auth);
   const [notification, setNotification] = useState({ title: '', body: '' });
-  const [show, setShow] = useState(false);
-  const [isTokenFound, setTokenFound] = useState(false);
+  const [, setShow] = useState(false);
+  const [, setTokenFound] = useState(false);
   fetchToken(setTokenFound);
 
   onMessageListener()
@@ -47,7 +47,7 @@ function App() {
     })
     .catch((err) => console.log('failed: ', err));
 
-  const [status, setStatus] = useState('');
+  const [, setStatus] = useState('');
 
   const dispatch = useDispatch();
 
