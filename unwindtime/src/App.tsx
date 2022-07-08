@@ -23,37 +23,36 @@ import { setLocation } from './reducers/location';
 import React, { useEffect, useState } from 'react';
 import { LoadScript } from '@react-google-maps/api';
 
-// import { messaging, fetchToken } from './Services/firebaseConnection';
-
-// import { getToken, onMessage } from 'firebase/messaging';
+import { messaging, fetchToken, onMessageListener } from './Services/firebaseConnection';
+import { getToken, onMessage } from 'firebase/messaging';
 
 function App() {
   const [user, loading] = useAuthState(auth);
-  // const [notification, setNotification] = useState({ title: '', body: '' });
-  // const [show, setShow] = useState(false);
-  // const [isTokenFound, setTokenFound] = useState(false);
+  const [notification, setNotification] = useState({ title: '', body: '' });
+  const [show, setShow] = useState(false);
+  const [isTokenFound, setTokenFound] = useState(false);
   const [status, setStatus] = useState(null);
   const dispatch = useDispatch();
-  // fetchToken(setTokenFound);
+  fetchToken(setTokenFound);
 
-  // onMessageListener()
-  //   .then((payload) => {
-  //     setNotification({ title: payload.notification.title, body: payload.notification.body });
-  //     setShow(true);
-  //     console.log(payload);
-  //     console.log('Show', show);
-  //     console.log('notification', notification);
-  //     console.log('isTokenFound', isTokenFound);
-  //   })
-  //   .catch((err) => console.log('failed: ', err));
+  onMessageListener()
+    .then((payload) => {
+      setNotification({ title: payload.notification.title, body: payload.notification.body });
+      setShow(true);
+      console.log(payload);
+      console.log('Show', show);
+      console.log('notification', notification);
+      console.log('isTokenFound', isTokenFound);
+    })
+    .catch((err) => console.log('failed: ', err));
 
-  // onMessageListener()
-  //   .then((payload) => {
-  //     setNotification({ title: payload.notification.title, body: payload.notification.body });
-  //     console.log(payload);
-  //     console.log('notification', notification);
-  //   })
-  //   .catch((err) => console.log('failed: ', err));
+  onMessageListener()
+    .then((payload) => {
+      setNotification({ title: payload.notification.title, body: payload.notification.body });
+      console.log(payload);
+      console.log('notification', notification);
+    })
+    .catch((err) => console.log('failed: ', err));
 
   useEffect(() => {
     if (loading) {
@@ -113,10 +112,10 @@ function App() {
     );
   };
 
-  // onMessage(messaging, (payload) => {
-  //   console.log('Message received. ', payload);
-  //   // ...
-  // });
+  onMessage(messaging, (payload) => {
+    console.log('Message received. ', payload);
+    // ...
+  });
 
   return (
     <div className="app">
