@@ -47,9 +47,9 @@ function Dashboard() {
     <div className="flex flex-col justify-around items-center h-full">
       <SetProfilePic></SetProfilePic>
 
-      <div className="relaxmethods-parent-container">
+      <div className="rounded-xl mx-3 drop-shadow-2xl bg-gray-c-100">
         <h3 className="m-5 text-style-h-3"> What are your favorite unwind activities?</h3>
-        <div className="flex flex-row items-center justify-center flex-wrap px-2 py-4">
+        <div className="flex flex-row items-center justify-center flex-wrap px-4 py-4">
           {relaxMethods
             .sort((a, b) => a.id - b.id)
             .map((relaxMethod) => {
@@ -69,11 +69,14 @@ function Dashboard() {
         </div>
       </div>
 
-      <button className="dashboard__btn go_button text-style-h-3 color-button-grey" onClick={clickEventSaveProfile}>
+      <button
+        className=" dashboard__btn go_button text-style-h-3 bg-gray-c-900 text-white drop-shadow-sm"
+        onClick={clickEventSaveProfile}
+      >
         {' '}
         Okay, let's unwind!
       </button>
-      <button className="dashboard__btn text-style-h-3 color-button-red" onClick={logout}>
+      <button className="dashboard__btn text-style-h-3 bg-danger-600 text-white drop-shadow-3xl" onClick={logout}>
         Logout
       </button>
     </div>
