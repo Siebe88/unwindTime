@@ -13,7 +13,7 @@ import AllChats from './Views/AllChats';
 import Header from './Components/Header';
 import Footer from './Components/Footer';
 
-import services from './Services/services';
+// import services from './Services/services';
 import ProtectedRoute from './Services/ProtectedRoute';
 import { auth } from './Services/firebase';
 import { findProfile } from './Services/firestore';
