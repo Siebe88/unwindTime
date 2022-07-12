@@ -3,7 +3,7 @@ import { GoogleMap, useJsApiLoader, Marker, InfoWindow } from '@react-google-map
 
 import Unwind from './Unwind';
 
-import {UnwindsMapProps} from '../interfaces/interfaces'
+import { UnwindsMapProps } from '../interfaces/interfaces';
 
 const containerStyle = {
   width: '100%',
@@ -13,11 +13,14 @@ const containerStyle = {
 function UnwindsMap({ location, unwinds }: UnwindsMapProps) {
   // console.log(unwinds);
 
+  // const { isLoaded } = useJsApiLoader({
+  //   id: 'google-map-script',
+  //   googleMapsApiKey: process.env.REACT_APP_GOOGLEMAP_API_KEY || '',
+  // });
+
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
-    googleMapsApiKey :  process.env.REACT_APP_GOOGLEMAP_API_KEY || ''
-
-
+    googleMapsApiKey: 'AIzaSyCez882QWlP85wQRNooAi0llw1ymzL96zI',
   });
 
   const [map, setMap] = React.useState(null); //eslint-disable-line

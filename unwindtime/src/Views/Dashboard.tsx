@@ -1,34 +1,30 @@
-import "./Dashboard.css";
-import React, { useEffect } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { useNavigate } from "react-router-dom";
-import { auth, logout } from "../Services/firebase";
+import React, { useEffect } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { useNavigate } from 'react-router-dom';
+import { auth, logout } from '../Services/firebase';
 
-import RelaxMethod from "../Components/RelaxMethod";
-import { useSelector, useDispatch } from "react-redux";
-import { toggleFavo } from "../reducers/favoRelaxMethods";
+import RelaxMethod from '../Components/RelaxMethod';
+import { useSelector, useDispatch } from 'react-redux';
+import { toggleFavo } from '../reducers/favoRelaxMethods';
 
-import relaxMethods from "../Media/relaxMethodsSVG";
-import { updateProfile } from "../Services/firestore";
-import SetProfilePic from "../Components/SetProfilePic";
-import { GeneralState, RelaxMethods } from "../interfaces/interfaces";
+import relaxMethods from '../Media/relaxMethodsSVG';
+import { updateProfile } from '../Services/firestore';
+import SetProfilePic from '../Components/SetProfilePic';
+import { GeneralState, RelaxMethods } from '../interfaces/interfaces';
 
 function Dashboard() {
   const [user, loadingAuth] = useAuthState(auth);
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   // Redux state setting
   const profile = useSelector((state: GeneralState) => state.profile.value);
-  const favoRelaxMethods = useSelector(
-    (state: GeneralState) => state.favoRelaxMethods
-  );
+  const favoRelaxMethods = useSelector((state: GeneralState) => state.favoRelaxMethods);
 
   //BUG need to rework routing
   useEffect(() => {
     if (loadingAuth) return;
-    if (!user) return navigate("/");
+    if (!user) return navigate('/');
   }); //eslint-disable-line
 
   const clickEventSaveProfile = async (e: { preventDefault: () => void }) => {
@@ -36,9 +32,9 @@ function Dashboard() {
 
     updateProfile(profile, favoRelaxMethods);
     if (favoRelaxMethods.length === 0) {
-      alert("Please select at least one Unwind activity.");
+      alert('Please select at least one Unwind activity.');
     } else {
-      return navigate("/unwinds");
+      return navigate('/unwinds');
     }
   };
 
@@ -46,16 +42,31 @@ function Dashboard() {
     dispatch(toggleFavo(relaxMethod));
   };
 
-  return (
-    <div className="dashboard-container">
-      <SetProfilePic></SetProfilePic>
+  const Button = ({
+    extraClasses,
+    buttonText,
+    onClick,
+  }: {
+    extraClasses: String;
+    buttonText: String;
+    onClick: any;
+  }) => {
+    return (
+      <button
+        className={`h-11 w-2/3 rounded-xl text-style-h-3 bg-gray-c-900 text-white drop-shadow-sm shadow-3xl  ${extraClasses}`}
+        onClick={onClick}
+      >
+        {buttonText}
+      </button>
+    );
+  };
 
-      <div className="relaxmethods-parent-container">
-        <h3 className="relaxmethodspicker-title text-style-h-3">
-          {" "}
-          What are your favorite unwind activities?
-        </h3>
-        <div className="relaxmethods-container">
+  return (
+    <div className="flex flex-col justify-around items-center h-full">
+      <SetProfilePic></SetProfilePic>
+      <div className="rounded-xl mx-3 drop-shadow-2xl bg-gray-c-100 shadow-3xl">
+        <h3 className="m-5 text-style-h-3"> What are your favorite unwind activities?</h3>
+        <div className="flex flex-row items-center justify-center flex-wrap px-4 py-4">
           {relaxMethods
             .sort((a, b) => a.id - b.id)
             .map((relaxMethod) => {
@@ -65,31 +76,19 @@ function Dashboard() {
                   relaxMethod={relaxMethod}
                   onClickRelaxMethod={onClickRelaxMethod}
                   classColor={
-                    favoRelaxMethods.some(
-                      (method) => method.name === relaxMethod.name
-                    )
-                      ? "favoriteMethod"
-                      : "nonfavoriteMethod"
+                    favoRelaxMethods.some((method) => method.name === relaxMethod.name)
+                      ? 'favoriteMethod'
+                      : 'nonFavoriteMethod'
                   }
                 />
               );
             })}
         </div>
       </div>
-
-      <button
-        className="dashboard__btn go_button text-style-h-3 color-button-grey"
-        onClick={clickEventSaveProfile}
-      >
-        {" "}
-        Okay, let's unwind!
-      </button>
-      <button
-        className="dashboard__btn text-style-h-3 color-button-red"
-        onClick={logout}
-      >
-        Logout
-      </button>
+      <div className="flex flex-col items-center justify-around w-11/12 h-1/5 ">
+        <Button extraClasses="bg-gray-c-900" buttonText="Okay, let's unwind!" onClick={clickEventSaveProfile}></Button>
+        <Button extraClasses="bg-danger-600" buttonText="Logout" onClick={logout}></Button>
+      </div>
     </div>
   );
 }

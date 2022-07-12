@@ -13,17 +13,12 @@ function UnwindFilterBox({
   fromUnwind,
   tillUnwind,
 }: UnwindFilterBoxProps) {
-  const favoRelaxMethods = useSelector(
-    (state: GeneralState) => state.favoRelaxMethods
-  );
+  const favoRelaxMethods = useSelector((state: GeneralState) => state.favoRelaxMethods);
 
   return (
     <div className="relaxmethods-selector-parent-container">
       <form action="">
-        <h3 className="relaxmethodspicker-title text-style-h-3">
-          {' '}
-          How do you want to unwind?{' '}
-        </h3>
+        <h3 className="relaxmethodspicker-title text-style-h-3"> How do you want to unwind? </h3>
         <div className="relaxmethods-selector-container">
           {favoRelaxMethods.map((relaxMethod) => {
             return (
@@ -31,11 +26,7 @@ function UnwindFilterBox({
                 key={relaxMethod.id}
                 relaxMethod={relaxMethod}
                 onClickRelaxMethod={onClickRelaxMethod}
-                classColor={
-                  selectedUnwind.name === relaxMethod.name
-                    ? 'favoriteMethod'
-                    : 'nonfavoriteMethod'
-                }
+                classColor={selectedUnwind.name === relaxMethod.name ? 'favoriteMethod' : 'nonFavoriteMethod'}
               />
             );
           })}

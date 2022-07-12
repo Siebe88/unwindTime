@@ -15,7 +15,7 @@ These are the main features of the app (and the necessary firebase services ):
 
 ## Development
 
-PictureThis was the solo project of Siebe Kylstra, and was refactored by the following people:
+UnwindTime started as the solo project of Siebe Kylstra, and was refactored by the following people:
 
 - Mauricio Scain
 - Alex Price-Richards
