@@ -13,6 +13,12 @@ These are the main features of the app (and the necessary firebase services ):
 - Maps (google maps API)
 - The app is a PWA so you can install it on the pc and mobile phone
 
+
+<div align='center'>
+<img src='https://firebasestorage.googleapis.com/v0/b/unwind-time.appspot.com/o/Public%2FScreenShot%20Unwinds.jpg?alt=media&token=6764e949-b0b6-45d7-bb3f-39c21196b04b'/>
+</div>
+
+
 ## Development
 
 UnwindTime started as the solo project of Siebe Kylstra, and was refactored by the following people:
