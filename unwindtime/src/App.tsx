@@ -100,8 +100,8 @@ function App() {
   };
 
   const getLocation = async () => {
-    const location = await services.location.getLocation();
-    if (!location) return setStatus('Geolocation is not supported by your browser');
+    // const location = await services.location.getLocation();
+    // if (!location) return setStatus('Geolocation is not supported by your browser');
 
     setStatus('Locating...');
     navigator.geolocation.getCurrentPosition(
@@ -122,6 +122,8 @@ function App() {
       }
     );
   };
+
+  console.log('API key google maps', process.env.REACT_APP_GOOGLEMAP_API_KEY);
 
   return (
     <div className="app">

@@ -11,7 +11,6 @@ import relaxMethods from '../Media/relaxMethodsSVG';
 import { updateProfile } from '../Services/firestore';
 import SetProfilePic from '../Components/SetProfilePic';
 import { GeneralState, RelaxMethods } from '../interfaces/interfaces';
-import { Obj } from 'reselect/es/types';
 
 function Dashboard() {
   const [user, loadingAuth] = useAuthState(auth);
@@ -65,7 +64,6 @@ function Dashboard() {
   return (
     <div className="flex flex-col justify-around items-center h-full">
       <SetProfilePic></SetProfilePic>
-
       <div className="rounded-xl mx-3 drop-shadow-2xl bg-gray-c-100 shadow-3xl">
         <h3 className="m-5 text-style-h-3"> What are your favorite unwind activities?</h3>
         <div className="flex flex-row items-center justify-center flex-wrap px-4 py-4">
