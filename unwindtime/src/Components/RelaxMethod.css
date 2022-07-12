@@ -22,7 +22,7 @@
   fill: var(--color-gray-900);
 }
 
-.nonfavoriteMethod {
+.nonFavoriteMethod {
   /* fill: gray; */
   fill: var(--color-primary-400);
 }
