@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  a {
+    @apply underline text-gray-c-100
+    hover:text-primary-400;
+  }
+}
+
 :root {
   --color-primary-900: #943a41;
   --color-primary-700: #ad7174;
