@@ -1,5 +1,3 @@
-import './AllChats.css';
-
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
@@ -14,19 +12,16 @@ import { useCollection } from 'react-firebase-hooks/firestore';
 import { collection, query, where } from 'firebase/firestore';
 import { db } from '../Services/firebaseConnection';
 
-import {GeneralState} from '../interfaces/interfaces'
+import { GeneralState } from '../interfaces/interfaces';
 
 function AllChats() {
   const [user, loadingAuth] = useAuthState(auth);
   const navigate = useNavigate();
-  const profile = useSelector((state:GeneralState) =>  state.profile.value);
-  const location = useSelector((state:GeneralState) => state.location.value);
+  const profile = useSelector((state: GeneralState) => state.profile.value);
+  const location = useSelector((state: GeneralState) => state.location.value);
 
   //Get's realtime new unwinds from firebase
-  const queryUnwinds = query(
-    collection(db, 'unwinds'),
-    where('attachedUsers', 'array-contains', profile.uid)
-  );
+  const queryUnwinds = query(collection(db, 'unwinds'), where('attachedUsers', 'array-contains', profile.uid));
   const [unwinds, loading, error] = useCollection(queryUnwinds, {
     snapshotListenOptions: { includeMetadataChanges: true },
   });
@@ -37,7 +32,7 @@ function AllChats() {
   }, []); //eslint-disable-line
 
   return (
-    <div className="allchats-container">
+    <div className="flex align-middle items-center justify-center overflow-scroll h-full m-2 ">
       <div className="unwinds-status-container">
         {error && <strong>Error: {JSON.stringify(error)}</strong>}
         {loading && <span>Collection: Loading...</span>}
@@ -45,12 +40,7 @@ function AllChats() {
       {profile.uid && unwinds && (
         <div>
           {unwinds.docs.map((unwind) => (
-            <Unwind
-              key={unwind.id}
-              unwind={unwind.data()}
-              unwindID={unwind.id}
-              location={location}
-            ></Unwind>
+            <Unwind key={unwind.id} unwind={unwind.data()} unwindID={unwind.id} location={location}></Unwind>
           ))}
         </div>
       )}

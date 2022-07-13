@@ -53,7 +53,7 @@ function Dashboard() {
   }) => {
     return (
       <button
-        className={`h-11 w-2/3 rounded-xl text-style-h-3 bg-gray-c-900 text-white drop-shadow-sm shadow-3xl  ${extraClasses}`}
+        className={`flex align-middle items-center justify-center h-2/6 w-2/3 rounded-xl text-style-h-3 bg-gray-c-900 text-white drop-shadow-sm shadow-3xl  ${extraClasses}`}
         onClick={onClick}
       >
         {buttonText}
@@ -64,8 +64,8 @@ function Dashboard() {
   return (
     <div className="flex flex-col justify-around items-center h-full">
       <SetProfilePic></SetProfilePic>
-      <div className="rounded-xl mx-3 drop-shadow-2xl bg-gray-c-100 shadow-3xl">
-        <h3 className="m-5 text-style-h-3"> What are your favorite unwind activities?</h3>
+      <div className="rounded-xl mx-3 drop-shadow-2xl bg-gray-c-100 shadow-3xl h-2/6">
+        <h3 className="m-3 text-style-h-3"> What are your favorite unwind activities?</h3>
         <div className="flex flex-row items-center justify-center flex-wrap px-4 py-4">
           {relaxMethods
             .sort((a, b) => a.id - b.id)
@@ -85,7 +85,7 @@ function Dashboard() {
             })}
         </div>
       </div>
-      <div className="flex flex-col items-center justify-around w-11/12 h-1/5 ">
+      <div className="flex flex-col items-center justify-around w-11/12 h-1/6 ">
         <Button extraClasses="bg-gray-c-900" buttonText="Okay, let's unwind!" onClick={clickEventSaveProfile}></Button>
         <Button extraClasses="bg-danger-600" buttonText="Logout" onClick={logout}></Button>
       </div>
