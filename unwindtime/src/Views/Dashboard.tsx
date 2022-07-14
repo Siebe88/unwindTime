@@ -62,11 +62,11 @@ function Dashboard() {
   };
 
   return (
-    <div className="flex flex-col justify-around items-center h-full">
+    <div className=" dashboardPage flex flex-col justify-around items-center h-full ">
       <SetProfilePic></SetProfilePic>
-      <div className="rounded-xl mx-3 drop-shadow-2xl bg-gray-c-100 shadow-3xl h-2/6">
+      <div className="rounded-xl mx-3 drop-shadow-2xl bg-gray-c-100 shadow-3xl h-2/6 overflow-y-scroll">
         <h3 className="m-3 text-style-h-3"> What are your favorite unwind activities?</h3>
-        <div className="flex flex-row items-center justify-center flex-wrap px-4 py-4">
+        <div className="flex flex-row items-center justify-center flex-wrap px-4 py-2 ">
           {relaxMethods
             .sort((a, b) => a.id - b.id)
             .map((relaxMethod) => {

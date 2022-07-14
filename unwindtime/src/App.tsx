@@ -144,7 +144,7 @@ function App() {
             <Route path="*" element={<Login />} />
           </Routes>
         </div>
-        <Footer></Footer>
+        {user ? <Footer></Footer> : <></>}
       </Router>
     </div>
   );
